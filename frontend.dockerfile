@@ -21,4 +21,5 @@ RUN find /usr/src/frontend/src/assets/images/ -type f -iname "*.png" -exec optip
 RUN find /usr/src/frontend/src/assets/images/ -type f -iname "*.png" -exec pngcrush -rem gAMA -rem alla -rem cHRM -rem iCCP -rem sRGB -rem time -ow {} \;
 
 RUN npm install
-RUN npm run build
+
+CMD ["npm", "run", "build_production"]

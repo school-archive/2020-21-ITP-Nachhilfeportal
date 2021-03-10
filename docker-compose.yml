@@ -6,16 +6,15 @@ services:
       dockerfile: frontend.dockerfile
     container_name: np_vue_builder
     volumes:
-      - ./frontend_dist:/usr/src/frontend/dist
-      - ./backend:/var/www/html/api
-      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./deploy_www:/var/www/html
+
   np-app:
     build:
       context: .
       dockerfile: backend.dockerfile
     container_name: np_app
     volumes:
-      - ./frontend_dist:/var/www/html
+      - ./deploy_www:/var/www/html
       - ./backend:/var/www/html/api
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     environment:
