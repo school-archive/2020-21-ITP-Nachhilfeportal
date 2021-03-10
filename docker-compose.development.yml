@@ -1,0 +1,35 @@
+version: '3'
+services:
+  np-vue-builder:
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
+    container_name: np_vue_builder
+    volumes:
+      - ./deploy_www:/var/www/html
+
+  np-app:
+    build:
+      context: .
+      dockerfile: backend.dockerfile
+    container_name: np_app
+    volumes:
+      - ./deploy_www:/var/www/html
+      - ./backend:/var/www/html/api
+      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      DB_HOST: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: oasdasomdasdmo
+    ports:
+      - '80:80'
+
+  mysql:
+    container_name: np_mysql
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=oasdasomdasdmo
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=oasdasomdasdmo
+    volumes:
+      - ./mysql/data:/mysql/data
