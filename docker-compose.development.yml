@@ -32,3 +32,4 @@ services:
       - MYSQL_PASSWORD=oasdasomdasdmo
     volumes:
       - ./mysql/data:/mysql/data
+      - ./mysql_init:/docker-entrypoint-initdb.d
