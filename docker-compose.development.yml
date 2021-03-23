@@ -16,7 +16,6 @@ services:
     volumes:
       - ./deploy_www:/var/www/html
       - ./backend:/var/www/html/api
-      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     environment:
       DB_HOST: mysql
       DB_USERNAME: root
@@ -33,3 +32,4 @@ services:
       - MYSQL_PASSWORD=oasdasomdasdmo
     volumes:
       - ./mysql/data:/mysql/data
+      - ./mysql_init:/docker-entrypoint-initdb.d
