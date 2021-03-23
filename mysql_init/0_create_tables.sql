@@ -22,7 +22,7 @@ CREATE TABLE student (
 CREATE TABLE tutor (
     email VARCHAR(255),
     description VARCHAR(255),
-    teachhing_method BINARY,
+    teachhing_method BIT(3),
     PRIMARY KEY (email),
     FOREIGN KEY (email) REFERENCES user(email)
 );
