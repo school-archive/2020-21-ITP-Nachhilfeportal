@@ -1,19 +1,20 @@
 RewriteEngine on
-RewriteCond %{REQUEST_METHOD} !^(GET|POST|PUT|DELETE) [NC] #only allow these methods
+
+RewriteCond %{THE_REQUEST} ^protected/.*$
+RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
 #POST
-RewriteRule ^user/insert$ endpoints/user.php [NC]
+RewriteRule ^user/insert/$ protected/endpoints/user.php [NC]
 #PUT
-RewriteRule ^user/update/(.+)$ endpoints/user.php?email=$1 [NC] #used by admin
-RewriteRule ^user/update$ endpoints/user.php [NC] #updates current user
+RewriteRule ^user/update/(.+)/$ protected/endpoints/user.php?email=$1 [NC] #used by admin
+RewriteRule ^user/update/$ protected/endpoints/user.php [NC] #updates current user
 #DELETE
-RewriteRule ^user/delete/(.+)?$ endpoints/user.php?email=$1 [NC] #used by admin
-RewriteRule ^user/delete$ endpoints/user.php [NC] #deletes current user
+RewriteRule ^user/delete/(.+)?/$ protected/endpoints/user.php?email=$1 [NC] #used by admin
+RewriteRule ^user/delete/$ protected/endpoints/user.php [NC] #deletes current user
 #GET
-RewriteRule ^users/filterdings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-RewriteRule ^users$ endpoints/user.php [NC]
-RewriteRule ^user/(.+)$ endpoints/user.php?email=$1 [NC]
-RewriteRule ^user$ endpoints/user.php [NC]
+#RewriteRule ^users/filterdings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+RewriteRule ^users/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/([!/]+)/$ protected/endpoints/user.php?email=$1 [NC]
 
 #grade, department, teaching_method, (calender)
 #fehler
