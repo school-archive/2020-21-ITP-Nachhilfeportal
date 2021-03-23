@@ -8,6 +8,15 @@ services:
     volumes:
       - ./deploy_www:/var/www/html
 
+  np-composer:
+    restart: 'no'
+    container_name: np_composer
+    image: composer:latest
+    working_dir: /var/www/html
+    command: composer install -d /var/www/html
+    volumes:
+      - ./backend/protected:/var/www/html
+
   np-app:
     build:
       context: .
