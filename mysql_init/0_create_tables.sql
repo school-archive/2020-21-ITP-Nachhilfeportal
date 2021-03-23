@@ -31,8 +31,8 @@ CREATE TABLE tutor (
 CREATE TABLE calender_free (
     calender_id INTEGER,
     email VARCHAR(255),
-    from DATETIME,
-    to DATETIME,
+    time_from DATETIME,
+    time_to DATETIME,
     weekday INTEGER,
     PRIMARY KEY (calender_id),
     FOREIGN KEY (email) REFERENCES user(email)
