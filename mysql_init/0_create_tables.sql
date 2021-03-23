@@ -1,5 +1,6 @@
 CREATE DATABASE np;
 USE np;
+
 CREATE TABLE user (
     email VARCHAR(255),
     first_name VARCHAR(20),
@@ -22,7 +23,7 @@ CREATE TABLE student (
 CREATE TABLE tutor (
     email VARCHAR(255),
     description VARCHAR(255),
-    teachhing_method BIT(3),
+    teaching_method BIT(3),
     PRIMARY KEY (email),
     FOREIGN KEY (email) REFERENCES user(email)
 );
