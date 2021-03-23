@@ -3,3 +3,5 @@
 # docker files
 mysql/
 deploy_www/
+
+backend/protected/vendor/
