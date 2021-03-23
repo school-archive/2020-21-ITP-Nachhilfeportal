@@ -1,2 +1,19 @@
 RewriteEngine on
-RewriteRule ^user/(.+)$ endpoints/user.php?userid=$1 [NC]
+RewriteCond %{REQUEST_METHOD} !^(GET|POST|PUT|DELETE) [NC] #only allow these methods
+
+#POST
+RewriteRule ^user/insert$ endpoints/user.php [NC]
+#PUT
+RewriteRule ^user/update/(.+)$ endpoints/user.php?email=$1 [NC] #used by admin
+RewriteRule ^user/update$ endpoints/user.php [NC] #updates current user
+#DELETE
+RewriteRule ^user/delete/(.+)?$ endpoints/user.php?email=$1 [NC] #used by admin
+RewriteRule ^user/delete$ endpoints/user.php [NC] #deletes current user
+#GET
+RewriteRule ^users/filterdings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+RewriteRule ^users$ endpoints/user.php [NC]
+RewriteRule ^user/(.+)$ endpoints/user.php?email=$1 [NC]
+RewriteRule ^user$ endpoints/user.php [NC]
+
+#grade, department, teaching_method, (calender)
+#fehler
