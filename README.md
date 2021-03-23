@@ -4,6 +4,8 @@ a project of students from HTL Rennweg
 
 ## Setup
 
+To start the NP container, the external container "jwilder/nginx-proxy" is required. In case you don't want to run it or just want to run a single web page on your server, you can change the docker-compose.yml to expose the ports (Note: You will still have to use a proxy in order to use SSL encryption).
+
 ### Setup jwilder/nginx-proxy docker-compose.yml
 
 ```yml
