@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: frontend.dockerfile
     container_name: np_vue_builder
+    env_file:
+      - nodejs.env
     volumes:
       - ./deploy_www:/var/www/html
 
@@ -16,14 +18,8 @@ services:
     volumes:
       - ./deploy_www:/var/www/html
       - ./backend:/var/www/html/api
-    environment:
-      PORT: 80
-      VIRTUAL_HOST: np.strukteon.net
-      LETSENCRYPT_HOST: np.strukteon.net
-      LETSENCRYPT_EMAIL: sensentod@gmail.com
-      DB_HOST: mysql
-      DB_USERNAME: root
-      DB_PASSWORD: oasdasomdasdmo
+    env_file:
+      - apache.env
     networks:
       - nginx-sidecar
       - default
@@ -31,10 +27,8 @@ services:
   mysql:
     container_name: np_mysql
     image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=oasdasomdasdmo
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=oasdasomdasdmo
+    env_file:
+      - mysql.env
     ports:
       - '3306:3306'
     volumes:
