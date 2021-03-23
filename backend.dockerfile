@@ -6,7 +6,7 @@ RUN apt-get update -y && apt-get install -y libpng-dev libjpeg-dev libfreetype6-
 # install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-WORKDIR /var/www/html/api/protected
+RUN cd /var/www/html/api/protected && composer install
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install -j$(nproc) gd
@@ -14,4 +14,3 @@ RUN docker-php-ext-install -j$(nproc) gd
 RUN a2enmod rewrite
 
 RUN chown www-data /var/www/html
-CMD ["composer", "install"]
