@@ -16,5 +16,9 @@ RewriteRule ^user/delete/$ protected/endpoints/user.php [NC] #deletes current us
 RewriteRule ^users/$ protected/endpoints/user.php [NC]
 RewriteRule ^user/([!/]+)/$ protected/endpoints/user.php?email=$1 [NC]
 
+# authentication
+RewriteRule ^auth/login/redirect$ protected/endpoints/authentication.php?type=redirect [NC]
+RewriteRule ^auth/login/?$ protected/endpoints/authentication.php?type=login&%{QUERY_STRING} [NC]
+
 #grade, department, teaching_method, (calender)
 #fehler
