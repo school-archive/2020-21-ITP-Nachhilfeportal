@@ -8,7 +8,7 @@ CREATE TABLE user (
     password VARCHAR(20),
     picture_url VARCHAR(255),
     locked BOOLEAN,
-    groups BIT(3),
+    types BIT(3),
     PRIMARY KEY (email)
 );
 
