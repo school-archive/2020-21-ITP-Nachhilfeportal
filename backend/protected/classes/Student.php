@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class Student extends User
+class Student extends User
 {
     private $grade;
     private $department;

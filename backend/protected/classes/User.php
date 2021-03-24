@@ -1,14 +1,14 @@
 <?php
 
 
-abstract class User
+class User
 {
     private $first_name;
     private $last_name;
     private $password;
     private $picture_url;
     private $locked;
-    private $groups;
+    private $types;
 
 
     /***
@@ -79,17 +79,17 @@ abstract class User
     /**
      * @return mixed
      */
-    public function getGroups()
+    public function getTypes()
     {
-        return $this->groups;
+        return $this->types;
     }
 
     /***
-     * @param $groups
+     * @param $types
      */
-    public function setGroups($groups)
+    public function setTypes($types)
     {
-        $this->$groups = $groups;
+        $this->types = $types;
     }
 
 
@@ -97,7 +97,9 @@ abstract class User
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
-        $user = new User();
+        $user = new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url']);
+        $user->setLocked($obj['locked']);
+        $user->setTypes($obj['types']);
         return $user;
     }
 }
