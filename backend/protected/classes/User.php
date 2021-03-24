@@ -69,19 +69,19 @@ abstract class User
     }
 
     /**
-     * @return mixed
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
      * @param false $locked
      */
     public function setLocked($locked)
     {
         $this->locked = $locked;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 
     /***
