@@ -93,7 +93,13 @@ class User
     }
 
 
-    static function get_user_by_email($email) {
+
+    /**
+     * @param $email
+     * @return User
+     */
+    static function get_user_by_email($email)
+    {
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
@@ -102,4 +108,31 @@ class User
         $user->setTypes($obj['types']);
         return $user;
     }
+
+    /**
+     * @param $email
+     * @param $first_name
+     * @param $last_name
+     * @param $password
+     * @param $picture_url
+     * @return User
+     */
+    static function create_user($email, $first_name, $last_name, $password, $picture_url)
+    {
+        $s = get_np_mysql_object()->
+        prepare("insert into user (email, first_name, last_name, password, picture_url, locked) 
+        values (:email, :first_name, :last_name, :password, :picture_url, :locked)");
+        $s->execute(array(
+            ":email" => $email,
+            ":first_name" => $first_name,
+            ":last_name" => $last_name,
+            ":password" => $password,
+            ":picture_url" => $picture_url,
+            ":locked" => false
+        ));
+
+        return new User($email, $first_name, $last_name, $password, $picture_url);
+    }
+
+    //TODO update, delete
 }
