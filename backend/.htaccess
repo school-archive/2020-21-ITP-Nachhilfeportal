@@ -4,21 +4,24 @@ RewriteCond %{THE_REQUEST} ^protected/.*$
 RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
 #POST
-RewriteRule ^user/insert/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/me/insert/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/(.+)?/insert/$ protected/endpoints/user.php?email=$1 [NC]
 #PUT
-RewriteRule ^user/update/(.+)/$ protected/endpoints/user.php?email=$1 [NC] #used by admin
-RewriteRule ^user/update/$ protected/endpoints/user.php [NC] #updates current user
+RewriteRule ^user/me/update/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/(.+)?/update/$ protected/endpoints/user.php?email=$1 [NC]
 #DELETE
-RewriteRule ^user/delete/(.+)?/$ protected/endpoints/user.php?email=$1 [NC] #used by admin
-RewriteRule ^user/delete/$ protected/endpoints/user.php [NC] #deletes current user
+RewriteRule ^user/me/delete/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/(.+)?/delete/$ protected/endpoints/user.php?email=$1 [NC]
 #GET
-#RewriteRule ^users/filterdings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-RewriteRule ^users/$ protected/endpoints/user.php [NC]
+RewriteRule ^user/me/calender/$ protected/endpoints/user.php?calender=true [NC]
+RewriteRule ^user/(.+)?/calender/$ protected/endpoints/user.php?email=$1&prop=calender [NC]
+RewriteRule ^user/me/props$ protected/endpoints/user.php?prop=props [NC]
+RewriteRule ^user/(.+)?/props/$ protected/endpoints/user.php?email=$1&prop=props [NC]
+RewriteRule ^users/$ protected/endpoints/user.php?get=users [NC] #im header infos über calender usw.
+RewriteRule ^user/me/$ protected/endpoints/user.php [NC]
 RewriteRule ^user/([!/]+)/$ protected/endpoints/user.php?email=$1 [NC]
 
 # authentication
 RewriteRule ^auth/login/redirect$ protected/endpoints/authentication.php?type=redirect [NC]
 RewriteRule ^auth/login/?$ protected/endpoints/authentication.php?type=login&%{QUERY_STRING} [NC]
 
-#grade, department, teaching_method, (calender)
-#fehler
