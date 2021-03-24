@@ -91,4 +91,13 @@ abstract class User
     {
         $this->$groups = $groups;
     }
+
+
+    static function get_user_by_email($email) {
+        $s = get_np_mysql_object()->prepare("select * from user where email = :email");
+        $s->execute(array(":email" => $email));
+        $obj = $s->fetch();
+        $user = new User();
+        return $user;
+    }
 }
