@@ -89,6 +89,6 @@ abstract class User
      */
     public function setGroups($groups)
     {
-        $groups1 = $groups;
+        $this->$groups = $groups;
     }
 }
