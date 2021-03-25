@@ -24,13 +24,18 @@ class AzureAPI {
         return $login_url;
     }
 
+    /**
+     * returns the authenticated user token from the azure api
+     * @param $code from login
+     * @return mixed|null token or null if error occurred
+     */
     public static function get_token_from_code($code) {
         $client_id = getenv("AZURE_CLIENT_ID");
         $client_secret = urlencode(getenv("AZURE_SECRET"));
         $domain = self::$domain;
         $url = "https://login.microsoftonline.com/$domain/oauth2/v2.0/token";
         $scope = self::$scope;
-        $redirect_url = self::get_redirect_url();
+        $redirect_url = urlencode(self::get_redirect_url());
 
         $query = "client_id=$client_id" .
             "&scope=$scope" .
@@ -45,12 +50,13 @@ class AzureAPI {
                 'header'=>
                     "Content-type: application/x-www-form-urlencoded\r\n" .
                     "Accept: application/json\r\n",
+//                'ignore_errors' => true,
                 'content'=> $query
             )
         );
 
         $context  = stream_context_create( $options );
-        $result = file_get_contents( $url, false, $context );
+        $result = @file_get_contents( $url, false, $context );
         if ($result == false)
             return null;
         $response = json_decode($result, true);
@@ -58,7 +64,7 @@ class AzureAPI {
     }
 
     /*
-     * Liefert Benutzerinfos des Tokens
+     * returns userinfos from supplied token
      */
     public static function get_userinfo($token) {
         $url = "https://graph.microsoft.com/v1.0/me";
@@ -67,11 +73,12 @@ class AzureAPI {
             'http' => array(
                 'method'  => 'GET',
                 'header'=>  "Authorization: Bearer $token\r\nAccept: application/json\r\n",
+//                'ignore_errors' => true
             )
         );
 
         $context  = stream_context_create( $options );
-        $result = file_get_contents( $url, false, $context );
+        $result = @file_get_contents( $url, false, $context );
         if ($result == false)
             return null;
         $response = json_decode($result, true);

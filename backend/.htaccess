@@ -1,7 +1,7 @@
 RewriteEngine on
 
-RewriteCond %{THE_REQUEST} ^protected/.*$
-RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
+#RewriteCond %{THE_REQUEST} ^protected/.*$
+#RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
 #POST
 RewriteRule ^user/me/insert/$ protected/endpoints/user.php [NC]
@@ -22,6 +22,8 @@ RewriteRule ^user/me/$ protected/endpoints/user.php [NC]
 RewriteRule ^user/([!/]+)/$ protected/endpoints/user.php?email=$1 [NC]
 
 # authentication
-RewriteRule ^auth/login/redirect$ protected/endpoints/authentication.php?type=redirect [NC]
+RewriteRule ^auth/login/redirect/?$ protected/endpoints/authentication.php?type=redirect [NC]
 RewriteRule ^auth/login/?$ protected/endpoints/authentication.php?type=login&%{QUERY_STRING} [NC]
+RewriteRule ^auth/logout/?$ protected/endpoints/authentication.php?type=logout [NC]
+RewriteRule ^auth/authtest/?$ protected/endpoints/authentication.php?type=authtest [NC]
 
