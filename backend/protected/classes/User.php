@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../mysql_manager.php';
 
 class User
 {
@@ -134,5 +134,5 @@ class User
         return new User($email, $first_name, $last_name, $password, $picture_url);
     }
 
-    //TODO update, delete
+    //TODO update, delete, überprüfen ob valid input
 }

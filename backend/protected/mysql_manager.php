@@ -13,7 +13,7 @@ function get_np_mysql_object() {
     $host = getenv("DB_HOST") ? getenv("DB_HOST") : "localhost";
     $username = getenv("DB_USERNAME");
     $password = getenv("DB_PASSWORD");
-    $db = "nachhilfeportal";
+    $db = "np";
 
     $dsn = "mysql:host={$host};dbname={$db};charset=utf8mb4";
     $options = [
