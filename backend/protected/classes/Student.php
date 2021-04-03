@@ -15,8 +15,9 @@ class Student extends User
      * @param $picture_url
      * @param $grade
      * @param $department
+     * @param int $types
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0)
     {
         parent::__construct($email, $first_name, $last_name, $password, $picture_url, $types);
         $this->grade = $grade;
