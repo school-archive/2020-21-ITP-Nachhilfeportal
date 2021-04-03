@@ -8,7 +8,7 @@ CREATE TABLE user (
     password VARCHAR(20),
     picture_url VARCHAR(255),
     locked BOOLEAN,
-    groups BIT(3),
+    types BIT(3),
     PRIMARY KEY (email)
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE student (
 CREATE TABLE tutor (
     email VARCHAR(255),
     description VARCHAR(255),
-    teachhing_method BIT(3),
+    teaching_method BIT(3),
     PRIMARY KEY (email),
     FOREIGN KEY (email) REFERENCES user(email)
     ON DELETE CASCADE
@@ -33,8 +33,8 @@ CREATE TABLE tutor (
 CREATE TABLE calender_free (
     calender_id INTEGER,
     email VARCHAR(255),
-    from DATETIME,
-    to DATETIME,
+    time_from DATETIME,
+    time_to DATETIME,
     weekday INTEGER,
     PRIMARY KEY (calender_id),
     FOREIGN KEY (email) REFERENCES user(email)
