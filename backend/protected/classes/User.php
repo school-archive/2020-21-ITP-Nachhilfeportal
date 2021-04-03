@@ -129,7 +129,9 @@ class User implements JsonSerializable
         }
     }
 
-
+    /**
+     * @return Student|null
+     */
     public function student()
     {
         //TODO function
@@ -145,6 +147,7 @@ class User implements JsonSerializable
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
+        //TODO if select is null
         if ($obj['first_name'] == null) return null;
         return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']);
     }
