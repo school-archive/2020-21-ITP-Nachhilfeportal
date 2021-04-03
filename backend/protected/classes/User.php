@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../mysql_manager.php';
 
-class User
+class User implements JsonSerializable
 {
     private $email;
     private $first_name;
@@ -86,6 +86,7 @@ class User
      */
     public function setTypes($types)
     {
+        //TODO wenn ein typ nicht mehr, dann diesen löschen
         if($types !== $this->types) {
             $s = get_np_mysql_object()->
             prepare("update user set types = :types where email = :email");
@@ -174,6 +175,19 @@ class User
         $s->execute(array(":email" => $email));
     }
 
+
+    public function jsonSerialize()
+    {
+        return [
+            "email" => $this->email,
+            "first_name" => $this->first_name,
+            "last_name" => $this->last_name,
+            "password" => $this->password,
+            "types" => $this->types,
+            "locked" => $this->locked
+        ];
+    }
+
     //TODO authentication
-    //TODO error handling
+    //TODO if valid input
 }
