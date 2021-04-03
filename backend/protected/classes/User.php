@@ -8,8 +8,8 @@ class User implements JsonSerializable
     private $last_name;
     private $password;
     private $picture_url;
-    private int $types;
-    private bool $locked;
+    private $types;
+    private $locked;
 
 
     /***
@@ -108,7 +108,7 @@ class User implements JsonSerializable
     /**
      * @param $locked
      */
-    public function setLocked(bool $locked)
+    public function setLocked($locked)
     {
         if($locked !== $this->locked) {
             $s = get_np_mysql_object()->
