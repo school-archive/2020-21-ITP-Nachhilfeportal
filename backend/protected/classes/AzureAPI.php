@@ -86,6 +86,27 @@ class AzureAPI {
         return $response;
     }
 
+    /*
+     * downloads profile picture from supplied token
+     */
+    public static function download_profile_picture($token, $file_path) {
+        $url = 'https://graph.microsoft.com/v1.0/me/photo/$value';
+
+        $options = array(
+            'http' => array(
+                'method'  => 'GET',
+                'header'=>  "Authorization: Bearer $token\r\nAccept: application/json\r\n",
+//                'ignore_errors' => true
+            )
+        );
+
+        $context  = stream_context_create( $options );
+        $result = @file_get_contents( $url, false, $context );
+        if ($result == false)
+            return null;
+        file_put_contents($file_path, $result);
+    }
+
     /**
      * returns the current redirect url
      */

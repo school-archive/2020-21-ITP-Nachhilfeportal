@@ -19,8 +19,8 @@ class User implements JsonSerializable
      * @param $last_name
      * @param $password
      * @param $picture_url
-     * @param int $types
-     * @param bool $locked
+     * @param $types
+     * @param $locked
      */
     public function __construct($email, $first_name, $last_name, $password, $picture_url, $types = 0, $locked = false)
     {
@@ -137,6 +137,7 @@ class User implements JsonSerializable
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
+        if ($obj['first_name'] == null) return null;
         return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']);
     }
 
@@ -159,7 +160,7 @@ class User implements JsonSerializable
         $s->bindValue(':last_name', $last_name);
         $s->bindValue(':password', $password);
         $s->bindValue(':picture_url', $picture_url);
-        $s->bindValue(':locked', false);
+        $s->bindValue(':locked', 0);
         $s->bindValue(':types', $types, PDO::PARAM_INT);
         $s->execute();
 

@@ -7,8 +7,9 @@
      * logout - used to clear the session cookie -> log the user out
      */
 
-    require "../classes/AzureAPI.php";
-    require "../classes/Authentication.php";
+    require_once "../classes/AzureAPI.php";
+    require_once "../classes/Authentication.php";
+    require_once "../classes/User.php";
 
 switch ($_GET["type"]) {
     case "redirect":
@@ -24,6 +25,7 @@ switch ($_GET["type"]) {
 
         if (Authentication::login($token)) {
             header("Location: /api/auth/authtest");
+
             die();
         }
         else
@@ -39,9 +41,17 @@ switch ($_GET["type"]) {
 
         header("Content-type: application/json");
 
+        Authentication::is_logged_in();
+        ob_start();
+        var_dump(User::getUser(Authentication::$user_email));
+        $info = ob_get_clean();
+
         echo json_encode(array(
             "logged_id" => Authentication::is_logged_in(),
+            //"sads" => User::createUser(Authentication::$user_email, "sad", "ads", "asd", "ads", 0, 0),
             "microsoft user info" => AzureAPI::get_userinfo(Authentication::$microsoft_token),
+            "sad" => User::getUser(Authentication::$user_email)->getPictureUrl()
         ));
+
         break;
 }
