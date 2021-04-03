@@ -121,11 +121,17 @@ class User
     }
 
 
+    public function student()
+    {
+        //TODO function
+    }
+
+
     /**
      * @param $email
      * @return User
      */
-    static function getUser($email)
+    public static function getUser($email)
     {
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
@@ -142,7 +148,7 @@ class User
      * @param $types
      * @return User
      */
-    static function createUser($email, $first_name, $last_name, $password, $picture_url, $types = 0)
+    public static function createUser($email, $first_name, $last_name, $password, $picture_url, $types = 0)
     {
         $s = get_np_mysql_object()->
         prepare("insert into user (email, first_name, last_name, password, picture_url, locked, types) 
@@ -159,6 +165,15 @@ class User
         return new User($email, $first_name, $last_name, $password, $picture_url, $types);
     }
 
+    /**
+     * @param $email
+     */
+    public static function deleteUser($email)
+    {
+        $s = get_np_mysql_object()->prepare("delete from user where email = :email");
+        $s->execute(array(":email" => $email));
+    }
 
-    //TODO delete
+    //TODO authentication
+    //TODO error handling
 }
