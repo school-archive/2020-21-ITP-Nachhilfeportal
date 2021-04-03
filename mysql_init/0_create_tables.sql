@@ -8,7 +8,7 @@ CREATE TABLE user (
     password VARCHAR(20),
     picture_url VARCHAR(255),
     locked BOOLEAN,
-    types BIT(3),
+    groups BIT(3),
     PRIMARY KEY (email)
 );
 
@@ -18,24 +18,27 @@ CREATE TABLE student (
     department VARCHAR(255),
     PRIMARY KEY (email),
     FOREIGN KEY (email) REFERENCES user(email)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE tutor (
     email VARCHAR(255),
     description VARCHAR(255),
-    teaching_method BIT(3),
+    teachhing_method BIT(3),
     PRIMARY KEY (email),
     FOREIGN KEY (email) REFERENCES user(email)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE calender_free (
     calender_id INTEGER,
     email VARCHAR(255),
-    time_from DATETIME,
-    time_to DATETIME,
+    from DATETIME,
+    to DATETIME,
     weekday INTEGER,
     PRIMARY KEY (calender_id),
     FOREIGN KEY (email) REFERENCES user(email)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE selected_subject(
@@ -43,6 +46,7 @@ CREATE TABLE selected_subject(
     email VARCHAR(255),
     PRIMARY KEY (subject_id),
     FOREIGN KEY (email) REFERENCES user(email)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE subject (
@@ -52,4 +56,5 @@ CREATE TABLE subject (
     department BIT(3),
     PRIMARY KEY (subject_id),
     FOREIGN KEY (subject_id) REFERENCES selected_subject(subject_id)
+    ON DELETE CASCADE
 );
