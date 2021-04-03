@@ -11,8 +11,9 @@ class Tutor extends Student
      * @param $description
      * @param $teaching_method
      */
-    public function __construct($description, $teaching_method)
+    public function __construct($description, $teaching_method, $grade, $department)
     {
+        parent::__construct($grade, $department);
         $this->description = $description;
         $this->teaching_method = $teaching_method;
     }
@@ -85,5 +86,14 @@ class Tutor extends Student
             ":teaching_method" => $teaching_method
         ));
         return new Tutor($email, $description, $teaching_method);
+    }
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "description" => $this->description,
+            "teaching_method" => $this->teaching_method
+        ];
     }
 }
