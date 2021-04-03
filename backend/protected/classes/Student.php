@@ -16,10 +16,11 @@ class Student extends User
      * @param $grade
      * @param $department
      * @param int $types
+     * @param bool $locked
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0, $locked = false)
     {
-        parent::__construct($email, $first_name, $last_name, $password, $picture_url, $types);
+        parent::__construct($email, $first_name, $last_name, $password, $picture_url, $types, $locked);
         $this->grade = $grade;
         $this->department = $department;
     }

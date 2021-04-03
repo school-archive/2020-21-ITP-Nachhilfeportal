@@ -118,14 +118,18 @@ class User implements JsonSerializable
      */
     public function setLocked($locked)
     {
-        if($locked !== $this->locked) {
-            $s = get_np_mysql_object()->
-            prepare("update user set locked = :locked where email = :email");
-            $s->execute(array(
-                ":email" => $this->email,
-                ":locked" => $locked
-            ));
-            $this->locked = $locked;
+        $admin = self::getUser($_SESSION["user_email"]);
+        if (!is_null($admin)) {
+            if($admin->isAdmin()) {
+                if($locked !== $this->locked) {
+                    $s = get_np_mysql_object()->prepare("update user set locked = :locked where email = :email");
+                    $s->execute(array(
+                        ":email" => $this->email,
+                        ":locked" => $locked
+                    ));
+                    $this->locked = $locked;
+                }
+            }
         }
     }
 
@@ -134,8 +138,14 @@ class User implements JsonSerializable
      */
     public function student()
     {
-        //TODO function
+        require_once __DIR__ . '/Student.php';
+        $s = get_np_mysql_object()->prepare("select * from student where email = :email");
+        $s->execute(array(":email" => $this->email));
+        $obj = $s->fetch();
+        if ($obj['grade'] == null) return null;
+        return new Student($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['grade'], $obj['department'], $this->types, $this->locked);
     }
+
 
 
     /**
