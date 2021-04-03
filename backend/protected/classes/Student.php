@@ -18,6 +18,7 @@ class Student extends User
      */
     public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department)
     {
+        parent::__construct($email, $first_name, $last_name, $password, $picture_url, $types);
         $this->grade = $grade;
         $this->department = $department;
     }
