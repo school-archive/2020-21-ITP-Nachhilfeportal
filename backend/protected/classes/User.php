@@ -73,28 +73,36 @@ class User implements JsonSerializable
         return $this->picture_url;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTypes()
-    {
-        return $this->types;
+    public function isTutor() {
+        return $this->types & 1 > 0;
+    }
+
+    public function isAdmin() {
+        return $this->types & 2 > 0;
+    }
+
+    public function setTutor($isTutor) {
+        $this->types &= ~1; // set tutor bit to 0
+        $this->types |= $isTutor;
+        $this->updateTypes();
+    }
+
+    public function setAdmin($isAdmin) {
+        $this->types &= ~2; // set admin bit to 0
+        $this->types |= $isAdmin << 1;
+        $this->updateTypes();
     }
 
     /***
      * @param $types
      */
-    public function setTypes($types)
+    private function updateTypes()
     {
-        //TODO wenn ein typ nicht mehr, dann diesen löschen
-        if($types !== $this->types) {
-            $s = get_np_mysql_object()->
-            prepare("update user set types = :types where email = :email");
-            $s->bindValue(':email', $this->email);
-            $s->bindValue(':types', $types, PDO::PARAM_INT);
-            $s->execute();
-            $this->types = $types;
-        }
+        $s = get_np_mysql_object()->
+        prepare("update user set types = :types where email = :email");
+        $s->bindValue(':email', $this->email);
+        $s->bindValue(':types', $this->types, PDO::PARAM_INT);
+        $s->execute();
     }
 
     /**
@@ -183,7 +191,6 @@ class User implements JsonSerializable
             "email" => $this->email,
             "first_name" => $this->first_name,
             "last_name" => $this->last_name,
-            "password" => $this->password,
             "types" => $this->types,
             "locked" => $this->locked
         ];
