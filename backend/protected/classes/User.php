@@ -3,6 +3,7 @@ require_once __DIR__ . '/../mysql_manager.php';
 
 class User
 {
+    private $email;
     private $first_name;
     private $last_name;
     private $password;
@@ -13,13 +14,17 @@ class User
 
     /***
      * User constructor.
+     * @param $email
      * @param $first_name
      * @param $last_name
      * @param $password
      * @param $picture_url
+     * @param int $types
+     * @param bool $locked
      */
-    public function __construct($first_name, $last_name, $password, $picture_url)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $types = 0, $locked = false)
     {
+        $this->email = $email;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->password = $password;
@@ -28,6 +33,13 @@ class User
         $this->locked = $locked;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * @return mixed
