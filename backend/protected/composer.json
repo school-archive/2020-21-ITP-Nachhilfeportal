@@ -4,5 +4,13 @@
     },
     "require-dev": {
         "phpunit/phpunit": "9"
+    },
+    "autoload": {
+        "files": [
+            "mysql_manager.php"
+        ],
+        "psr-4": {
+            "classes\\" : "classes/"
+        }
     }
 }

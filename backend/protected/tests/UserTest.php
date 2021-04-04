@@ -1,24 +1,19 @@
 <?php
+require '../vendor/autoload.php';
 
-
+use classes\User;
 use PHPUnit\Framework\TestCase;
-require '../classes/User.php';
+
 
 class UserTest extends TestCase
 {
 
-
-    public function testIsTutor()
+    public function test__construct()
     {
         $this->assertInstanceOf(
             User::class,
             new User('email@htl.rennweg.at', 'Lola', 'Lotta', 'password', '../url')
         );
-    }
-
-    public function test__construct()
-    {
-        
     }
 
     public function testSetLocked()
@@ -33,7 +28,10 @@ class UserTest extends TestCase
 
     public function testCreateUser()
     {
-
+        $this->assertInstanceOf(
+            User::class,
+            User::createUser('email3@htl.rennweg.at', 'Lola', 'Lotta', 'password', '../url')
+        );
     }
 
     public function testStudent()
@@ -72,6 +70,11 @@ class UserTest extends TestCase
     }
 
     public function testIsAdmin()
+    {
+
+    }
+
+    public function testIsTutor()
     {
 
     }

@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../mysql_manager.php';
+namespace classes;
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Tutor extends Student
 {

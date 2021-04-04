@@ -1,6 +1,11 @@
 <?php
-require_once __DIR__ . "/AzureAPI.php";
-require_once __DIR__ . "/User.php";
+//require_once __DIR__ . "/AzureAPI.php";
+//require_once __DIR__ . "/User.php";
+
+use classes\User;
+use TheSeer\Tokenizer\Token;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Authentication {
     static $microsoft_token;
