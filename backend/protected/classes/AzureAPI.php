@@ -1,4 +1,5 @@
 <?php
+namespace classes;
 class AzureAPI {
     private static $scope = "user.read";
     private static $redirect_endpoint = "/api/auth/login/";

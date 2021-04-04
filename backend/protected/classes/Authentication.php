@@ -1,8 +1,5 @@
 <?php
-//require_once __DIR__ . "/AzureAPI.php";
-//require_once __DIR__ . "/User.php";
-
-use classes\User;
+namespace classes;
 use TheSeer\Tokenizer\Token;
 
 require_once __DIR__ . '/../vendor/autoload.php';

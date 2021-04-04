@@ -7,9 +7,14 @@
      * logout - used to clear the session cookie -> log the user out
      */
 
-    require_once "../classes/AzureAPI.php";
-    require_once "../classes/Authentication.php";
-    require_once "../classes/User.php";
+//    require_once "../classes/AzureAPI.php";
+//    require_once "../classes/Authentication.php";
+//    require_once "../classes/User.php";
+use classes\Authentication;
+use classes\AzureAPI;
+use classes\User;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 switch ($_GET["type"]) {
     case "redirect":

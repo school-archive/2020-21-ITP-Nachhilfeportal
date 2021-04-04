@@ -1,4 +1,5 @@
 <?php
+namespace classes;
 class AnswerHandler
 {
     private bool $success;
