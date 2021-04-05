@@ -97,9 +97,6 @@ class User implements JsonSerializable
         $this->updateTypes();
     }
 
-    /***
-     * @param $types
-     */
     private function updateTypes()
     {
         $s = get_np_mysql_object()->
@@ -154,15 +151,14 @@ class User implements JsonSerializable
 
     /**
      * @param $email
-     * @return User
+     * @return User|bool
      */
     public static function getUser($email)
     {
         $s = get_np_mysql_object()->prepare("select * from user where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
-        //TODO if select is null
-        if ($obj['first_name'] == null) return null;
+        if (empty($obj['first_name'])) return false;
         return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']);
     }
 
@@ -173,10 +169,13 @@ class User implements JsonSerializable
      * @param $password
      * @param $picture_url
      * @param $types
-     * @return User
+     * @return User|bool
      */
     public static function createUser($email, $first_name, $last_name, $password, $picture_url, $types = 0)
     {
+        $user = self::getUser($email);
+        if(!$user) return false;
+
         $s = get_np_mysql_object()->
         prepare("insert into user (email, first_name, last_name, password, picture_url, locked, types) 
         values (:email, :first_name, :last_name, :password, :picture_url, :locked, :types)");
@@ -185,7 +184,7 @@ class User implements JsonSerializable
         $s->bindValue(':last_name', $last_name);
         $s->bindValue(':password', $password);
         $s->bindValue(':picture_url', $picture_url);
-        $s->bindValue(':locked', 0);
+        $s->bindValue(':locked', false);
         $s->bindValue(':types', $types, PDO::PARAM_INT);
         $s->execute();
 
