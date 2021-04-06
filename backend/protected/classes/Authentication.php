@@ -21,11 +21,10 @@ class Authentication {
             self::$user_email = $userinfo["userPrincipalName"];
             $_SESSION["microsoft_token"] = self::$microsoft_token;
             $_SESSION["user_email"] = self::$user_email;
-            // TODO: Create new user in database
             // download profile picture
             AzureAPI::download_profile_picture(Authentication::$microsoft_token, "../../cache/profile_images/".Authentication::$user_email . ".png");
             // create user in db
-            if (User::getUser(self::$user_email) == null) {
+            if (!User::getUser(self::$user_email)) {
                 User::createUser(self::$user_email, $userinfo["givenName"], $userinfo["surname"], null,
                     "/api/cache/profile_images/" . self::$user_email . ".png");
             }
