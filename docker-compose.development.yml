@@ -13,9 +13,9 @@ services:
   np-composer:
     restart: 'no'
     container_name: np_composer
-    image: composer:latest
-    working_dir: /var/www/html
-    command: composer install -d /var/www/html
+    build:
+      context: .
+      dockerfile: composer.dockerfile
     volumes:
       - ./backend/protected:/var/www/html
 
@@ -37,6 +37,12 @@ services:
     image: mariadb
     env_file:
       - mysql.env
+    ports:
+    - '3306:3306'
     volumes:
       - ./mysql/data:/mysql/data
       - ./mysql_init:/docker-entrypoint-initdb.d
+
+networks:
+  default:
+    driver: bridge
