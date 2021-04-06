@@ -30,7 +30,6 @@ switch ($_GET["type"]) {
 
         if (Authentication::login($token)) {
             header("Location: /api/auth/authtest");
-
             die();
         }
         else
@@ -50,12 +49,11 @@ switch ($_GET["type"]) {
         ob_start();
         var_dump(User::getUser(Authentication::$user_email));
         $info = ob_get_clean();
-        echo $info;
         echo json_encode(array(
             "logged_id" => Authentication::is_logged_in(),
             //"sads" => User::createUser(Authentication::$user_email, "sad", "ads", "asd", "ads", 0, 0),
             "microsoft user info" => AzureAPI::get_userinfo(Authentication::$microsoft_token),
-            "sad" => User::getUser(Authentication::$user_email)->getPictureUrl()
+            "sad" => User::getUser(Authentication::$user_email)
         ));
 
         break;

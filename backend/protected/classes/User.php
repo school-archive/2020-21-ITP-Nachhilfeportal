@@ -78,11 +78,11 @@ class User implements JsonSerializable
     }
 
     public function isTutor() {
-        return $this->types & 1 > 0;
+        return ($this->types & 1) > 0;
     }
 
     public function isAdmin() {
-        return $this->types & 2 > 0;
+        return ($this->types & 2) > 0;
     }
 
     public function setTutor($isTutor) {
@@ -174,7 +174,7 @@ class User implements JsonSerializable
     public static function createUser($email, $first_name, $last_name, $password, $picture_url, $types = 0)
     {
         $user = self::getUser($email);
-        if(!$user) return false;
+        if($user) return false;
 
         $s = get_np_mysql_object()->
         prepare("insert into user (email, first_name, last_name, password, picture_url, locked, types) 
@@ -184,7 +184,7 @@ class User implements JsonSerializable
         $s->bindValue(':last_name', $last_name);
         $s->bindValue(':password', $password);
         $s->bindValue(':picture_url', $picture_url);
-        $s->bindValue(':locked', false);
+        $s->bindValue(':locked', 0);
         $s->bindValue(':types', $types, PDO::PARAM_INT);
         $s->execute();
 
@@ -207,6 +207,7 @@ class User implements JsonSerializable
             "email" => $this->email,
             "first_name" => $this->first_name,
             "last_name" => $this->last_name,
+            "picture_url" => $this->picture_url,
             "types" => $this->types,
             "locked" => $this->locked
         ];

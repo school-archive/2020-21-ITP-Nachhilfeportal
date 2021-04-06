@@ -1,6 +1,7 @@
 <?php
 namespace classes;
-use TheSeer\Tokenizer\Token;
+use classes\User;
+use classes\AzureAPI;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,7 +11,7 @@ class Authentication {
 
     /**
      * sets the session variables to log the user in
-     * @param $token token obtained from Microsoft API
+     * @param $token string obtained from Microsoft API
      * @return bool
      */
     public static function login($token) {
@@ -21,12 +22,17 @@ class Authentication {
             self::$user_email = $userinfo["userPrincipalName"];
             $_SESSION["microsoft_token"] = self::$microsoft_token;
             $_SESSION["user_email"] = self::$user_email;
+            echo "hello";
             // download profile picture
             AzureAPI::download_profile_picture(Authentication::$microsoft_token, "../../cache/profile_images/".Authentication::$user_email . ".png");
             // create user in db
+            var_dump(User::getUser(self::$user_email));
             if (!User::getUser(self::$user_email)) {
-                User::createUser(self::$user_email, $userinfo["givenName"], $userinfo["surname"], null,
+                echo "not existt";
+                $u = User::createUser(self::$user_email, $userinfo["givenName"], $userinfo["surname"], null,
                     "/api/cache/profile_images/" . self::$user_email . ".png");
+                var_dump($u);
+                var_dump(User::getUser(self::$user_email));
             }
         }
         return true;

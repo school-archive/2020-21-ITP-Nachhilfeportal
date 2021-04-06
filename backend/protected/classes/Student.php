@@ -5,7 +5,7 @@ class Student extends User
 {
     private $grade;
     private $department;
-    private User $user;
+    private $user;
 
     /**
      * Student constructor.
@@ -16,8 +16,8 @@ class Student extends User
      * @param $picture_url
      * @param $grade
      * @param $department
-     * @param int $types
-     * @param bool $locked
+     * @param $types
+     * @param $locked
      */
     public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0, $locked = false)
     {
