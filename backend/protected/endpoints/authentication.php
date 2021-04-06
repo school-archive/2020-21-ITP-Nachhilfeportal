@@ -50,7 +50,7 @@ switch ($_GET["type"]) {
         ob_start();
         var_dump(User::getUser(Authentication::$user_email));
         $info = ob_get_clean();
-
+        echo $info;
         echo json_encode(array(
             "logged_id" => Authentication::is_logged_in(),
             //"sads" => User::createUser(Authentication::$user_email, "sad", "ads", "asd", "ads", 0, 0),
