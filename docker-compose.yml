@@ -13,9 +13,9 @@ services:
   np-composer:
     restart: 'no'
     container_name: np_composer
-      build:
-        context: .
-        dockerfile: composer.dockerfile
+    build:
+      context: .
+      dockerfile: composer.dockerfile
     volumes:
       - ./backend/protected:/var/www/html
 
