@@ -7,7 +7,7 @@ if(!function_exists('get_np_mysql_object')) {
             return $pdo;
 
         $host = getenv("DB_HOST") ? getenv("DB_HOST") : "localhost";
-        $username = 'root';#getenv("DB_USERNAME");
+        $username = getenv("DB_USERNAME");
         $password = getenv("DB_PASSWORD");
         $db = "np";
 
