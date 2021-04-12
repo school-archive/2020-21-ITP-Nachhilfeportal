@@ -24,6 +24,8 @@ services:
       context: .
       dockerfile: backend.dockerfile
     container_name: np_app
+    depends_on:
+      - np-composer
     volumes:
       - ./deploy_www:/var/www/html
       - ./backend:/var/www/html/api

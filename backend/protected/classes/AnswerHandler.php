@@ -2,7 +2,7 @@
 namespace classes;
 class AnswerHandler
 {
-    private bool $success;
+    private $success;
     private $data;
 
 
