@@ -12,7 +12,7 @@ class User implements JsonSerializable
     private $last_name;
     private $password;
     private $picture_url;
-    private $types;
+    private $types; // 00 = not admin, not tutor || 10 = admin, not tutor || 11 = admin, tutor
     private $locked;
 
 
