@@ -1,3 +1,4 @@
+DROP DATABASE if exists np;
 CREATE DATABASE np;
 USE np;
 
@@ -8,7 +9,7 @@ CREATE TABLE user (
     password VARCHAR(20),
     picture_url VARCHAR(255),
     locked BOOLEAN,
-    types BIT(3),
+    types BIT(2),
     PRIMARY KEY (email)
 );
 

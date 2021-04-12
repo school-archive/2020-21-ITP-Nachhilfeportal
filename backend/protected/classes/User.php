@@ -162,6 +162,19 @@ class User implements JsonSerializable
         return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']);
     }
 
+    public static function get_users($count, $offset=0) {
+        $s = get_np_mysql_object()->prepare("select * from user limit :count offset :offset");
+        $s->execute(array(
+            ":count" => $count,
+            ":offset" => $offset
+        ));
+        $objs = $s->fetchAll();
+        $users = array();
+        foreach ($objs as $obj)
+            array_push($users, new User($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']));
+        return $users;
+    }
+
     /**
      * @param $email
      * @param $first_name
@@ -213,6 +226,5 @@ class User implements JsonSerializable
         ];
     }
 
-    //TODO authentication
     //TODO if valid input
 }

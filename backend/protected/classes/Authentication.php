@@ -22,17 +22,12 @@ class Authentication {
             self::$user_email = $userinfo["userPrincipalName"];
             $_SESSION["microsoft_token"] = self::$microsoft_token;
             $_SESSION["user_email"] = self::$user_email;
-            echo "hello";
             // download profile picture
             AzureAPI::download_profile_picture(Authentication::$microsoft_token, "../../cache/profile_images/".Authentication::$user_email . ".png");
             // create user in db
-            var_dump(User::getUser(self::$user_email));
             if (!User::getUser(self::$user_email)) {
-                echo "not existt";
-                $u = User::createUser(self::$user_email, $userinfo["givenName"], $userinfo["surname"], null,
+                User::createUser(self::$user_email, $userinfo["givenName"], $userinfo["surname"], null,
                     "/api/cache/profile_images/" . self::$user_email . ".png");
-                var_dump($u);
-                var_dump(User::getUser(self::$user_email));
             }
         }
         return true;
