@@ -29,7 +29,7 @@ services:
     volumes:
       - ./deploy_www:/var/www/html
       - ./backend:/var/www/html/api
-      - ./frontend/public/.htaccess:/var/www/html/public/.htaccess
+      - ./frontend/public/.htaccess:/var/www/html/.htaccess
     env_file:
       - apache.env
     networks:
