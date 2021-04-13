@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build_production": "vue-cli-service build && cd /var/www/html && rimraf \"!(api|.htaccess)\" && mv /usr/src/frontend/dist/* ."
+    "build_production": "vue-cli-service build && cd /var/www/html && rimraf \"!(api|.htaccess)\" && mv /usr/src/frontend/dist/* .",
+    "build_dev_windows": "vue-cli-service build && cd ../deploy_www && rimraf \"!(api|.htaccess)\" && move ..\\frontend\\dist\\* . && cd ../ && xcopy /e frontend\\dist deploy_www"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -19,7 +20,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "axios": "^0.21.1",
+    "vue-axios": "^3.2.4"
   },
   "eslintConfig": {
     "root": true,

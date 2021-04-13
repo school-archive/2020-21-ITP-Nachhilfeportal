@@ -5,6 +5,7 @@ RewriteEngine on
 
 #GET all users
 RewriteRule ^users/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
+RewriteRule ^user/(.+)/?$ protected/endpoints/user/user.php?email=$1&%{QUERY_STRING} [NC]
 
 # authentication
 RewriteRule ^auth/login/redirect/?$ protected/endpoints/authentication.php?type=redirect [NC]

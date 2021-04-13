@@ -207,10 +207,10 @@ class User implements JsonSerializable
     /**
      * @param $email
      */
-    public static function deleteUser($email)
+    public function deleteUser()
     {
         $s = get_np_mysql_object()->prepare("delete from user where email = :email");
-        $s->execute(array(":email" => $email));
+        $s->execute(array(":email" => $this->email));
     }
 
 
