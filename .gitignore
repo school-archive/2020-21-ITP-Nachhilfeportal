@@ -5,3 +5,6 @@ mysql/
 deploy_www/
 
 backend/protected/vendor/
+
+.scannerwork/
+phpunit.report.cache
