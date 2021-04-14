@@ -10,12 +10,15 @@
     "build_dev_windows": "vue-cli-service build && cd ../deploy_www && rimraf \"!(api|.htaccess)\" && move ..\\frontend\\dist\\* . && cd ../ && xcopy /e frontend\\dist deploy_www"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
+    "@fortawesome/vue-fontawesome": "^2.0.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -24,6 +27,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "lodash": "^4.17.21",
+    "sass": "^1.32.8",
+    "sass-loader": "^10.1.1",
     "vue-axios": "^3.2.4",
     "vue-body-class": "^3.0.2",
     "vue-cookies": "^1.7.4",
