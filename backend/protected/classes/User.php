@@ -119,18 +119,13 @@ class User implements JsonSerializable
      */
     public function setLocked($locked)
     {
-        $admin = self::getUser($_SESSION["user_email"]);
-        if (!is_null($admin)) {
-            if($admin->isAdmin()) {
-                if($locked !== $this->locked) {
-                    $s = get_np_mysql_object()->prepare("update user set locked = :locked where email = :email");
-                    $s->execute(array(
-                        ":email" => $this->email,
-                        ":locked" => $locked
-                    ));
-                    $this->locked = $locked;
-                }
-            }
+        if($locked !== $this->locked) {
+            $s = get_np_mysql_object()->prepare("update user set locked = :locked where email = :email");
+            $s->execute(array(
+                ":email" => $this->email,
+                ":locked" => $locked
+            ));
+            $this->locked = $locked;
         }
     }
 
