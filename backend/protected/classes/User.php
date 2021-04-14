@@ -130,16 +130,15 @@ class User implements JsonSerializable
     }
 
     /**
-     * @return Student|null
+     * @return Tutor|bool
      */
-    public function student()
+    public function tutor()
     {
-        require_once __DIR__ . '/Student.php';
-        $s = get_np_mysql_object()->prepare("select * from student where email = :email");
+        $s = get_np_mysql_object()->prepare("select * from tutor where email = :email");
         $s->execute(array(":email" => $this->email));
         $obj = $s->fetch();
-        if ($obj['grade'] == null) return null;
-        return new Student($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['grade'], $obj['department'], $this->types, $this->locked);
+        if (empty($obj['grade'])) return false;
+        return new Tutor($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['description'], $obj['teaching_method'], $this->grade, $this->department, $this->types, $this->locked);
     }
 
 
@@ -220,6 +219,4 @@ class User implements JsonSerializable
             "locked" => $this->locked
         ];
     }
-
-    //TODO if valid input
 }
