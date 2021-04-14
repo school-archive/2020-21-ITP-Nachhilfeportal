@@ -7,6 +7,10 @@ use classes\Authentication;
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
+        if ($_GET["email"] == "@me") {
+
+        }
+
         $user = User::getUser($_GET["email"]);
         if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
         AnswerHandler::create_response_and_kill_page(true, $user);

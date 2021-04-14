@@ -3,6 +3,10 @@ RewriteEngine on
 #RewriteCond %{THE_REQUEST} ^protected/.*$
 #RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
+#search
+RewriteRule ^search/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
+
+
 #GET all users
 RewriteRule ^users/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
 RewriteRule ^user/(.+)/?$ protected/endpoints/user/user.php?email=$1&%{QUERY_STRING} [NC]
