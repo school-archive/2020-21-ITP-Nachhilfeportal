@@ -12,7 +12,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if ($_GET["email"] == "@me") {
             if (! Authentication::is_logged_in())
                 AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
-            $user = User::getUser($_SESSION["user_email"]);
+            $user = User::getUser(Authentication::$user_email);
         }
         else {
             $user = User::getUser($_GET["email"]);
