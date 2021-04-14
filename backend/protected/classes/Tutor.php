@@ -9,12 +9,21 @@ class Tutor extends Student
 
     /**
      * Tutor constructor.
+     * @param $email
+     * @param $first_name
+     * @param $last_name
+     * @param $password
+     * @param $picture_url
      * @param $description
      * @param $teaching_method
+     * @param $grade
+     * @param $department
+     * @param int $types
+     * @param false $locked
      */
-    public function __construct($description, $teaching_method, $grade, $department)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $types = 0, $locked = false)
     {
-        parent::__construct($grade, $department);
+        parent::__construct($email, $first_name, $last_name, $password, $picture_url,$grade, $department, $types, $locked);
         $this->description = $description;
         $this->teaching_method = $teaching_method;
     }
