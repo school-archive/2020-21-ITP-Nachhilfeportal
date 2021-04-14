@@ -5,6 +5,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Vuex from 'vuex';
 import VueCookies from 'vue-cookies';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(VueCookies);
 Vue.$cookies.config("7d");
@@ -13,6 +14,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueMeta);
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false;
 
@@ -33,6 +35,7 @@ router.beforeEach((to, from, next) => { vueBodyClass.guard(to, next) });
 // import global css & js
 import "./assets/styles/_global.css";
 import "./assets/styles/include_fonts.css";
+import "./assets/styles/colors.scss";
 
 const _ = require("lodash");
 const config_file = require("./config.json");
