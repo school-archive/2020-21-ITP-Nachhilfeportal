@@ -7,14 +7,22 @@ use classes\Authentication;
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
-        if ($_GET["email"] == "@me") {
+        $user = User::class;
 
+        if ($_GET["email"] == "@me") {
+            if (! Authentication::is_logged_in())
+                AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+            $user = User::getUser($_SESSION["user_email"]);
+        }
+        else {
+            $user = User::getUser($_GET["email"]);
         }
 
-        $user = User::getUser($_GET["email"]);
         if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
         AnswerHandler::create_response_and_kill_page(true, $user);
+
         break;
+
     case "DELETE":
         if (! Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
