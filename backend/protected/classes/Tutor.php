@@ -2,7 +2,7 @@
 namespace classes;
 require_once __DIR__ . '/../vendor/autoload.php';
 
-class Tutor extends Student
+class Tutor extends User
 {
     private $description;
     private $teaching_method;

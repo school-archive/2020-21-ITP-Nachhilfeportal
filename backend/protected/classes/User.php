@@ -7,11 +7,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class User implements JsonSerializable
 {
+
     private $email;
     private $first_name;
     private $last_name;
     private $password;
     private $picture_url;
+    private $grade;
+    private $department;
     private $types; // 00 = not admin, not tutor || 10 = admin, not tutor || 11 = admin, tutor
     private $locked;
 
@@ -23,16 +26,20 @@ class User implements JsonSerializable
      * @param $last_name
      * @param $password
      * @param $picture_url
+     * @param $grade
+     * @param $department
      * @param $types
      * @param $locked
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $types = 0, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0, $locked = false)
     {
         $this->email = $email;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->password = $password;
         $this->picture_url = $picture_url;
+        $this->grade = $grade;
+        $this->department = $department;
         $this->types = $types;
         $this->locked = $locked;
     }
@@ -77,8 +84,36 @@ class User implements JsonSerializable
         return $this->picture_url;
     }
 
-    public function isTutor() {
-        return ($this->types & 1) > 0;
+    /**
+     * @return mixed
+     */
+    public function getGrade()
+    {
+        return $this->grade;
+    }
+
+    /**
+     * @param mixed $grade
+     */
+    public function setGrade($grade)
+    {
+        $this->grade = $grade;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param mixed $department
+     */
+    public function setDepartment($department)
+    {
+        $this->department = $department;
     }
 
     public function isAdmin() {
