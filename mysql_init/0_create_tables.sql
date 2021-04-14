@@ -8,18 +8,11 @@ CREATE TABLE user (
     last_name VARCHAR(20),
     password VARCHAR(20),
     picture_url VARCHAR(255),
+    grade INTEGER,
+    department VARCHAR(255),
     locked BOOLEAN,
     types BIT(2),
     PRIMARY KEY (email)
-);
-
-CREATE TABLE student (
-    email VARCHAR(255),
-    grade INTEGER,
-    department VARCHAR(255),
-    PRIMARY KEY (email),
-    FOREIGN KEY (email) REFERENCES user(email)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE tutor (
