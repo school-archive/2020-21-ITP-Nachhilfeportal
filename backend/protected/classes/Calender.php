@@ -37,6 +37,21 @@ class Calender
 
     }
 
+    public function setWeekday($weekday)
+    {
+        $this->weekday = $weekday;
+    }
+
+    public function setTimeFROM($from)
+    {
+        $this->from = $from;
+    }
+
+    public function setTimeTO($to)
+    {
+        $this->to = $to;
+    }
+
     public function getTimeFROM()
     {
         return from;
@@ -51,5 +66,4 @@ class Calender
     {
         return weekday;
     }
-
 }
