@@ -17,6 +17,7 @@ class User implements JsonSerializable
     private $department;
     private $types; // 00 = not admin, not tutor || 10 = admin, not tutor || 11 = admin, tutor
     private $locked;
+    private $calender;
 
 
     /***
@@ -273,12 +274,28 @@ class User implements JsonSerializable
         if(!is_null($this->grade)) $s->bindValue(':grade', $this->grade);
         if(!is_null($this->department)) $s->bindValue(':department', $this->department);
         $s->execute();
+        $objsUser = $s->fetchAll();
 
-        $objs = $s->fetchAll();
         $users = [];
-        foreach ($objs as $obj)
-            array_push($users, new User($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['types'], $obj['locked']));
+        foreach ($objsUser as $objUser) {
+            $sc = get_np_mysql_object()->prepare("select * from user u join calender_free cf on u.email = cf.email where email = :email");
+            $sc->execute(array(":email" => $objUser["email"]));
+            $objsCalenders= $sc->fetchAll();
+            if (!empty($objsCalender['calender_id'])) {
+                if (compareCalender()) {
+                    array_push($users, new User($objUser["email"], $objUser['first_name'], $objUser['last_name'], $objUser['password'], $objUser['picture_url'], $objUser['grade'], $objUser['department'], $objUser['types'], $objUser['locked']));
+                    break;
+                }
+              }
+         }
+
+
         return $users;
+
+        function compareCalender($c1, $c2)
+        {
+
+        }
     }
 
     public function jsonSerialize()
