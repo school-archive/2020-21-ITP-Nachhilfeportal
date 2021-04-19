@@ -31,7 +31,7 @@ class User implements JsonSerializable
      * @param $types
      * @param $locked
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types = 0, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade=null, $department=null, $types = 0, $locked = false)
     {
         $this->email = $email;
         $this->first_name = $first_name;
@@ -97,7 +97,14 @@ class User implements JsonSerializable
      */
     public function setGrade($grade)
     {
-        $this->grade = $grade;
+        if($grade !== $this->grade) {
+            $s = get_np_mysql_object()->prepare("update user set grade = :grade where email = :email");
+            $s->execute(array(
+                ":email" => $this->email,
+                ":grade" => $grade
+            ));
+            $this->grade = $grade;
+        }
     }
 
     /**
@@ -113,7 +120,14 @@ class User implements JsonSerializable
      */
     public function setDepartment($department)
     {
-        $this->department = $department;
+        if($department !== $this->department) {
+            $s = get_np_mysql_object()->prepare("update user set department = :department where email = :email");
+            $s->execute(array(
+                ":email" => $this->email,
+                ":department" => $department
+            ));
+            $this->department = $department;
+        }
     }
 
     public function isAdmin() {
@@ -188,7 +202,7 @@ class User implements JsonSerializable
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
         if (empty($obj['first_name'])) return false;
-        return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']);
+        return new User($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['types'], $obj['locked']);
     }
 
     public static function get_users($count, $offset=0) {
@@ -200,7 +214,7 @@ class User implements JsonSerializable
         $objs = $s->fetchAll();
         $users = array();
         foreach ($objs as $obj)
-            array_push($users, new User($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['types'], $obj['locked']));
+            array_push($users, new User($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['types'], $obj['locked']));
         return $users;
     }
 
@@ -242,6 +256,30 @@ class User implements JsonSerializable
         $s->execute(array(":email" => $this->email));
     }
 
+    public function filterUser()
+    {
+        $sql_statement = "select * from tutor t join user u on u.email = t.email
+            where t.email != :email
+            and types = ???
+            and locked = false";
+
+        if(!is_null($this->grade)) $sql_statement.= "and grade >= :grade";
+        if(!is_null($this->department)) $sql_statement.= "and department = :department";
+        //teaching method???
+
+        $s = get_np_mysql_object()->
+        prepare($sql_statement);
+        $s->bindValue(':email', $this->email);
+        if(!is_null($this->grade)) $s->bindValue(':grade', $this->grade);
+        if(!is_null($this->department)) $s->bindValue(':department', $this->department);
+        $s->execute();
+
+        $objs = $s->fetchAll();
+        $users = [];
+        foreach ($objs as $obj)
+            array_push($users, new User($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['types'], $obj['locked']));
+        return $users;
+    }
 
     public function jsonSerialize()
     {

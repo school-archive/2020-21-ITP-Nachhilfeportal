@@ -4,7 +4,7 @@ RewriteEngine on
 #RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
 #search
-RewriteRule ^search/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
+RewriteRule ^search/?$ protected/endpoints/user/all_users.php?method=filter&%{QUERY_STRING} [NC]
 
 
 #GET all users
