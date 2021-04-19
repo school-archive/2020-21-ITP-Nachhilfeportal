@@ -9,6 +9,13 @@ if (! Authentication::is_logged_in())
     AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
 
 $user = User::getUser(Authentication::$user_email);
+
+
+if($_GET['method']==='filter') {
+    AnswerHandler::create_response_and_kill_page(true, $user->filterUser());
+}
+
+
 if (!$user->isAdmin())
     AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
 
