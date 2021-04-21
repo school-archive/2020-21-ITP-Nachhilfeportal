@@ -15,6 +15,7 @@
         <v-select id="search-department"
             placeholder="Abteilung"
             label="title"
+                  :multiple="true"
             :options="departments"
         />
         <v-select id="search-fach"
@@ -22,13 +23,11 @@
             label="title"
             :options="departments"
         />
-        <v-select id="search-klasse"
-            placeholder="Klasse"
-            multiple=""
-            label="title"
-            :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
-        />
-        <vue-slider :data="[1, 2, 3, 4, 5]" :drag-on-click="true" :adsorb="true" :contained="true"/>
+        <div class="search-select-grade">
+          <span class="grade-desc"><span v-show="selected_grade[0] === selected_grade[1]">nur</span> {{ selected_grade[0] }}. Klasse <span v-show="selected_grade[0] !== selected_grade[1]">- {{ selected_grade[1] }}. Klasse</span></span>
+          <vue-slider class="slider" width="15rem" :data="[1, 2, 3, 4, 5]" :data-labels="{1:'asd',5:'asdsad'}" :drag-on-click="true" :adsorb="true" :contained="true"
+                      v-model="selected_grade" :tooltip="'none'"/>
+        </div>
         <v-select id="search-teaching-method"
             placeholder="Methode"
             multiple=""
@@ -70,7 +69,8 @@ export default {
           "Informationstechnologie",
           "Mechatronik",
           "Fachschule"
-      ]
+      ],
+      selected_grade: [1, 5],
     }
   }
 }
@@ -134,23 +134,84 @@ export default {
 
   .section-searchbar {
 
+    .searchbar-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
     #search-department {
-      width: 15rem;
+      width: 18rem;
     }
     #search-fach {
       width: 15rem;
     }
+    .search-select-grade {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .slider {
+        width: 15rem;
+      }
+    }
+    #search-teaching-method {
+      width: 15rem;
+    }
   }
-
-
-
-
 
 </style>
 
 <style lang="scss">
+@use "src/assets/styles/colors";
+.v-select .vs__dropdown-toggle {
+  border-radius: 16px;
+  border-color: rgba(0, 0, 0, 0.1);
+}
 
-$vs-state-active-bg: #e358fb;
-$vs-selected-bg: #e358fb;
-$vs-dropdown-bg: #e358fb;
+.v-select .vs__selected, .v-select .vs__search {
+  margin-left: .75rem;
+}
+
+.v-select .vs__actions {
+  padding-right: 1.25rem;
+}
+
+.v-select:not(.vs--single) {
+
+  .vs__selected {
+    background-color: rgba(black, .1);
+    border-color: transparent;
+    border-radius: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: .15rem;
+  }
+
+  .vs__deselect {
+    margin-left: 8px;
+  }
+}
+
+.v-select .vs__dropdown-option--highlight {
+  background-color: colors.$primary;
+}
+
+.vue-slider-process {
+  background-color: rgba(colors.$primary, .3);
+}
+
+.vue-slider:hover .vue-slider-process {
+  background-color: rgba(colors.$primary, .6);
+}
+
+.vue-slider-dot-handle {
+  border-color: rgba(colors.$primary, .3);
+}
+.vue-slider:hover .vue-slider-dot-handle {
+  border-color: rgba(colors.$primary, .6);
+}
+.vue-slider:hover .vue-slider-dot-handle:hover {
+  border-color: rgba(colors.$primary, .9);
+}
 </style>
