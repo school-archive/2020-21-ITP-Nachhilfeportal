@@ -11,7 +11,7 @@ CREATE TABLE user (
     grade INTEGER,
     department VARCHAR(255),
     locked BOOLEAN,
-    types BIT(2),
+    isAdmin BOOLEAN,
     PRIMARY KEY (email)
 );
 
