@@ -21,7 +21,7 @@
         <v-select id="search-fach"
             placeholder="Fach"
             label="title"
-            :options="departments"
+            :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
         />
         <div class="search-select-grade">
           <span class="grade-desc"><span v-show="selected_grade[0] === selected_grade[1]">nur</span> {{ selected_grade[0] }}. Klasse <span v-show="selected_grade[0] !== selected_grade[1]">- {{ selected_grade[1] }}. Klasse</span></span>
@@ -34,7 +34,9 @@
             label="title"
             :options="['Online', 'Vor Ort']"
         />
-        <button>Jetzt Suchen</button>
+        <div>
+          <button class="btn-search">Jetzt Suchen</button>
+        </div>
       </div>
     </section>
 
@@ -54,7 +56,7 @@
 
 <script>
 import FaqTile from "@/pages/home/FaqTile";
-import VueSlider from 'vue-slider-component'
+import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/antd.css'
 
 export default {
@@ -133,11 +135,22 @@ export default {
   }
 
   .section-searchbar {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 
     .searchbar-wrapper {
-      width: 100%;
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 80rem;
+      max-width: 90%;
+
+      & > div {
+        margin: .5rem;
+      }
     }
 
     #search-department {
@@ -157,6 +170,14 @@ export default {
     }
     #search-teaching-method {
       width: 15rem;
+    }
+
+    .btn-search {
+      background-color: colors.$primary;
+      border-color: transparent;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 999px;
     }
   }
 
