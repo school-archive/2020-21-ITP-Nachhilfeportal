@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-title">
       <router-link to="/">
-        <img src="@/assets/images/logo.png">
+        <img src="@/assets/images/logo_white.svg">
         <span>Tutorlink</span>
       </router-link>
     </div>

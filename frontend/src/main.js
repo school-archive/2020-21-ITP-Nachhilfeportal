@@ -5,7 +5,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Vuex from 'vuex';
 import VueCookies from 'vue-cookies';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import vSelect from 'vue-select';
 
 Vue.use(VueCookies);
 Vue.$cookies.config("7d");
@@ -14,7 +15,9 @@ Vue.use(VueAxios, axios);
 Vue.use(VueMeta);
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component("v-select", vSelect);
+import 'vue-select/src/scss/vue-select.scss';
 
 Vue.config.productionTip = false;
 

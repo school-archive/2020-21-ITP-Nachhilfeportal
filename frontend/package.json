@@ -15,7 +15,8 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
     "@fortawesome/vue-fontawesome": "^2.0.2",
