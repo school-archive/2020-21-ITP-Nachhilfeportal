@@ -10,34 +10,28 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class Calender
 {
-    private $from;
-    private $to;
+    private $timefrom;
+    private $timeto;
     private $weekday;
+    private $id;
 
     /**
      * Tutor constructor.
      * @param $email
-     * @param $first_name
-     * @param $last_name
-     * @param $password
-     * @param $picture_url
-     * @param $from
-     * @param $to
+     * @param $timefrom
+     * @param $timeto
      * @param $weekday
-     * @param int $types
-     * @param false $locked
      */
 
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $from, $to, $weekday, $grade, $department, $types = 0, $locked = false)
+    public function __construct($email, $timefrom, $timeto, $weekday)
     {
-        parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $types, $locked);
-        $this->from = $from;
-        $this->to = $to;
+        $this->timefrom = $timefrom;
+        $this->timeto = $timeto;
         $this->weekday = $weekday;
 
     }
 
-    function array_sort($array, $on)
+    public static function array_sort($array, $on)
     {
         $new_array = array();
         $sortable_array = array();
@@ -62,43 +56,70 @@ class Calender
         return $new_array;
     }
 
+    public static function createCalender($email, $timefrom, $timeto, $weekday)
+    {
+        $s = get_np_mysql_object()->
+        prepare("insert into calender_free (email, timefrom, timeto, weekday) 
+        values (:email, :timefrom, :timeto, :weekday)");
+        $s->bindValue(':email', $email);
+        $s->bindValue('timefrom', $timefrom);
+        $s->bindValue(':timeto', $timeto);
+        $s->bindValue(':weekday', $weekday);
+        $s->execute();
+
+        return new Calender($email, $timefrom, $timeto, $weekday);
+    }
+
+
     public function setWeekday($weekday)
     {
         $this->weekday = $weekday;
     }
 
-    public function setTimeFROM($from)
+    public function setTimefrom($timefrom)
     {
-        $this->from = $from;
+        $this->timefrom = $timefrom;
     }
 
-    public function setTimeTO($to)
+    public function setTimeto($timeto)
     {
-        $this->to = $to;
-    }
-
-    public function getTimeFROM()
-    {
-        return from;
-    }
-
-    public function getTimeTO()
-    {
-        return to;
+        $this->timeto = $timeto;
     }
 
     public function getWeekday()
     {
-        return weekday;
+        return $this->weekday;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTimefrom()
+    {
+        return $this->timefrom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTimeto()
+    {
+        return $this->timeto;
     }
 
     public function toArray()
     {
         return array(
             'weekday' => $this->weekday,
-            'timeFrom' => $this->from,
-            'timeto' => $this->to
-
+            'timefrom' => $this->timefrom,
+            'timeto' => $this->timeto
         );
+    }
+
+    public function toString()
+    {
+        return 'weekday = ' . $this->weekday .
+            ' timefrom = ' . $this->timefrom .
+            ' timeto = ' . $this->timeto;
     }
 }
