@@ -4,6 +4,8 @@ namespace classes;
 
 use JsonSerializable;
 use PDO;
+use PHPUnit\Util\Exception;
+use function PHPUnit\Framework\throwException;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -13,7 +15,7 @@ class Calender
     private $timefrom;
     private $timeto;
     private $weekday;
-    private $id;
+    private $id = 0;
 
     /**
      * Tutor constructor.
@@ -23,7 +25,7 @@ class Calender
      * @param $weekday
      */
 
-    public function __construct($email, $timefrom, $timeto, $weekday)
+    public function __construct($email, $timefrom, $timeto, $weekday, $id)
     {
         $this->timefrom = $timefrom;
         $this->timeto = $timeto;
@@ -58,18 +60,46 @@ class Calender
 
     public static function createCalender($email, $timefrom, $timeto, $weekday)
     {
-        $s = get_np_mysql_object()->
-        prepare("insert into calender_free (email, timefrom, timeto, weekday) 
+        if (Calender::ValidTime($timefrom, $timeto) == true) {
+            $s = get_np_mysql_object()->
+            prepare("insert into calender_free (email, timefrom, timeto, weekday) 
         values (:email, :timefrom, :timeto, :weekday)");
-        $s->bindValue(':email', $email);
-        $s->bindValue('timefrom', $timefrom);
-        $s->bindValue(':timeto', $timeto);
-        $s->bindValue(':weekday', $weekday);
-        $s->execute();
+            $s->bindValue(':email', $email);
+            $s->bindValue('timefrom', $timefrom);
+            $s->bindValue(':timeto', $timeto);
+            $s->bindValue(':weekday', $weekday);
+            $s->execute();
 
-        return new Calender($email, $timefrom, $timeto, $weekday);
+            $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
+            $s->execute(array(":email" => $email));
+            $obj = $s->fetch();
+        } else {
+            throw new Exception("Illegal Argument");
+        }
+        return new Calender($email, $timefrom, $timeto, $weekday, $obj['id']);
     }
 
+    public function removeCalender($id)
+    {
+        $s = get_np_mysql_object()->prepare("delete from calender_free where id = :id");
+        $s->execute(array(":email" => $this->email));
+    }
+
+    public function timeonDay($weekday)
+    {
+        $s = get_np_mysql_object()->prepare("select timefrom from calender_free where weekday = :weekday");
+        $s->execute(array(":email" => $this->email));
+        $obj = $s->fetch();
+        return new Calender();
+    }
+
+    public static function ValidTime($timefrom, $timeto)
+    {
+        if ($timefrom >= $timeto) {
+            return false;
+        }
+        return true;
+    }
 
     public function setWeekday($weekday)
     {

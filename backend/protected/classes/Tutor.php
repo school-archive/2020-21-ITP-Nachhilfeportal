@@ -19,12 +19,12 @@ class Tutor extends User
      * @param $teaching_method
      * @param $grade
      * @param $department
-     * @param int $types
+     * @param bool $isAdmin
      * @param false $locked
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $types = 0, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $isAdmin = false, $locked = false)
     {
-        parent::__construct($email, $first_name, $last_name, $password, $picture_url,$grade, $department, $types, $locked);
+        parent::__construct($email, $first_name, $last_name, $password, $picture_url,$grade, $department, $isAdmin, $locked);
         $this->description = $description;
         $this->teaching_method = $teaching_method;
     }
@@ -70,12 +70,13 @@ class Tutor extends User
      * @return Tutor
      */
 
-    static function get_tutor_by_email($email)
+    public static function get_Tutor_by_email($email)
     {
-        $s = get_np_mysql_object()->prepare("select * from tutor where email = :email");
+        $s = get_np_mysql_object()->prepare("select * from tutor where email = :email join user");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
-        $tutor = new tutor($email, $obj['description'], $obj['teaching_method']);
+        if (empty($obj['email'])) return false;
+        $tutor = new Tutor($email,$first_name, $last_name, $password, $picture_url,$grade, $department, $isAdmin, $locked, $obj['description'], $obj['teaching_method']);
         $tutor->setDescription($obj['description']);
         $tutor->setTeaching_method($obj['teaching_method']);
         return $tutor;
@@ -87,7 +88,7 @@ class Tutor extends User
      * @param $teaching_method
      * @return Tutor
      */
-    static function create_tutor($email, $description, $teaching_method)
+    public static function create_tutor($email, $description, $teaching_method)
     {
         $s = get_np_mysql_object()->
         prepare("insert into tutor (desciption, teaching_method) 
