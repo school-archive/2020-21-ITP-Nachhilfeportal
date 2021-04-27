@@ -29,7 +29,7 @@ CREATE TABLE calender_free (
     email VARCHAR(255),
     time_from DATETIME,
     time_to DATETIME,
-    weekday INTEGER,
+    weekday VARCHAR(255),
     PRIMARY KEY (calender_id),
     FOREIGN KEY (email) REFERENCES user(email)
     ON DELETE CASCADE
