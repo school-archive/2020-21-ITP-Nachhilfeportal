@@ -45,7 +45,6 @@ CREATE TABLE selected_subject(
 
 CREATE TABLE subject (
     name VARCHAR(20),
-    email VARCHAR(255),
     department BIT(3),
     minGrade INTEGER,
     PRIMARY KEY (name),
