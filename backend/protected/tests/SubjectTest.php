@@ -24,6 +24,12 @@ class SubjectTest extends TestCase
         return $subject;
     }
 
+    public function testGetSubject()
+    {
+        $subject = Subject::getSubject('GGP13');
+        $this->assertEquals(3, $subject->getDepartment());
+    }
+
     /**
      * @depends testCreateSubject
      * @param $subject
@@ -36,7 +42,7 @@ class SubjectTest extends TestCase
 
     public function testSetMETrue2()
     {
-        $subject = Subject::getSubject('WIR');
+        $subject = Subject::getSubject('INSY2');
         $subject->setME(true);
         $this->assertEquals(4, $subject->getDepartment());
     }
@@ -50,16 +56,30 @@ class SubjectTest extends TestCase
 
     public function testSetITTrue()
     {
-        $subject = Subject::getSubject('WIR');
-//        $b = $subject->setIT(true);
-        $this->assertEquals(6, $subject->getDepartment());
+        $subject = Subject::getSubject('GGP17');
+        $b = $subject->setIT(true);
+        $this->assertEquals(7, $subject->getDepartment());
     }
 
     public function testSetITFalse()
     {
-        $subject = Subject::getSubject('WIR4');
-        $bool = $subject->setIT(false);
-        $this->assertEquals(4, $subject->getDepartment());
+        $subject = Subject::getSubject('GGP17');
+        $subject->setIT(false);
+        $this->assertEquals(5, $subject->getDepartment());
+    }
+
+    public function testSetFSTrue()
+    {
+        $subject = Subject::getSubject('GGP17');
+        $b = $subject->setFS(true);
+        $this->assertEquals(7, $subject->getDepartment());
+    }
+
+    public function testSetFSFalse()
+    {
+        $subject = Subject::getSubject('GGP17');
+        $subject->setFS(false);
+        $this->assertEquals(6, $subject->getDepartment());
     }
 
     public function testDeleteSubject()

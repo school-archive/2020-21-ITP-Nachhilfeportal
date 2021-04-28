@@ -78,9 +78,7 @@ class Subject implements JsonSerializable
 
     public function setIT($bool)
     {
-//        $this->department = bindec($this->department) & ~2;
-        $this->department &= 5;
-//        return $this->department;
+        $this->department &= ~2;
         if($bool) $this->department |= 2;
 
         $this->setDepartment();
@@ -123,7 +121,7 @@ class Subject implements JsonSerializable
         $s->execute(array(":name" => $name));
         $obj = $s->fetch();
         if (empty($obj['name'])) return false;
-        return new Subject($name, $obj['department'], $obj['minGrade']);
+        return new Subject($name, decbin($obj['department']), $obj['minGrade']);
     }
 
     //department = string (example: '001')
