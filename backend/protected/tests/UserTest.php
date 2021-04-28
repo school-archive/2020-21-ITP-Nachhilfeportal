@@ -21,7 +21,7 @@ class UserTest extends TestCase
 
     public function testCreateUser()
     {
-        $user =  User::createUser('email14@htl.rennweg.at', 'Lola', 'Lotta', 'password', '../url');
+        $user =  User::createUser('email15@htl.rennweg.at', 'Lola', 'Lotta', 'password', '../url');
         $this->assertInstanceOf(
             User::class,
            $user

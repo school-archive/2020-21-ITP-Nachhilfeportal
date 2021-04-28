@@ -36,19 +36,19 @@ CREATE TABLE calender_free (
 );
 
 CREATE TABLE selected_subject(
-    subject_id INTEGER,
+    name VARCHAR(20),
     email VARCHAR(255),
-    PRIMARY KEY (subject_id),
+    PRIMARY KEY (name),
     FOREIGN KEY (email) REFERENCES user(email)
     ON DELETE CASCADE
 );
 
 CREATE TABLE subject (
-    subject_id INTEGER,
-    email VARCHAR(255),
     name VARCHAR(20),
+    email VARCHAR(255),
     department BIT(3),
-    PRIMARY KEY (subject_id),
-    FOREIGN KEY (subject_id) REFERENCES selected_subject(subject_id)
+    minGrade INTEGER,
+    PRIMARY KEY (name),
+    FOREIGN KEY (name) REFERENCES selected_subject(name)
     ON DELETE CASCADE
 );

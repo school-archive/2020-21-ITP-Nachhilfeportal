@@ -211,6 +211,11 @@ class User implements JsonSerializable
         return new Tutor($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['description'], $obj['teaching_method'], $this->grade, $this->department, $this->isAdmin, $this->locked);
     }
 
+    public function subjects()
+    {
+        //TODO get selected subjects
+    }
+
 
     /**
      * @param $email
@@ -277,16 +282,16 @@ class User implements JsonSerializable
         $s->execute(array(":email" => $this->email));
     }
 
-    public function filterUser() //von $_GET
+    public function filterUser($parameters) //von $_GET
     {
         $sql_statement = "select * from tutor t join user u on u.email = t.email
             where t.email != :email
-            and isAdmin = ???
             and locked = false";
 
         if (!is_null($this->grade)) $sql_statement .= "and grade >= :grade";
         if (!is_null($this->department)) $sql_statement .= "and department = :department";
         //teaching method???
+        //subject
 
         $s = get_np_mysql_object()->
         prepare($sql_statement);

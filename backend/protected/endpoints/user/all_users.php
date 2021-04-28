@@ -12,6 +12,7 @@ $user = User::getUser(Authentication::$user_email);
 
 
 if($_GET['method']==='filter') {
+    if (isset($_GET['']))
     AnswerHandler::create_response_and_kill_page(true, $user->filterUser());
 }
 
