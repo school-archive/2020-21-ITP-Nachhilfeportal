@@ -308,25 +308,10 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 * {
   margin: 0;
   border: 0;
-}
-
-body {
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  font-family: "Dinosaur";
-  padding: 3rem;
-  margin: 0;
-  background: #fafafa;
-  box-sizing: border-box;
-  height: 100vh;
-
 }
 
 .offset {

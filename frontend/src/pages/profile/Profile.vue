@@ -8,7 +8,7 @@
 <script>
 import Calendar from "../../components/Calendar";
 export default {
-  name: "Profil",
+  name: "Profile",
   components: {Calendar}
 }
 </script>
