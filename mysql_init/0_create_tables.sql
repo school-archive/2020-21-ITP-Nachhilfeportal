@@ -40,6 +40,8 @@ CREATE TABLE selected_subject(
     email VARCHAR(255),
     PRIMARY KEY (name),
     FOREIGN KEY (email) REFERENCES user(email)
+    ON DELETE CASCADE,
+    FOREIGN KEY (name) REFERENCES subject(name)
     ON DELETE CASCADE
 );
 
@@ -47,7 +49,5 @@ CREATE TABLE subject (
     name VARCHAR(20),
     department BIT(3),
     minGrade INTEGER,
-    PRIMARY KEY (name),
-    FOREIGN KEY (name) REFERENCES selected_subject(name)
-    ON DELETE CASCADE
+    PRIMARY KEY (name)
 );
