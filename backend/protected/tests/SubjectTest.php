@@ -14,7 +14,7 @@ class SubjectTest extends TestCase
 
     public function testCreateSubject()
     {
-        $subject = Subject::createSubject('email15@htl.rennweg.at', 'INSY2', '000', 3);
+        $subject = Subject::createSubject('email15@htl.rennweg.at', 'Medt', '000', 3);
 
         $this->assertInstanceOf(
             Subject::class,
@@ -26,8 +26,8 @@ class SubjectTest extends TestCase
 
     public function testGetSubject()
     {
-        $subject = Subject::getSubject('GGP13');
-        $this->assertEquals(3, $subject->getDepartment());
+        $subject = Subject::getSubject('Medt');
+        $this->assertEquals(0, $subject->getDepartment());
     }
 
     /**
@@ -42,42 +42,42 @@ class SubjectTest extends TestCase
 
     public function testSetMETrue2()
     {
-        $subject = Subject::getSubject('INSY2');
+        $subject = Subject::getSubject('Medt');
         $subject->setME(true);
         $this->assertEquals(4, $subject->getDepartment());
     }
 
     public function testSetMEFalse()
     {
-        $subject = Subject::getSubject('INSY1');
+        $subject = Subject::getSubject('Medt');
         $subject->setME(false);
         $this->assertEquals('000', $subject->getDepartment());
     }
 
     public function testSetITTrue()
     {
-        $subject = Subject::getSubject('GGP17');
-        $b = $subject->setIT(true);
+        $subject = Subject::getSubject('Medt');
+        $subject->setIT(true);
         $this->assertEquals(7, $subject->getDepartment());
     }
 
     public function testSetITFalse()
     {
-        $subject = Subject::getSubject('GGP17');
+        $subject = Subject::getSubject('Medt');
         $subject->setIT(false);
         $this->assertEquals(5, $subject->getDepartment());
     }
 
     public function testSetFSTrue()
     {
-        $subject = Subject::getSubject('GGP17');
-        $b = $subject->setFS(true);
+        $subject = Subject::getSubject('Medt');
+        $subject->setFS(true);
         $this->assertEquals(7, $subject->getDepartment());
     }
 
     public function testSetFSFalse()
     {
-        $subject = Subject::getSubject('GGP17');
+        $subject = Subject::getSubject('Medt');
         $subject->setFS(false);
         $this->assertEquals(6, $subject->getDepartment());
     }

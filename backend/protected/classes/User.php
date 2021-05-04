@@ -20,6 +20,8 @@ class User implements JsonSerializable
     private $isAdmin;
     private $locked;
     private $calender;
+    private $subjects;
+
 
 
     /***
@@ -35,7 +37,7 @@ class User implements JsonSerializable
      * @param bool $locked
      * @param array $calender
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $calender, $grade = null, $department = null, $isAdmin = false, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $calender = [], $subjects = [], $grade = null, $department = null, $isAdmin = false, $locked = false)
     {
         $this->email = $email;
         $this->first_name = $first_name;
@@ -47,6 +49,7 @@ class User implements JsonSerializable
         $this->isAdmin = $isAdmin;
         $this->locked = $locked;
         $this->calender = $calender;
+        $this->subjects =$subjects;
     }
 
     /**
@@ -135,6 +138,14 @@ class User implements JsonSerializable
         }
     }
 
+    /**
+     * @return array|mixed
+     */
+    public function getSubjects(): mixed
+    {
+        return $this->subjects;
+    }
+
     public function isAdmin()
     {
         return $this->isAdmin;
@@ -211,11 +222,15 @@ class User implements JsonSerializable
         return new Tutor($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['description'], $obj['teaching_method'], $this->grade, $this->department, $this->isAdmin, $this->locked);
     }
 
-    public function subjects()
+    public function addSubject($name, $department, $minGrade = 1)
     {
-        //TODO get selected subjects
+
     }
 
+    public function deleteSubject($name)
+    {
+
+    }
 
     /**
      * @param $email
