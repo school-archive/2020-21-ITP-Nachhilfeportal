@@ -4,7 +4,11 @@ module.exports = [
         component: () => import('@/pages/home/Home')
     },
     {
-        path: '/profile',
+        path: '/Profile',
         component: () => import('@/pages/profile/Profile')
+    },
+    {
+        path: '/Imprint',
+        component: () => import('@/pages/imprint/Imprint')
     },
 ];

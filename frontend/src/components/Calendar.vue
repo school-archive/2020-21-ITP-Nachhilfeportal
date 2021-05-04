@@ -6,13 +6,13 @@
           <thead>
             <tr>
               <th class="headcol"></th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-              <th>Sun</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
+              <th>Sunday</th>
             </tr>
           </thead>
         </table>
@@ -288,7 +288,6 @@
   overflow-y: scroll;
   max-width: 1000px;
   height: 500px;
-  border-radius: 8px;
 }
 
 thead {
@@ -457,5 +456,7 @@ button.secondary:focus {
 .icon:hover {
   color: red;
 }
+
+
 
 </style>
