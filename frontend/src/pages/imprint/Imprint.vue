@@ -34,14 +34,14 @@ export default {
 <style scoped lang="scss">
 @use "src/assets/styles/colors";
 
-img.crop-center{
+img.crop-center {
   height: 250px;
   width: 100% !important;
   object-fit: cover;
   object-position: top center;
 }
 
-.u1{
+.u1 {
   font-family: dinosaur, sans-serif;
   font-weight: 200;
   font-style: initial;
