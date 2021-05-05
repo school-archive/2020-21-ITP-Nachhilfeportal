@@ -334,11 +334,27 @@ class User implements JsonSerializable
         $s->execute(array(":email" => $this->email));
     }
 
-    public function filterUser($parameters) //von $_GET
+    /*
+     * Vorübergehende Lösung, bis filterUserInBearbeitung fertig ist
+     */
+    public function filterUser()
     {
+        $s = get_np_mysql_object()->prepare("select * from tutor t join user u on u.email = t.email");
+        $s->execute();
+        $objs = $s->fetchAll();
+        $tutoren = array();
+        foreach ($objs as $obj)
+            array_push($tutoren, new Tutor($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['description'], $obj['teaching_method'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked']));
+        return $tutoren;
+
+    }
+
+    public function filterUserInBearbeitung($parameters) //von $_GET
+    {
+        //TODO finish
         $sql_statement = "select * from tutor t join user u on u.email = t.email
             where t.email != :email
-            and locked = false";
+            and locked = false"; //0?
 
         if (!is_null($this->grade)) $sql_statement .= "and grade >= :grade";
         if (!is_null($this->department)) $sql_statement .= "and department = :department";

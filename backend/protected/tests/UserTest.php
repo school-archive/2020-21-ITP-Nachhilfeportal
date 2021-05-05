@@ -106,4 +106,14 @@ class UserTest extends TestCase
 
     }
 
+    public function testFilterUser()
+    {
+        $user = User::getUser('email15@htl.rennweg.at');
+        $user->setTutor('Hallo', null);
+        $this->assertIsArray(
+            $user->filterUser()
+        );
+        var_dump($user->filterUser());
+    }
+
 }
