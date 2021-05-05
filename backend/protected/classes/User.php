@@ -140,7 +140,7 @@ class User implements JsonSerializable
     /**
      * @return array|mixed
      */
-    public function getSubjects(): mixed
+    public function getSubjects()
     {
         return $this->subjects;
     }
