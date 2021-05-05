@@ -40,7 +40,7 @@ export default {
 
 .footer {
 	color: white;
-	background-color: lighten(colors.$primary, 10%);
+	background-color: colors.$fourth;
 	box-sizing: content-box;
 }
 
@@ -84,4 +84,5 @@ export default {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
+
 </style>

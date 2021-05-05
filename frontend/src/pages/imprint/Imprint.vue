@@ -12,8 +12,8 @@
       <br>
       Kontakt:<br>
       <br>
-      tutorlink.project@gmail.com<br>
-      +43 650 9879007<br>
+      <span><font-awesome-icon :icon="faEnvelope"/> tutorlink.project@gmail.com</span><br>
+      <span><font-awesome-icon :icon="faPhoneAlt"/> +43 650 9879007</span><br>
     </div>
     <div class="rennweg">
       Schulstandort:<br>
@@ -26,6 +26,9 @@
 </template>
 
 <script>
+import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
+import {faPhoneAlt} from '@fortawesome/free-solid-svg-icons';
+
 export default {
   name: "Imprint"
 }
