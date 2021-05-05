@@ -51,9 +51,7 @@ switch ($_GET["type"]) {
         $info = ob_get_clean();
         echo json_encode(array(
             "logged_id" => Authentication::is_logged_in(),
-            //"sads" => User::createUser(Authentication::$user_email, "sad", "ads", "asd", "ads", 0, 0),
-            "microsoft user info" => AzureAPI::get_userinfo(Authentication::$microsoft_token),
-            "sad" => User::getUser(Authentication::$user_email)
+            "userinfo" => AzureAPI::get_userinfo(Authentication::$microsoft_token),
         ));
 
         break;
