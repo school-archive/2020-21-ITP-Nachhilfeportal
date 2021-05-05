@@ -4,15 +4,15 @@ module.exports = [
         component: () => import('@/pages/home/Home')
     },
     {
-        path: '/Profile',
+        path: '/profile',
         component: () => import('@/pages/profile/Profile')
     },
     {
-        path: '/Imprint',
+        path: '/imprint',
         component: () => import('@/pages/imprint/Imprint')
     },
     {
-        path: '/Dataprivacy',
+        path: '/privacy',
         component: () => import('@/pages/dataprivacy/Dataprivacy')
     },
 ];
