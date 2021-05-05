@@ -12,7 +12,8 @@ module.exports = [
         component: () => import('@/pages/imprint/Imprint')
     },
     {
-        path: '/privacy', name: 'Data',
+        path: '/privacy',
+        name: 'Privacy',
         component: () => import('@/pages/dataprivacy/Dataprivacy')
     },
 ];
