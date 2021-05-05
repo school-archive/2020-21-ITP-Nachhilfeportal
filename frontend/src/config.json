@@ -3,26 +3,8 @@
         "backend_host": ""
     },
     "development": {
-        "backend_host": "http://localhost:8000",
-
-        "email_business": "sensentod@gmail.com",
-        "email_private": "sensentod@gmail.com",
-
-        "year_created": 2020,
-
-
-        "social_media": {
-            "discord_username": "strukteon#4428",
-            "discord_server": "https://discord.gg/VbypMFb",
-            "instagram": "https://instagram.com/strukteon",
-            "github": "https://github.com/strukteon"
-        },
-
-        "other_links": {
-            "patreon": "https://patreon.com/strukteon"
-        },
+        "backend_host": "http://localhost",
         "grecaptcha_key": "",
-
         "login_redirect": "/"
     }
 }
