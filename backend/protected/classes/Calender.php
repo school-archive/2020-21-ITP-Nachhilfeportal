@@ -12,23 +12,23 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class Calender
 {
-    private $timefrom;
-    private $timeto;
+    private $time_from;
+    private $time_to;
     private $weekday;
     private $id = 0;
 
     /**
      * Tutor constructor.
      * @param $email
-     * @param $timefrom
-     * @param $timeto
+     * @param $time_from
+     * @param $time_to
      * @param $weekday
      */
 
-    public function __construct($email, $timefrom, $timeto, $weekday, $id)
+    public function __construct($email, $time_from, $time_to, $weekday, $id)
     {
-        $this->timefrom = $timefrom;
-        $this->timeto = $timeto;
+        $this->time_from = $time_from;
+        $this->time_to = $time_to;
         $this->weekday = $weekday;
 
     }
@@ -58,44 +58,41 @@ class Calender
         return $new_array;
     }
 
-    public static function createCalender($email, $timefrom, $timeto, $weekday)
+    public static function createCalender($email, $time_from, $time_to, $weekday)
     {
-        if (Calender::ValidTime($timefrom, $timeto) == true) {
+        if (Calender::ValidTime($time_from, $time_to) == true) {
             $s = get_np_mysql_object()->
-            prepare("insert into calender_free (email, timefrom, timeto, weekday) 
-        values (:email, :timefrom, :timeto, :weekday)");
+            prepare("insert into calender_free (email, time_from, time_to, weekday) 
+        values (:email, :time_from, :time_to, :weekday)");
             $s->bindValue(':email', $email);
-            $s->bindValue('timefrom', $timefrom);
-            $s->bindValue(':timeto', $timeto);
+            $s->bindValue('time_from', $time_from);
+            $s->bindValue(':time_to', $time_to);
             $s->bindValue(':weekday', $weekday);
             $s->execute();
-
-            $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
-            $s->execute(array(":email" => $email));
-            $obj = $s->fetch();
         } else {
             throw new Exception("Illegal Argument");
         }
-        return new Calender($email, $timefrom, $timeto, $weekday, $obj['id']);
+        return new Calender($email, $time_from, $time_to, $weekday, "");
     }
 
     public function removeCalender($id)
     {
-        $s = get_np_mysql_object()->prepare("delete from calender_free where id = :id");
-        $s->execute(array(":email" => $this->email));
+        $s = get_np_mysql_object()->prepare("delete from calender_free where calender_id = :calender_id");
+        $s->execute(array(":calender_id" => $id));
     }
+
 
     public function timeonDay($weekday)
     {
-        $s = get_np_mysql_object()->prepare("select timefrom from calender_free where weekday = :weekday");
+        $s = get_np_mysql_object()->prepare("select time_from from calender_free where weekday = :weekday");
         $s->execute(array(":email" => $this->email));
         $obj = $s->fetch();
-        return new Calender();
+        return new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']);
     }
 
-    public static function ValidTime($timefrom, $timeto)
+    public static function ValidTime($time_from, $time_to)
     {
-        if ($timefrom >= $timeto) {
+        if ($time_from >= $time_to) {
             return false;
         }
         return true;
@@ -106,14 +103,14 @@ class Calender
         $this->weekday = $weekday;
     }
 
-    public function setTimefrom($timefrom)
+    public function settime_from($time_from)
     {
-        $this->timefrom = $timefrom;
+        $this->time_from = $time_from;
     }
 
-    public function setTimeto($timeto)
+    public function settime_to($time_to)
     {
-        $this->timeto = $timeto;
+        $this->time_to = $time_to;
     }
 
     public function getWeekday()
@@ -124,32 +121,32 @@ class Calender
     /**
      * @return mixed
      */
-    public function getTimefrom()
+    public function gettime_from()
     {
-        return $this->timefrom;
+        return $this->time_from;
     }
 
     /**
      * @return mixed
      */
-    public function getTimeto()
+    public function gettime_to()
     {
-        return $this->timeto;
+        return $this->time_to;
     }
 
     public function toArray()
     {
         return array(
             'weekday' => $this->weekday,
-            'timefrom' => $this->timefrom,
-            'timeto' => $this->timeto
+            'time_from' => $this->time_from,
+            'time_to' => $this->time_to
         );
     }
 
     public function toString()
     {
         return 'weekday = ' . $this->weekday .
-            ' timefrom = ' . $this->timefrom .
-            ' timeto = ' . $this->timeto;
+            ' time_from = ' . $this->time_from .
+            ' time_to = ' . $this->time_to;
     }
 }

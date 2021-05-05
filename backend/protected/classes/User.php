@@ -23,7 +23,6 @@ class User implements JsonSerializable
     private $subjects;
 
 
-
     /***
      * User constructor.
      * @param $email
@@ -49,7 +48,7 @@ class User implements JsonSerializable
         $this->isAdmin = $isAdmin;
         $this->locked = $locked;
         $this->calender = $calender;
-        $this->subjects =$subjects;
+        $this->subjects = $subjects;
     }
 
     /**
@@ -177,14 +176,52 @@ class User implements JsonSerializable
         return $this->tutor();
     }
 
-    public function addCalender($email, $timefrom, $timeto, $weekday)
+    public function addCalender($email, $time_from, $time_to, $weekday)
     {
-        array_push($calender, Calender::createCalender($email, $timefrom, $timeto, $weekday));
+        Calender::createCalender($email, $time_from, $time_to, $weekday);
     }
 
     public function removeCalender($id)
     {
-        unset($this->calender[$id]);
+        Calender::removeCalender($id);
+    }
+
+    public function removeAllCalenderFromUser($email)
+    {
+
+        $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
+        $s->execute(array(
+            ":email" => $email
+        ));
+        $objs = $s->fetchAll();
+        foreach ($objs as $obj)
+            Calender::removeCalender($obj["calender_id"]);
+        return $this->calender;
+    }
+
+    public function getTimeonWeekday($weekday)
+    {
+
+        $s = get_np_mysql_object()->prepare("select * from calender_free where weekday = :weekday");
+        $s->execute(array(
+            ":weekday" => $weekday
+        ));
+        $objs = $s->fetchAll();
+        foreach ($objs as $obj)
+            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']));
+        return $this->calender;
+    }
+
+    public function getAllCalendersFromUser($email)
+    {
+        $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
+        $s->execute(array(
+            ":email" => $email
+        ));
+        $objs = $s->fetchAll();
+        foreach ($objs as $obj)
+            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']));
+        return $this->calender;
     }
 
     /**
