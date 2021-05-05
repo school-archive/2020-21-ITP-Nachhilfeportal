@@ -1,6 +1,8 @@
 <?php
+
 namespace classes;
 require_once __DIR__ . '/../vendor/autoload.php';
+
 use PDO;
 
 class Tutor extends User
@@ -24,7 +26,7 @@ class Tutor extends User
      */
     public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $isAdmin = false, $locked = false)
     {
-        parent::__construct($email, $first_name, $last_name, $password, $picture_url,$grade, $department, $isAdmin, $locked);
+        parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $isAdmin, $locked);
         $this->description = $description;
         $this->teaching_method = $teaching_method;
     }
@@ -72,11 +74,11 @@ class Tutor extends User
 
     public static function get_Tutor_by_email($email)
     {
-        $s = get_np_mysql_object()->prepare("select * from tutor where email = :email join user");
+        $s = get_np_mysql_object()->prepare("select * from tutor where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
         if (empty($obj['email'])) return false;
-        $tutor = new Tutor($email,$first_name, $last_name, $password, $picture_url,$grade, $department, $isAdmin, $locked, $obj['description'], $obj['teaching_method']);
+        $tutor = new Tutor($email, $obj['description'], $obj['teaching_method']);
         $tutor->setDescription($obj['description']);
         $tutor->setTeaching_method($obj['teaching_method']);
         return $tutor;
@@ -91,13 +93,13 @@ class Tutor extends User
     public static function create_tutor($email, $description, $teaching_method)
     {
         $s = get_np_mysql_object()->
-        prepare("insert into tutor (desciption, teaching_method) 
-        values (:description, :teaching_method");
-        $s->execute(array(
-            ":description" => $description,
-            ":teaching_method" => $teaching_method
-        ));
-        return new Tutor($email, $description, $teaching_method);
+        prepare("insert into tutor (email, description, teaching_method) 
+        values (:email, :description, :teaching_method)");
+        $s->bindValue(':email', $email);
+        $s->bindValue(':description', $description);
+        $s->bindValue(':teaching_method', $teaching_method);
+        $s->execute();
+        return 0;
     }
 
 
