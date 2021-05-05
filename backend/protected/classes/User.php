@@ -268,7 +268,7 @@ class User implements JsonSerializable
      * @param $isAdmin
      * @return User|bool
      */
-    public static function createUser($email, $first_name, $last_name, $password, $picture_url, $isAdmin = false)
+    public static function createUser($email, $first_name, $last_name, $password, $picture_url, $isAdmin = 0)
     {
         $user = self::getUser($email);
         if ($user) return false;
