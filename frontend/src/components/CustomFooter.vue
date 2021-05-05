@@ -74,7 +74,7 @@ export default {
 }
 
 .links-bottom-row > * {
-	margin: .25rem;
+	margin: .25rem .75rem;
 }
 
 .footer-copyright {
