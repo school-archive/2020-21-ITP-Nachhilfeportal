@@ -9,8 +9,8 @@
     <div class="links">
       <router-link to="/">Home</router-link>
       <router-link to="/">Über uns</router-link>
-      <a href=""><font-awesome-icon :icon="faSignInAlt"/></a>
-      <a href="/"><font-awesome-icon :icon="faSignOutAlt"/></a>
+      <a href="">Anmelden&nbsp;<font-awesome-icon :icon="faSignInAlt"/></a>
+      <a href="/">Abmelden&nbsp;<font-awesome-icon :icon="faSignOutAlt"/></a>
     </div>
   </nav>
 </template>
@@ -54,6 +54,7 @@ name: "Navbar",
     display: flex;
     height: 100%;
     padding: calc(1rem - 18px / 2) 1rem;
+		border: none;
     box-sizing: border-box;
     align-items: center;
     text-decoration: none;
@@ -67,6 +68,7 @@ name: "Navbar",
   }
 
   .navbar .links a {
+		border: none;
     display: inline-block;
     color: white;
     text-decoration: none;
