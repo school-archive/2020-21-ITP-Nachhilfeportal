@@ -5,7 +5,9 @@
     </div>
     <div class="footer-bottom-part">
       <p>Copyright @ <a href="https://htlrennweg.at">HTL Rennweg 1030 Wien</a></p>
-      <p>Datenschutz</p>
+      <router-link :to="{name:'Data'}">
+        <p>Datenschutz</p>
+      </router-link>
       <router-link :to="{name: 'Imprint'}">
         <p>Impressum</p>
       </router-link>

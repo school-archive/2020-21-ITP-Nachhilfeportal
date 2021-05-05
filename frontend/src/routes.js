@@ -8,11 +8,11 @@ module.exports = [
         component: () => import('@/pages/profile/Profile')
     },
     {
-        path: '/imprint',
+        path: '/imprint',  name: 'Imprint',
         component: () => import('@/pages/imprint/Imprint')
     },
     {
-        path: '/privacy',
+        path: '/privacy', name: 'Data',
         component: () => import('@/pages/dataprivacy/Dataprivacy')
     },
 ];
