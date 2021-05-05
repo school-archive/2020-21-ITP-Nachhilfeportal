@@ -13,13 +13,24 @@
       <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/></a>
       <a v-if="logged_in" :href="logout_url"><font-awesome-icon :icon="faSignOutAlt"/></a>
       <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
-      <!--<a href="/"><font-awesome-icon :icon="faSignOutAlt"/></a>-->
+    </div>
+    <button class="open-mobile-navbar" @click="open_overlay"><font-awesome-icon :icon="faBars"/></button>
+    <div class="mobile-nav-overlay" v-show="overlay_open">
+      <div class="mobile-links">
+        <button @click="close_overlay"><font-awesome-icon :icon="faTimes"/></button>
+        <router-link to="/">Home</router-link>
+        <router-link to="/search">Tutoren suchen</router-link>
+        <router-link to="/aboutus">Über uns</router-link>
+        <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/></a>
+        <a v-if="logged_in" :href="logout_url"><font-awesome-icon :icon="faSignOutAlt"/></a>
+        <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
-import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default {
 name: "Navbar",
@@ -27,8 +38,11 @@ name: "Navbar",
     return {
       faSignInAlt,
       faSignOutAlt,
+      faBars,
+      faTimes,
       logged_in: false,
       auth_data: {},
+      overlay_open: false,
     }
   },
   computed: {
@@ -49,6 +63,16 @@ name: "Navbar",
         this.auth_data = res.data.data;
         console.log(this.auth_data)
       })
+  },
+  methods: {
+    open_overlay() {
+      document.body.style.overflow = "hidden";
+      this.overlay_open = true;
+    },
+    close_overlay() {
+      document.body.style.overflow = null;
+      this.overlay_open = false;
+    }
   }
 }
 </script>
@@ -100,16 +124,65 @@ name: "Navbar",
     }
   }
 
-  .navbar .links a {
+  .navbar .links a, .navbar .open-mobile-navbar {
 		border: none;
     display: inline-block;
     color: white;
     text-decoration: none;
     padding: 1rem;
     transition: all .1s;
+
+    &:hover {
+      background-color: rgba(black, .1);
+    }
   }
-  .navbar .links a:hover {
-    background-color: rgba(black, .1);
+
+  .navbar .open-mobile-navbar {
+    display: none;
+  }
+
+  .mobile-nav-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparentize(black, .6);
+
+    .mobile-links {
+      position: absolute;
+      width: min(80%, 20rem);
+      height: 100vh;
+      top: 0;
+      right: 0;
+    }
+
+    .mobile-links > * {
+      display: block;
+      padding: .75rem;
+      border: none;
+      color: rgba(white, .6);
+      width: 100%;
+      transition: .2s all ease;
+      cursor: pointer;
+      &:hover:not(.router-link-exact-active) {
+        color: white;
+      }
+    }
+
+    .mobile-links .router-link-exact-active {
+      cursor: default;
+      color: rgba(white, .4)
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .navbar .links {
+      display: none;
+    }
+    .navbar .open-mobile-navbar {
+      display: inline-block;
+    }
   }
 
 </style>
