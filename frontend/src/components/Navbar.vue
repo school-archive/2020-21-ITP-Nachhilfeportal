@@ -8,9 +8,12 @@
     </div>
     <div class="links">
       <router-link to="/">Home</router-link>
-      <router-link to="/">Über uns</router-link>
-      <a href="">Anmelden&nbsp;<font-awesome-icon :icon="faSignInAlt"/></a>
-      <a href="/">Abmelden&nbsp;<font-awesome-icon :icon="faSignOutAlt"/></a>
+      <router-link to="/search">Tutoren suchen</router-link>
+      <router-link to="/aboutus">Über uns</router-link>
+      <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/></a>
+      <a v-if="logged_in" :href="logout_url"><font-awesome-icon :icon="faSignOutAlt"/></a>
+      <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
+      <!--<a href="/"><font-awesome-icon :icon="faSignOutAlt"/></a>-->
     </div>
   </nav>
 </template>
@@ -24,7 +27,28 @@ name: "Navbar",
     return {
       faSignInAlt,
       faSignOutAlt,
+      logged_in: false,
+      auth_data: {},
     }
+  },
+  computed: {
+    login_url() {
+      return `${this.$config.backend_host}/api/auth/login/redirect`;
+    },
+    logout_url() {
+      return `${this.$config.backend_host}/api/auth/logout`;
+    },
+    picture_url() {
+      return this.$config.backend_host + this.auth_data.picture_url;
+    },
+  },
+  mounted() {
+    this.$auth.get_auth_data(this)
+      .then(res => {
+        if (res.data.success) this.logged_in = true;
+        this.auth_data = res.data.data;
+        console.log(this.auth_data)
+      })
   }
 }
 </script>
@@ -65,6 +89,15 @@ name: "Navbar",
   }
 
   .navbar .links {
+    overflow: auto;
+    .link-profile {
+      padding: 8px;
+      line-height: 32px;
+      img {
+        border-radius: 50%;
+        width: 2rem;
+      }
+    }
   }
 
   .navbar .links a {

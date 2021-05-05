@@ -29,7 +29,7 @@ switch ($_GET["type"]) {
         $token = AzureAPI::get_token_from_code($_GET["code"]);
 
         if (Authentication::login($token)) {
-            header("Location: /api/auth/authtest");
+            header("Location: /");
             die();
         }
         else
@@ -38,20 +38,23 @@ switch ($_GET["type"]) {
     case "logout":
 
         Authentication::logout();
-        header("Location: /api/auth/authtest");
+        header("Location: /");
 
         break;
     case "authtest":
 
         header("Content-type: application/json");
 
-        Authentication::is_logged_in();
-        ob_start();
-        var_dump(User::getUser(Authentication::$user_email));
-        $info = ob_get_clean();
+        $userinfo = null;
+        if (Authentication::is_logged_in()) {
+            $userinfo = AzureAPI::get_userinfo(Authentication::$microsoft_token);
+            if ($userinfo == null)
+                Authentication::logout();
+        }
+
         echo json_encode(array(
             "logged_id" => Authentication::is_logged_in(),
-            "userinfo" => AzureAPI::get_userinfo(Authentication::$microsoft_token),
+            "userinfo" => $userinfo,
         ));
 
         break;
