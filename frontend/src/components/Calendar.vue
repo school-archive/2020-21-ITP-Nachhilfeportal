@@ -280,7 +280,7 @@
   border-radius: 8px 8px 0px 0px;
   box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
   margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 30px;
 }
 .wrap {
 
