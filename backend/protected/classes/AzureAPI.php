@@ -112,16 +112,6 @@ class AzureAPI {
      * returns the current redirect url
      */
     private static function get_redirect_url() {
-        return (self::is_secure() ? 'https://' : 'http://') . $_SERVER["HTTP_HOST"] . self::$redirect_endpoint;
-    }
-
-    /**
-     * returns true if php file is served securely
-     * @return bool
-     */
-    private static function is_secure() {
-        return
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || $_SERVER['SERVER_PORT'] == 443;
+        return ($_SERVER["HTTP_HOST"] == "localhost" ? 'http://' : 'https://') . $_SERVER["HTTP_HOST"] . self::$redirect_endpoint;
     }
 }
