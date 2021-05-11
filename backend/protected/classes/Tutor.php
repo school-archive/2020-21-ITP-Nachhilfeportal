@@ -7,6 +7,7 @@ use PDO;
 
 class Tutor extends User
 {
+    private $email;
     private $description;
     private $teaching_method;
 
@@ -27,6 +28,7 @@ class Tutor extends User
     public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $isAdmin = false, $locked = false)
     {
         parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $isAdmin, $locked);
+        $this->email = $email;
         $this->description = $description;
         $this->teaching_method = $teaching_method;
     }
@@ -62,25 +64,45 @@ class Tutor extends User
      * @param $teaching_method
      */
 
-    public function setTeaching_method($teaching_method)
+    public function setTeaching_method()
     {
-        $this->teaching_method = $teaching_method;
+        $s = get_np_mysql_object()->prepare("update tutor set teaching_method = :teaching_method where email = :email");
+        $s->bindValue(':email', $this->email);
+        $s->bindValue(':teaching_method', $this->teaching_method, PDO::PARAM_INT);
+        $s->execute();
     }
+
+    public function setTM_online($bool)
+    {
+        $this->teaching_method &= ~2;
+        if ($bool) $this->teaching_method |= 2;
+        $this->setTeaching_method();
+
+    }
+
+    public function setTM_present($bool)
+    {
+
+        $this->teaching_method &= ~1;
+        if ($bool) $this->teaching_method |= 1;
+
+        $this->setTeaching_method();
+
+    }
+
 
     /**
      * @param $email
      * @return Tutor
      */
 
-    public static function get_Tutor_by_email($email)
+    public static function get_Tutor($email)
     {
         $s = get_np_mysql_object()->prepare("select * from tutor where email = :email");
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
         if (empty($obj['email'])) return false;
-        $tutor = new Tutor($email, $obj['description'], $obj['teaching_method']);
-        $tutor->setDescription($obj['description']);
-        $tutor->setTeaching_method($obj['teaching_method']);
+        $tutor = new Tutor($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked'], $obj['description'], $obj['teaching_method']);
         return $tutor;
     }
 
@@ -105,7 +127,17 @@ class Tutor extends User
 
     public function jsonSerialize()
     {
+
+        $user= User::getUser($this->email);
         return [
+            "first_name" => $user->getFirstName(),
+            "last_name" => $user->getLastName(),
+            "password" => $user->getPassword(),
+            "picture_url" => $user->getPictureUrl(),
+            "grade" => $user->getGrade(),
+            "department" => $this->getDepartment(),
+            "locked" => $this->getLocked(),
+            "isAdmin" => $this->isAdmin(),
             "description" => $this->description,
             "teaching_method" => $this->teaching_method
         ];

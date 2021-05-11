@@ -165,7 +165,7 @@ class User implements JsonSerializable
 
     public function isTutor()
     {
-        return (!Tutor::get_tutor_by_email($this->email)) ? false : true;
+        return (!Tutor::get_tutor($this->email)) ? false : true;
     }
 
     public function setTutor($description, $teaching_method)
