@@ -29,7 +29,13 @@
 import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
 import {faPhoneAlt} from '@fortawesome/free-solid-svg-icons';
 export default {
-  name: "Imprint"
+  name: "Imprint",
+  data() {
+    return {
+      faEnvelope,
+      faPhoneAlt
+    }
+  }
 }
 </script>
 
