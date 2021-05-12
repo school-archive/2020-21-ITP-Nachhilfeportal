@@ -76,7 +76,10 @@
     <section class="section-faq">
       <h3>Frequently Asked Questions</h3>
       <div class="faqs">
-        <faq-tile class="single-faq" v-for="i in [1,2,3,4]" :key="i" :question="`Frage ${i}`" :answer="`Antwort ${i}`"/>
+        <faq-tile class="single-faq" question="Muss ich angemeldet sein?" answer="Um alle Funktionen von Tutorlink verwenden zu können, sollten Sie sich mit Ihrem Schul-Microsoft Konto anmelden."/>
+        <faq-tile class="single-faq" question="Geht es auch außerhalb von der HTL Rennweg?" answer="Zurzeit ist Tutorlink nur für Schüler*innen der HTL Rennweg verfügbar."/>
+        <faq-tile class="single-faq" question="Kann ich Tutor*in sein und gleichzeitig Nachhilfe bekommen?" answer="Um alle Funktionen von Tutorlink verwenden zu können, sollten Sie sich mit Ihrem Schul-Microsoft Konto anmelden."/>
+        <faq-tile class="single-faq" question="Wie werde ich Tutor*in?" answer="Um Tutor*in zu werden müssen Sie einfach auf Ihrer Profilseite bei den Einstellungen ihren „Status“ zu Tutor*in ändern"/>
       </div>
     </section>
 
