@@ -4,12 +4,14 @@ RewriteEngine on
 #RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
 #search
-RewriteRule ^search/?$ protected/endpoints/user/all_users.php?method=filter&%{QUERY_STRING} [NC]
-
+RewriteRule ^search/?$ protected/endpoints/user/all_users.php?action=filter&%{QUERY_STRING} [NC]
 
 #GET all users
 RewriteRule ^users/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
 RewriteRule ^user/(.+)/?$ protected/endpoints/user/user.php?email=$1&%{QUERY_STRING} [NC]
+
+#User
+RewriteRule ^profile/?$ protected/endpoints/user/user.php?%{QUERY_STRING} [NC]
 
 # authentication
 RewriteRule ^auth/login/redirect/?$ protected/endpoints/authentication.php?type=redirect [NC]

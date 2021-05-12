@@ -21,6 +21,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
         AnswerHandler::create_response_and_kill_page(true, $user);
 
+
+        //matthias
+
+
+
+        //ich
         break;
 
     case "DELETE":

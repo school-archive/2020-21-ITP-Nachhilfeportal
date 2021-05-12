@@ -12,8 +12,8 @@ if (! Authentication::is_logged_in())
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
     $user = User::getUser(Authentication::$user_email);
 
-    if(isset($_GET['method'])) {
-        if($_GET['method']==='filter') {
+    if(isset($_GET['action'])) {
+        if($_GET['action']==='filter') {
             AnswerHandler::create_response_and_kill_page(true, $user->filterUser());
         }
     }
