@@ -10,6 +10,9 @@ RewriteRule ^search/?$ protected/endpoints/user/all_users.php?action=filter&%{QU
 RewriteRule ^users/?$ protected/endpoints/user/all_users.php?%{QUERY_STRING} [NC]
 RewriteRule ^user/(.+)/?$ protected/endpoints/user/user.php?email=$1&%{QUERY_STRING} [NC]
 
+#Check if user is tutor
+RewriteRule ^profile/?$ protected/endpoints/user/user.php?action=ifunsettutor&%{QUERY_STRING} [NC]
+
 #User
 RewriteRule ^profile/?$ protected/endpoints/user/user.php?%{QUERY_STRING} [NC]
 
