@@ -30,7 +30,7 @@ class Tutor extends User
         parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $isAdmin, $locked);
         $this->email = $email;
         $this->description = $description;
-        $this->teaching_method = $teaching_method;
+        $this->teaching_method = bindec($teaching_method);
     }
 
     /**
@@ -87,7 +87,6 @@ class Tutor extends User
         if ($bool) $this->teaching_method |= 1;
 
         $this->setTeaching_method();
-
     }
 
 
@@ -127,7 +126,7 @@ class Tutor extends User
     public function jsonSerialize()
     {
 
-        $user= User::getUser($this->email);
+        $user = User::getUser($this->email);
         return [
             "first_name" => $user->getFirstName(),
             "last_name" => $user->getLastName(),
