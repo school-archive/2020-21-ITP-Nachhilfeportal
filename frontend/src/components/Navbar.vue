@@ -17,12 +17,12 @@
     <button class="open-mobile-navbar" @click="open_overlay"><font-awesome-icon :icon="faBars"/></button>
     <div class="mobile-nav-overlay" v-show="overlay_open">
       <div class="mobile-links">
-        <button @click="close_overlay"><font-awesome-icon :icon="faTimes"/></button>
+        <button class="close-nav" @click="close_overlay"><font-awesome-icon :icon="faTimes"/></button>
         <router-link to="/">Home</router-link>
         <router-link to="/search">Tutoren suchen</router-link>
         <router-link to="/aboutus">Über uns</router-link>
-        <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/></a>
-        <a v-if="logged_in" :href="logout_url"><font-awesome-icon :icon="faSignOutAlt"/></a>
+        <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/> {{ auth_data.first_name }} {{ auth_data.last_name }}</a>
+        <a v-if="logged_in" :href="logout_url">Abmelden <font-awesome-icon :icon="faSignOutAlt"/></a>
         <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
       </div>
     </div>
@@ -161,6 +161,16 @@ name: "Navbar",
       right: 0;
     }
 
+    .link-profile {
+      display: flex !important;
+      align-items: center;
+      .profile-img {
+        border-radius: 50%;
+        width: 2rem;
+        margin-right: .5rem;
+      }
+    }
+
     .mobile-links > * {
       display: block;
       padding: .75rem;
@@ -172,6 +182,12 @@ name: "Navbar",
       &:hover:not(.router-link-exact-active) {
         color: white;
       }
+    }
+
+    .mobile-links .close-nav {
+      text-align: end;
+      padding: 1.5rem;
+      padding-bottom: 1rem;
     }
 
     .mobile-links .router-link-exact-active {
