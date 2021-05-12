@@ -259,9 +259,15 @@ class User implements JsonSerializable
         return new Tutor($this->email, $this->first_name, $this->last_name, $this->password, $this->picture_url, $obj['description'], $obj['teaching_method'], $this->grade, $this->department, $this->isAdmin, $this->locked);
     }
 
-    public function addSubject($name, $department, $minGrade = 1)
+    public function addSubject($name)
     {
-
+        $s1 = get_np_mysql_object()->
+        prepare("insert into selected_subject (name, email) 
+        values (:name, :email)");
+        $s1->execute(array(
+            ":email" => $this->email,
+            ":name" => $name
+        ));
     }
 
     public function deleteSubject($name)

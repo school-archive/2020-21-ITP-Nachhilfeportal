@@ -125,19 +125,10 @@ class Subject implements JsonSerializable
     }
 
     //department = string (example: '001')
-    public static function createSubject($email, $name, $department, $minGrade = 1)
+    public static function createSubject($name, $department, $minGrade = 1)
     {
-        //TODO nicht selected_subjects anlegen, wird in User Klasse gemacht
         $subject = self::getSubject($name);
         if($subject) return false;
-
-        $s1 = get_np_mysql_object()->
-        prepare("insert into selected_subject (name, email) 
-        values (:name, :email)");
-        $s1->execute(array(
-            ":email" => $email,
-            ":name" => $name
-        ));
 
         $s2 = get_np_mysql_object()->
         prepare("insert into subject (name, department, minGrade, fk_name) 

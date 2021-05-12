@@ -24,8 +24,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
 
 
-        //matthias
-
         if (isset($_GET['action'])) {
             if (!Authentication::is_logged_in())
                 AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
