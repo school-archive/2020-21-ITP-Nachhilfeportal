@@ -10,7 +10,7 @@ use function PHPUnit\Framework\throwException;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-class Calender
+class Calender extends User
 {
     private $time_from;
     private $time_to;
@@ -81,15 +81,6 @@ class Calender
         $s->execute(array(":calender_id" => $id));
     }
 
-
-    public function timeonDay($weekday)
-    {
-        $s = get_np_mysql_object()->prepare("select time_from from calender_free where weekday = :weekday");
-        $s->execute(array(":email" => $this->email));
-        $obj = $s->fetch();
-        return new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']);
-    }
-
     public static function ValidTime($time_from, $time_to)
     {
         if ($time_from >= $time_to) {
@@ -148,5 +139,14 @@ class Calender
         return 'weekday = ' . $this->weekday .
             ' time_from = ' . $this->time_from .
             ' time_to = ' . $this->time_to;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "weekday" => $this->weekday,
+            "time_from" => $this->time_from,
+            "time_to" => $this->time_to
+        ];
     }
 }

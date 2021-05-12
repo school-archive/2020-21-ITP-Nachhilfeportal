@@ -399,6 +399,7 @@ class User implements JsonSerializable
 
     public function jsonSerialize()
     {
+        $this->calender=$this->getAllCalendersFromUser($this->email);
         return [
             "email" => $this->email,
             "first_name" => $this->first_name,
@@ -407,7 +408,8 @@ class User implements JsonSerializable
             "grade" => $this->grade,
             "department" => $this->department,
             "isAdmin" => $this->isAdmin,
-            "locked" => $this->locked
+            "locked" => $this->locked,
+            "calender"=>$this->calender
         ];
     }
 }
