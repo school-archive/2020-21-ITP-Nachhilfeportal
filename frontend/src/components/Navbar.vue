@@ -114,9 +114,13 @@ name: "Navbar",
 
   .navbar .links {
     overflow: auto;
+    display: flex;
     .link-profile {
       padding: 8px;
       line-height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img {
         border-radius: 50%;
         width: 2rem;

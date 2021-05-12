@@ -41,7 +41,36 @@
     </section>
 
     <section class="section-text">
-      Wie funktioniert es?
+      <div class="section-text-left">
+        <div class="text">
+          <h3>Wie funktioniert es?</h3>
+          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+            accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+            no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </div>
+        <img src="@/assets/images/dataprivacy.jpg"/>
+      </div>
+      <div class="section-text-right">
+        <div class="text">
+          <h3>Wie funktioniert es?</h3>
+          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+            accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+            no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </div>
+        <img src="@/assets/images/dataprivacy.jpg"/>
+      </div>
     </section>
 
     <section class="section-faq">
@@ -83,7 +112,8 @@ export default {
 
   .section-landing-page {
     height: calc(100vh - 50px);
-    background-image: url("~@/assets/images/pexels-element-digital-1370295.jpg");
+    background-image: url("~@/assets/images/pexels-pixabay-267586.jpg");
+    background-position: center;
     background-size: cover;
 
     .title {
@@ -116,6 +146,7 @@ export default {
 
   .section-faq {
     margin-bottom: 3rem;
+    margin-top: 4rem;
 
     h3 {
       text-align: center;
@@ -178,6 +209,31 @@ export default {
       color: #fff;
       cursor: pointer;
       border-radius: 999px;
+    }
+  }
+
+  .section-text > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .text, img {
+      width: max(min(90%, 30rem), 50%);
+      box-sizing: border-box;
+    }
+
+    .text {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .section-text {
+    .section-text-right {
+      flex-direction: row-reverse;
     }
   }
 
