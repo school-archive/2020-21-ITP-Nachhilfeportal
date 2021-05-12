@@ -112,7 +112,7 @@ class Tutor extends User
      * @param $teaching_method
      * @return Tutor
      */
-    public static function create_tutor($email, $description, $teaching_method)
+    public function create_tutor($email, $description, $teaching_method)
     {
         $s = get_np_mysql_object()->
         prepare("insert into tutor (email, description, teaching_method) 
@@ -121,7 +121,6 @@ class Tutor extends User
         $s->bindValue(':description', $description);
         $s->bindValue(':teaching_method', $teaching_method);
         $s->execute();
-        return 0;
     }
 
 
