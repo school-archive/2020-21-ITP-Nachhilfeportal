@@ -133,9 +133,9 @@ class Tutor extends User
             "password" => $user->getPassword(),
             "picture_url" => $user->getPictureUrl(),
             "grade" => $user->getGrade(),
-            "department" => $this->getDepartment(),
-            "locked" => $this->getLocked(),
-            "isAdmin" => $this->isAdmin(),
+            "department" => $user->getDepartment(),
+            "locked" => $user->getLocked(),
+            "isAdmin" => $user->isAdmin(),
             "description" => $this->description,
             "teaching_method" => $this->teaching_method
         ];

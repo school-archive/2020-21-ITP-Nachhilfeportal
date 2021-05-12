@@ -398,6 +398,8 @@ class User implements JsonSerializable
             "first_name" => $this->first_name,
             "last_name" => $this->last_name,
             "picture_url" => $this->picture_url,
+            "grade" => $this->grade,
+            "department" => $this->department,
             "isAdmin" => $this->isAdmin,
             "locked" => $this->locked
         ];
