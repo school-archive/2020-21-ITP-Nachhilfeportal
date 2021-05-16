@@ -105,6 +105,12 @@ class Tutor extends User
         return $tutor;
     }
 
+    public function delete_tutor()
+    {
+        $s = get_np_mysql_object()->prepare("delete from tutor where email = :email");
+        $s->execute(array(":email" => $this->email));
+    }
+
     /**
      * @param $email
      * @param $description
