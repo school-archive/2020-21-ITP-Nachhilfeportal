@@ -125,7 +125,7 @@ class Calender extends User
         return $this->time_to;
     }
 
-    public function toString()
+    public function __toString()
     {
         return 'weekday = ' . $this->weekday .
             ' time_from = ' . $this->time_from .

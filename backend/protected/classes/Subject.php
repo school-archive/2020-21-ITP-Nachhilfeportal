@@ -196,7 +196,7 @@ class Subject implements JsonSerializable
         return $subjects;
     }
 
-    public function toString()
+    public function __toString()
     {
         return 'name = ' . $this->getName() .
             ' department = ' . $this->getDepartment() .
