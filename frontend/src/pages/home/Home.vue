@@ -47,7 +47,7 @@
             Danach haben Sie die Möglichkeit Ihr individuelles Profil zu erstellen,
             bei welchem Sie Eigenschaften wie zum Beispiel: Profilbild, Name, Abteilung, Klasse etc. angeben können.
             Nachdem Sie das erledigt haben, können Sie nun die Hauptfunktion unserer Webseite nutzen, nämlich eine/n passende/n Tutor/in suchen.
-            Um dies zu tun, haben Sie die Möglichkeit mittels spezifischer Filterung nach Tutoren/Tutorinnen zu filtern und anschließend,
+            Um dies zu tun, haben Sie die Möglichkeit mittels spezifischer Filter nach Tutoren/Tutorinnen zu suchen und anschließend,
             nach betätigen des Suchen Buttons, diese auszuwählen.
           </p>
         </div>
