@@ -35,7 +35,7 @@
             :options="['Online', 'Vor Ort']"
         />
         <div>
-          <button class="btn-search">Jetzt Suchen</button>
+          <button class="btn-search">Suchen</button>
         </div>
       </div>
     </section>
@@ -54,7 +54,7 @@
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
             no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
         </div>
-        <img src="@/assets/images/dataprivacy.jpg"/>
+        <img src="@/assets/images/work-731198_1920.jpg"/>
       </div>
       <div class="section-text-right">
         <div class="text">
@@ -69,7 +69,7 @@
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
             no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
         </div>
-        <img src="@/assets/images/dataprivacy.jpg"/>
+        <img src="@/assets/images/green-chameleon-s9CC2SKySJM-unsplash.jpg" alt="bild"/>
       </div>
     </section>
 
@@ -115,7 +115,7 @@ export default {
 
   .section-landing-page {
     height: calc(100vh - 50px);
-    background-image: url("~@/assets/images/pexels-pixabay-267586.jpg");
+    background-image: url("~@/assets/images/Startseite.png");
     background-position: center;
     background-size: cover;
 
@@ -126,7 +126,7 @@ export default {
       align-items: center;
       flex-wrap: wrap;
       .logo {
-        width: 12rem;
+        width: 15rem;
         margin: 2rem;
         margin-top:    .125rem;
         margin-bottom: .125rem;
@@ -137,12 +137,13 @@ export default {
       }
       h1 {
         display: inline-block;
-        font-size: 4rem;
+        font-size: 6rem;
         color: white;
         margin-left: 2rem;
         margin-right: 2rem;
         margin-top: 0;
         margin-bottom: 0;
+        letter-spacing: 2px;
       }
     }
   }
@@ -212,25 +213,32 @@ export default {
       color: #fff;
       cursor: pointer;
       border-radius: 999px;
+      font-size: 18px;
+      height: 34px;
+      width: 100px;
     }
   }
 
   .section-text > div {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+
 
     .text, img {
       width: max(min(90%, 30rem), 50%);
       box-sizing: border-box;
     }
 
+    h3{
+      color: colors.$secondary;
+      font-size: 30px;
+    }
+
     .text {
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      font-size: 20px;
     }
   }
 
