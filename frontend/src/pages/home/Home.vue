@@ -13,15 +13,15 @@
     <section class="section-searchbar">
       <div class="searchbar-wrapper">
         <v-select id="search-department"
-            placeholder="Abteilung"
-            label="title"
+                  placeholder="Abteilung"
+                  label="title"
                   :multiple="true"
-            :options="departments"
+                  :options="departments"
         />
         <v-select id="search-fach"
-            placeholder="Fach"
-            label="title"
-            :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
+                  placeholder="Fach"
+                  label="title"
+                  :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
         />
         <div class="search-select-grade">
           <span class="grade-desc"><span v-show="selected_grade[0] === selected_grade[1]">nur</span> {{ selected_grade[0] }}. Klasse <span v-show="selected_grade[0] !== selected_grade[1]">- {{ selected_grade[1] }}. Klasse</span></span>
@@ -29,10 +29,10 @@
                       v-model="selected_grade" :tooltip="'none'"/>
         </div>
         <v-select id="search-teaching-method"
-            placeholder="Methode"
-            multiple=""
-            label="title"
-            :options="['Online', 'Vor Ort']"
+                  placeholder="Methode"
+                  multiple=""
+                  label="title"
+                  :options="['Online', 'Vor Ort']"
         />
         <div>
           <button class="btn-search">Suchen</button>
@@ -74,7 +74,7 @@
     </section>
 
     <section class="section-faq">
-      <h3>Frequently Asked Questions</h3>
+      <h3>Häufig gestellte Fragen</h3>
       <div class="faqs">
         <faq-tile class="single-faq" question="Muss ich angemeldet sein?" answer="Um alle Funktionen von Tutorlink verwenden zu können, sollten Sie sich mit Ihrem Schul-Microsoft Konto anmelden."/>
         <faq-tile class="single-faq" question="Geht es auch außerhalb von der HTL Rennweg?" answer="Zurzeit ist Tutorlink nur für Schüler*innen der HTL Rennweg verfügbar."/>
@@ -100,9 +100,9 @@ export default {
   data() {
     return {
       departments: [
-          "Informationstechnologie",
-          "Mechatronik",
-          "Fachschule"
+        "Informationstechnologie",
+        "Mechatronik",
+        "Fachschule"
       ],
       selected_grade: [1, 5],
     }
@@ -111,142 +111,142 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @use "src/assets/styles/colors";
+@use "src/assets/styles/colors";
 
-  .section-landing-page {
-    height: calc(100vh - 50px);
-    background-image: url("~@/assets/images/Startseite.png");
-    background-position: center;
-    background-size: cover;
+.section-landing-page {
+  height: calc(100vh - 50px);
+  background-image: url("~@/assets/images/Startseite.png");
+  background-position: center;
+  background-size: cover;
 
-    .title {
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      .logo {
-        width: 15rem;
-        margin: 2rem;
-        margin-top:    .125rem;
-        margin-bottom: .125rem;
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      }
-      h1 {
-        display: inline-block;
-        font-size: 6rem;
-        color: white;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        margin-top: 0;
-        margin-bottom: 0;
-        letter-spacing: 2px;
-      }
-    }
-  }
-
-  .section-faq {
-    margin-bottom: 3rem;
-    margin-top: 4rem;
-
-    h3 {
-      text-align: center;
-    }
-
-    .faqs {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .single-faq {
-        margin-top: .1rem;
-      }
-    }
-  }
-
-  .section-searchbar {
+  .title {
     display: flex;
+    height: 100%;
     justify-content: center;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-
-    .searchbar-wrapper {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 80rem;
-      max-width: 90%;
-
-      & > div {
-        margin: .5rem;
-      }
-    }
-
-    #search-department {
-      width: 18rem;
-    }
-    #search-fach {
-      width: 15rem;
-    }
-    .search-select-grade {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .slider {
-        width: 15rem;
-      }
-    }
-    #search-teaching-method {
-      width: 15rem;
-    }
-
-    .btn-search {
-      background-color: colors.$primary;
-      border-color: transparent;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 999px;
-      font-size: 18px;
-      height: 34px;
-      width: 100px;
-    }
-  }
-
-  .section-text > div {
-    display: flex;
+    align-items: center;
     flex-wrap: wrap;
-
-
-    .text, img {
-      width: max(min(90%, 30rem), 50%);
-      box-sizing: border-box;
+    .logo {
+      width: 15rem;
+      margin: 2rem;
+      margin-top:    .125rem;
+      margin-bottom: .125rem;
+      img {
+        height: 100%;
+        width: 100%;
+      }
     }
-
-    h3{
-      color: colors.$secondary;
-      font-size: 30px;
+    h1 {
+      display: inline-block;
+      font-size: 6rem;
+      color: white;
+      margin-left: 2rem;
+      margin-right: 2rem;
+      margin-top: 0;
+      margin-bottom: 0;
+      letter-spacing: 2px;
     }
+  }
+}
 
-    .text {
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      font-size: 20px;
+.section-faq {
+  margin-bottom: 3rem;
+  margin-top: 4rem;
+
+  h3 {
+    text-align: center;
+  }
+
+  .faqs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .single-faq {
+      margin-top: .1rem;
+    }
+  }
+}
+
+.section-searchbar {
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  .searchbar-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80rem;
+    max-width: 90%;
+
+    & > div {
+      margin: .5rem;
     }
   }
 
-  .section-text {
-    .section-text-right {
-      flex-direction: row-reverse;
+  #search-department {
+    width: 18rem;
+  }
+  #search-fach {
+    width: 15rem;
+  }
+  .search-select-grade {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .slider {
+      width: 15rem;
     }
   }
+  #search-teaching-method {
+    width: 15rem;
+  }
+
+  .btn-search {
+    background-color: colors.$primary;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 999px;
+    font-size: 18px;
+    height: 34px;
+    width: 100px;
+  }
+}
+
+.section-text > div {
+  display: flex;
+  flex-wrap: wrap;
+
+
+  .text, img {
+    width: max(min(90%, 30rem), 50%);
+    box-sizing: border-box;
+  }
+
+  h3{
+    color: colors.$secondary;
+    font-size: 30px;
+  }
+
+  .text {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+  }
+}
+
+.section-text {
+  .section-text-right {
+    flex-direction: row-reverse;
+  }
+}
 
 </style>
 

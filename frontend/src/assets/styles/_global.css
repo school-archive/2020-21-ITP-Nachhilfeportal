@@ -10,7 +10,7 @@ html, body {
 a {
     text-decoration: none;
     color: rgba(255, 255, 255, .8);
-    border-bottom: 2px dotted rgba(255, 255, 255, .5);
+    /*border-bottom: 2px dotted rgba(255, 255, 255, .5);*/
     padding: .2rem 0;
     transition: all .2s;
 }

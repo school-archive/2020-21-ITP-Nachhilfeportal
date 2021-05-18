@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/images/Imprint.png" alt="imprint" height="300px" width="100%">
+    <img src="@/assets/images/Imprint.png" alt="imprint" class="crop-center">
     <div>
       <p class="u1">Impressum</p>
     </div>
@@ -11,13 +11,13 @@
       <br>
       <br>
       Kontakt:<br>
-      <span><font-awesome-icon :icon="faEnvelope"/> tutorlink.project@gmail.com</span><br>
-      <span><font-awesome-icon :icon="faPhoneAlt"/> +43 650 9879007</span><br>
+      <span><font-awesome-icon :icon="faEnvelope"/> <a href="mailto:tutorlink.project@gmail.com">tutorlink.project@gmail.com</a></span><br>
+      <span><font-awesome-icon :icon="faPhoneAlt"/> <a href="tel:+43 650 9879007">+43 650 9879007</a></span><br>
       <br>
     </div>
     <div class="rennweg">
       Schulstandort:<br>
-      <img src="@/assets/images/htlw3r_logo.png" alt="htlw3r"><br>
+      <a href="https://www.htlrennweg.at/"><img src="@/assets/images/htlw3r_logo.png" alt="htlw3r"><br></a>
       HTL Wien 3 Rennweg<br>
       Rennweg 89B<br>
       1030 Wien<br>
@@ -66,6 +66,12 @@ img.crop-center {
   color: colors.$fourth;
   margin-right: 150px;
 }
+img.crop-center{
+  height: 250px;
+  width: 100% !important;
+  object-fit: cover;
+  object-position: top center;
+}
 
 .rennweg {
   font-family: dinosaur, sans-serif;
@@ -77,6 +83,11 @@ img.crop-center {
 }
 .rennweg img {
   width: 300px;
+}
+
+a {
+  text-decoration: none;
+  color: colors.$fourth;
 }
 @media (max-width: 576px) {
 

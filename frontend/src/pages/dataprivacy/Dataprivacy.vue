@@ -27,8 +27,7 @@
       <p>Verantwortlicher Anbieter dieses Internetauftritts im datenschutzrechtlichen Sinne ist:</p>
       <p><span style="color: #ff0000;">Tutorlink Project<br>Rennweg 89B<br>1030 Wien <br>Österreich</span>
       </p>
-      <p><span
-          style="color: #ff0000;">Telefon: +43 650 9879007<br>E-Mail: tutorlink.project@gmail.com</span>
+      <p><span><a href="tel:+43 650 9879007">Telefon: +43 650 9879007</a><br><a href="mailto:tutorlink.project@gmail.com">E-Mail: tutorlink.project@gmail.com</a></span>
       </p>
       <h3>II. Rechte der Nutzer und Betroffenen</h3>
       <p>Mit Blick auf die nachfolgend noch näher beschriebene Datenverarbeitung haben die Nutzer und Betroffenen das
@@ -262,6 +261,12 @@ img.crop-center {
 }
 a{
   color: colors.$fourth;
+}
+span{
+  color: colors.$primary;
+  a{
+    color: colors.$primary;
+  }
 }
 
 </style>
