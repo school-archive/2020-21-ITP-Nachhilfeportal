@@ -33,31 +33,6 @@ class Calender extends User
 
     }
 
-    public static function array_sort($array, $on)
-    {
-        $new_array = array();
-        $sortable_array = array();
-
-        if (count($array) > 0) {
-            foreach ($array as $k => $v) {
-                if (is_array($v)) {
-                    foreach ($v as $k2 => $v2) {
-                        if ($k2 == $on) {
-                            $sortable_array[$k] = $v2;
-                        }
-                    }
-                } else {
-                    $sortable_array[$k] = $v;
-                }
-            }
-            asort($sortable_array);
-            foreach ($sortable_array as $k => $v) {
-                $new_array[$k] = $array[$k];
-            }
-        }
-        return $new_array;
-    }
-
     public static function createCalender($email, $time_from, $time_to, $weekday)
     {
         if (Calender::ValidTime($time_from, $time_to) == true) {
