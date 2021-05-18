@@ -59,6 +59,26 @@ switch ($_SERVER['REQUEST_METHOD']) {
         AnswerHandler::create_response_and_kill_page(true, $return);
         break;
 
+    case "PUT":
+        $user = User::getUser(Authentication::$user_email);
+        if (!$user->isAdmin())
+            AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
+
+        if(isset($_GET['locked'])) {
+            if(isset($_GET['email'])) {
+                $user_locked = User::getUser($_GET['email']);
+                $locked = ($_GET['locked']) ? 1 : 0;
+                $user_locked->setLocked($locked);
+                if($user_locked->getLocked()===$locked) {
+                    AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
+                }
+                else {
+                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+                }
+            }
+        }
+        break;
+
     case "DELETE":
         if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);

@@ -36,7 +36,7 @@ class User implements JsonSerializable
      * @param bool $locked
      * @param array $calender
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $calender = [], $subjects = [], $grade = null, $department = null, $isAdmin = false, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $calender = [], $subjects = [], $grade = null, $department = null, $isAdmin = 0, $locked = 0)
     {
         $this->email = $email;
         $this->first_name = $first_name;
@@ -179,15 +179,11 @@ class User implements JsonSerializable
     public function addCalender($email, $time_from, $time_to, $weekday)
     {
         Calender::createCalender($email, $time_from, $time_to, $weekday);
-
-        $this->calender = $this->getAllCalendersFromUser();
-
     }
 
     public function removeCalender($id)
     {
         Calender::removeCalender($id);
-        $this->calender = $this->getAllCalendersFromUser();
     }
 
     public function removeAllCalenderFromUser($email)
@@ -403,7 +399,7 @@ class User implements JsonSerializable
 
     public function jsonSerialize()
     {
-        $this->calender = $this->getAllCalendersFromUser();
+        $this->calender=$this->getAllCalendersFromUser();
         return [
             "email" => $this->email,
             "first_name" => $this->first_name,
@@ -413,7 +409,7 @@ class User implements JsonSerializable
             "department" => $this->department,
             "isAdmin" => $this->isAdmin,
             "locked" => $this->locked,
-            "calender" => $this->calender
+            "calender"=>$this->calender
         ];
     }
 }
