@@ -252,11 +252,16 @@ img.crop-center {
 
 .text {
   font-family: dinosaur, sans-serif;
-  font-weight: 200;
+  font-weight: 150;
   font-style: initial;
-  font-size: 25px;
+  font-size: 28px;
   padding-left: 200px;
   padding-right: 200px;
+  letter-spacing: 2px;
+  color: colors.$fourth;
+}
+a{
+  color: colors.$fourth;
 }
 
 </style>
