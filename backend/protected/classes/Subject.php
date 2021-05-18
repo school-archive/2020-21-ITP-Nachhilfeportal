@@ -2,8 +2,11 @@
 
 
 namespace classes;
+
+use http\Exception\InvalidArgumentException;
 use JsonSerializable;
 use PDO;
+use function PHPUnit\Framework\throwException;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -40,7 +43,7 @@ class Subject implements JsonSerializable
      */
     public function setName($name): void
     {
-        if($name !== $this->name) {
+        if ($name !== $this->name) {
             $s = get_np_mysql_object()->prepare("update subject set name = :name where name = :lastname");
             $s->execute(array(
                 ":name" => $name,
@@ -55,8 +58,48 @@ class Subject implements JsonSerializable
      */
     public function getDepartment()
     {
-        //TODO return array [ME=>true...]
-        return $this->department;
+        switch ($this->department) {
+            case 1:
+                $values = array(
+                    "ME" => false,
+                    "IT" => false,
+                    "FS" => true);
+                break;
+            case 2:
+                $values = array(
+                    "ME" => false,
+                    "IT" => true,
+                    "FS" => false);
+                break;
+            case 4:
+                $values = array(
+                    "ME" => true,
+                    "IT" => false,
+                    "FS" => false);
+                break;
+            case 5:
+                $values = array(
+                    "ME" => true,
+                    "IT" => false,
+                    "FS" => true);
+                break;
+            case 6:
+                $values = array(
+                    "ME" => true,
+                    "IT" => true,
+                    "FS" => false);
+                break;
+            case 7:
+                $values = array(
+                    "ME" => true,
+                    "IT" => true,
+                    "FS" => true);
+                break;
+            default:
+                return false;
+        }
+
+        return $values;
     }
 
     function setDepartment(): void
@@ -70,7 +113,7 @@ class Subject implements JsonSerializable
     public function setME($bool)
     {
         $this->department &= ~4;
-        if($bool) $this->department |= 4;
+        if ($bool) $this->department |= 4;
 
         $this->setDepartment();
     }
@@ -79,7 +122,7 @@ class Subject implements JsonSerializable
     public function setIT($bool)
     {
         $this->department &= ~2;
-        if($bool) $this->department |= 2;
+        if ($bool) $this->department |= 2;
 
         $this->setDepartment();
     }
@@ -87,7 +130,7 @@ class Subject implements JsonSerializable
     public function setFS($bool)
     {
         $this->department &= ~1;
-        if($bool) $this->department |= 1;
+        if ($bool) $this->department |= 1;
 
         $this->setDepartment();
     }
@@ -105,7 +148,7 @@ class Subject implements JsonSerializable
      */
     public function setMinGrade(int $minGrade): void
     {
-        if($minGrade !== $this->minGrade) {
+        if ($minGrade !== $this->minGrade) {
             $s = get_np_mysql_object()->prepare("update subject set minGrade = :minGrade where name = :name");
             $s->execute(array(
                 ":name" => $this->name,
@@ -128,7 +171,7 @@ class Subject implements JsonSerializable
     public static function createSubject($name, $department, $minGrade = 1)
     {
         $subject = self::getSubject($name);
-        if($subject) return false;
+        if ($subject) return false;
 
         $s2 = get_np_mysql_object()->
         prepare("insert into subject (name, department, minGrade, fk_name) 
@@ -148,7 +191,7 @@ class Subject implements JsonSerializable
         $s->execute(array(":name" => $this->name));
     }
 
-    public static function get_subjects($count, $offset=0)
+    public static function get_subjects($count, $offset = 0)
     {
         $s = get_np_mysql_object()->prepare("select * from subject limit :count offset :offset");
         $s->execute(array(
