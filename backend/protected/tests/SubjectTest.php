@@ -14,7 +14,7 @@ class SubjectTest extends TestCase
 
     public function testCreateSubject()
     {
-        $subject = Subject::createSubject('email15@htl.rennweg.at', 'Medt', '000', 3);
+        $subject = Subject::createSubject('Medt', '000', 3);
 
         $this->assertInstanceOf(
             Subject::class,

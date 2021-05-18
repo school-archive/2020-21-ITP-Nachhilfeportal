@@ -125,15 +125,6 @@ class Calender extends User
         return $this->time_to;
     }
 
-    public function toArray()
-    {
-        return array(
-            'weekday' => $this->weekday,
-            'time_from' => $this->time_from,
-            'time_to' => $this->time_to
-        );
-    }
-
     public function toString()
     {
         return 'weekday = ' . $this->weekday .

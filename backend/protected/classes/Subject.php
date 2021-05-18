@@ -158,24 +158,15 @@ class Subject implements JsonSerializable
         }
     }
 
-    public static function getSubject($name)
-    {
-        $s = get_np_mysql_object()->prepare("select * from subject where name = :name");
-        $s->execute(array(":name" => $name));
-        $obj = $s->fetch();
-        if (empty($obj['name'])) return false;
-        return new Subject($name, decbin($obj['department']), $obj['minGrade']);
-    }
-
     //department = string (example: '001')
     public static function createSubject($name, $department, $minGrade = 1)
     {
-        $subject = self::getSubject($name);
+        $subject = User::getSubject($name);
         if ($subject) return false;
 
         $s2 = get_np_mysql_object()->
-        prepare("insert into subject (name, department, minGrade, fk_name) 
-        values (:name, :department, :minGrade, :name)");
+        prepare("insert into subject (name, department, minGrade ) 
+        values (:name, :department, :minGrade)");
         $s2->bindValue(':name', $name);
         $s2->bindValue(':department', bindec($department), PDO::PARAM_INT);
         $s2->bindValue(':minGrade', $minGrade);
@@ -203,6 +194,13 @@ class Subject implements JsonSerializable
         foreach ($objs as $obj)
             array_push($users, new Subject($obj["name"], $obj['department'], $obj['minGrade']));
         return $subjects;
+    }
+
+    public function toString()
+    {
+        return 'name = ' . $this->getName() .
+            ' department = ' . $this->getDepartment() .
+            ' minGrade = ' . $this->getMinGrade();
     }
 
 
