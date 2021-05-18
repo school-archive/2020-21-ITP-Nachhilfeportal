@@ -207,9 +207,9 @@ class Subject implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            "name" => $this->name,
-            "department" => $this->department,
-            "minGrade" => $this->minGrade
+            "name" => $this->getName(),
+            "department" => $this->getDepartment(),
+            "minGrade" => $this->getMinGrade()
         ];
     }
 

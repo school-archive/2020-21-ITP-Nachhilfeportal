@@ -102,17 +102,17 @@ class Calender extends User
 
     public function __toString()
     {
-        return 'weekday = ' . $this->weekday .
-            ' time_from = ' . $this->time_from .
-            ' time_to = ' . $this->time_to;
+        return 'weekday = ' . $this->getWeekday() .
+            ' time_from = ' . $this->gettime_from() .
+            ' time_to = ' . $this->gettime_to();
     }
 
     public function jsonSerialize()
     {
         return [
-            "weekday" => $this->weekday,
-            "time_from" => $this->time_from,
-            "time_to" => $this->time_to
+            "weekday" => $this->getWeekday(),
+            "time_from" => $this->gettime_from(),
+            "time_to" => $this->gettime_to()
         ];
     }
 }
