@@ -48,7 +48,6 @@ img.crop-center {
   object-fit: cover;
   object-position: top center;
 }
-
 .u1 {
   font-family: dinosaur, sans-serif;
   font-weight: 200;
@@ -59,6 +58,123 @@ img.crop-center {
   letter-spacing: 2.5px;
   color: colors.$fourth;
 }
+.tutorlink {
+  font-family: dinosaur, sans-serif;
+  font-weight: 50;
+  font-style: initial;
+  letter-spacing: 2.5px;
+  color: colors.$fourth;
+  margin-right: 150px;
+}
 
+.rennweg {
+  font-family: dinosaur, sans-serif;
+  font-weight: 50;
+  font-style: initial;
+  letter-spacing: 2.5px;
+  color: colors.$fourth;
+  margin-bottom: 150px;
+}
+.rennweg img {
+  width: 300px;
+}
+@media (max-width: 576px) {
+
+  .tutorlink {
+    font-size: 25px;
+    padding-left: 2.5em;
+    padding-top: 1.5em;
+    margin-bottom: 80px;
+  }
+
+  .rennweg {
+    font-size: 25px;
+    padding-top: 1.5em;
+    padding-left: 2.5em;
+    letter-spacing: 2.5px;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+  .tutorlink {
+    font-size: 28px;
+    padding-left: 6em;
+    padding-top: 1.5em;
+    float: left;
+    margin-right: 150px;
+    margin-bottom: 150px;
+  }
+
+  .rennweg {
+    font-size: 28px;
+    padding-top: 1.5em;
+    padding-left: 6em;
+    margin-bottom: 150px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .tutorlink {
+    font-size: 28px;
+    padding-left: 6em;
+    padding-top: 1.5em;
+    float: left;
+    margin-right: 150px;
+    margin-bottom: 150px;
+  }
+
+  .rennweg {
+    font-size: 28px;
+    padding-top: 1.5em;
+    padding-left: 6em;
+    margin-bottom: 150px;
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .tutorlink {
+    font-size: 28px;
+    padding-left: 6em;
+    padding-top: 1.5em;
+    float: left;
+    margin-right: 150px;
+    margin-bottom: 150px;
+  }
+
+  .rennweg {
+    font-size: 28px;
+    padding-top: 1.5em;
+    padding-left: 6em;
+    margin-bottom: 150px;
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+  .tutorlink {
+    font-size: 28px;
+    padding-left: 6em;
+    padding-top: 1.5em;
+    float: left;
+    margin-right: 150px;
+    margin-bottom: 150px;
+  }
+
+  .rennweg {
+    font-size: 28px;
+    padding-top: 1.5em;
+    padding-left: 6em;
+    margin-bottom: 150px;
+  }
+}
 
 </style>
