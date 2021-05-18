@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section class="section-landing-page">
       <div class="title">
         <div class="logo">
@@ -44,30 +43,25 @@
       <div class="section-text-left">
         <div class="text">
           <h3>Wie funktioniert es?</h3>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-            accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          <p>Um unsere Webseite benutzen zu können, ist es wichtig sich anzumelden.
+            Danach haben Sie die Möglichkeit Ihr individuelles Profil zu erstellen,
+            bei welchem Sie Eigenschaften wie zum Beispiel: Profilbild, Name, Abteilung, Klasse etc. angeben können.
+            Nachdem Sie das erledigt haben, können Sie nun die Hauptfunktion unserer Webseite nutzen, nämlich eine/n passende/n Tutor/in suchen.
+            Um dies zu tun, haben Sie die Möglichkeit mittels spezifischer Filterung nach Tutoren/Tutorinnen zu filtern und anschließend,
+            nach betätigen des Suchen Buttons, diese auszuwählen.
+          </p>
         </div>
         <img src="@/assets/images/work-731198_1920.jpg"/>
       </div>
       <div class="section-text-right">
         <div class="text">
-          <h3>Wie funktioniert es?</h3>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-            accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          <h3>Was bietet Tutorlink?</h3>
+          <p>Nachhilfe ist heutzutage an Schulen ein wichtiges Thema, deshalb bieten wir Schüler*innen und Tutoren/Tutorinnen
+            eine schnelle und effiziente Möglichkeit Nachhilfe innerhalb der Schule zu finden.
+            Tutorlink soll die Organisation und Vermittlung der Nachhilfe verbessern und eine einfach zu bedienende digitale Alternative darstellen.
+            Das Ziel unseres Nachhilfeportals ist es, allen Schüler*innen jeglichen Jahrganges eine passende Nachhilfe zu finden.
+            Sie haben die Möglichkeit eine/n passende/n Tutor/in nach Jahrgang und benötigtem Fach auszuwählen.
+            Zusätzlich kann man auch nach Tutoren*innen einer andern Abteilung suchen. </p>
         </div>
         <img src="@/assets/images/green-chameleon-s9CC2SKySJM-unsplash.jpg" alt="bild"/>
       </div>
@@ -87,6 +81,7 @@
 </template>
 
 <script>
+
 import FaqTile from "@/pages/home/FaqTile";
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/antd.css'
@@ -302,4 +297,66 @@ export default {
 .vue-slider:hover .vue-slider-dot-handle:hover {
   border-color: rgba(colors.$primary, .9);
 }
+
+body {
+  font: 14px/2 "Open sans",sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 20px;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  background: transparent;
+  border: 1px solid #e1e1e1;
+  font: 12px/1.2 "Oswald", sans-serif;
+  letter-spacing: 0.4em;
+  text-align: center;
+  text-indent: 2px;
+  text-transform: uppercase;
+  transition: color 0.1s linear 0.05s;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e1e1e1;
+    z-index: 1;
+    opacity: 0;
+    transition: height 0.2s ease, top 0.2s ease, opacity 0s linear 0.2s;
+  }
+
+  &::after {
+    transition:border 0.1s linear 0.05s;
+  }
+
+  .btn-inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover {
+    color: #373737;
+    transition: color 0.1s linear 0s;
+
+    &::before {
+      top: 0;
+      height: 100%;
+      opacity: 1;
+      transition: height 0.2s ease, top 0.2s ease, opacity 0s linear 0s;
+    }
+
+    &::after {
+      border-color: #373737;
+      transition:border 0.1s linear 0s;
+    }
+  }
+}
+
 </style>
