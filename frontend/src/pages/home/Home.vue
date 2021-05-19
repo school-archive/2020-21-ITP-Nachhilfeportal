@@ -101,6 +101,12 @@ export default {
       ],
       selected_grade: [1, 5],
     }
+  },
+  metaInfo: {
+    title: "Home",
+    meta: [
+
+    ]
   }
 }
 </script>

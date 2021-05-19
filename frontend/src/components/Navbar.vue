@@ -10,7 +10,7 @@
       <router-link to="/">Home</router-link>
       <router-link to="/search">Tutoren suchen</router-link>
       <router-link to="/aboutus">Über uns</router-link>
-      <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/></a>
+      <a v-if="logged_in" class="link-profile" :href="profile_url"><img class="profile-img" :src="picture_url"/></a>
       <a v-if="logged_in" :href="logout_url"><font-awesome-icon :icon="faSignOutAlt"/></a>
       <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
     </div>
@@ -21,7 +21,7 @@
         <router-link to="/">Home</router-link>
         <router-link to="/search">Tutoren suchen</router-link>
         <router-link to="/aboutus">Über uns</router-link>
-        <a v-if="logged_in" class="link-profile"><img class="profile-img" :src="picture_url"/> {{ auth_data.first_name }} {{ auth_data.last_name }}</a>
+        <a v-if="logged_in" class="link-profile" :href="profile_url"><img class="profile-img" :src="picture_url"/> {{ auth_data.first_name }} {{ auth_data.last_name }}</a>
         <a v-if="logged_in" :href="logout_url">Abmelden <font-awesome-icon :icon="faSignOutAlt"/></a>
         <a v-else :href="login_url">Anmelden <font-awesome-icon :icon="faSignInAlt"/></a>
       </div>
@@ -54,6 +54,9 @@ name: "Navbar",
     },
     picture_url() {
       return this.$config.backend_host + this.auth_data.picture_url;
+    },
+    profile_url() {
+      return "/profile/" + this.auth_data.email;
     },
   },
   mounted() {
