@@ -71,7 +71,7 @@ class UserTest extends TestCase
      */
     public function testGetLocked($user)
     {
-        $this->assertFalse(
+        $this->assertEquals(0,
             $user->getLocked()
         );
     }
