@@ -25,7 +25,7 @@ class Authentication {
             // download profile picture
             $profile_picture_path = "../../cache/profile_images/".Authentication::$user_email . ".png";
             $download_avatar_success = AzureAPI::download_profile_picture(Authentication::$microsoft_token, $profile_picture_path);
-            if (!$download_avatar_success) // if image download was no success, copy default avatar
+            if ($download_avatar_success == null) // if image download was no success, copy default avatar
                 file_put_contents($profile_picture_path, file_get_contents("../../cache/profile_images/avatar_default.png"));
             // create user in db
             if (!User::getUser(self::$user_email)) {

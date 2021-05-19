@@ -106,6 +106,7 @@ class AzureAPI {
         if ($result == false)
             return null;
         file_put_contents($file_path, $result);
+        return true;
     }
 
     /**
