@@ -117,7 +117,7 @@ class Tutor extends User
      * @param $teaching_method
      * @return Tutor
      */
-    public function create_tutor($email, $description, $teaching_method)
+    public static function create_tutor($email, $description, $teaching_method)
     {
         $s = get_np_mysql_object()->
         prepare("insert into tutor (email, description, teaching_method) 

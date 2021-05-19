@@ -184,10 +184,11 @@ class User implements JsonSerializable
 
     }
 
-    public function removeCalender($id)
+
+    public static function removeCalender($id)
     {
-        Calender::removeCalender($id);
-        $this->calender = $this->getAllCalendersFromUser();
+        $s = get_np_mysql_object()->prepare("delete from calender_free where calender_id = :calender_id");
+        $s->execute(array(":calender_id" => $id));
     }
 
     public function removeAllCalenderFromUser($email)
@@ -199,7 +200,7 @@ class User implements JsonSerializable
         ));
         $objs = $s->fetchAll();
         foreach ($objs as $obj)
-            Calender::removeCalender($obj["calender_id"]);
+            (new Calender)->removeCalender($obj["calender_id"]);
         return $this->calender;
     }
 
