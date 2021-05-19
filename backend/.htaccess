@@ -3,6 +3,8 @@ RewriteEngine on
 #RewriteCond %{THE_REQUEST} ^protected/.*$
 #RewriteRule ^protected/.*$ protected/endpoints/error.php?type=404 [NC]
 
+Header add Access-Control-Allow-Origin "*"
+
 #search
 RewriteRule ^search/?$ protected/endpoints/user/all_users.php?action=filter&%{QUERY_STRING} [NC]
 
@@ -25,3 +27,4 @@ RewriteRule ^auth/login/?$ protected/endpoints/authentication.php?type=login&%{Q
 RewriteRule ^auth/logout/?$ protected/endpoints/authentication.php?type=logout [NC]
 RewriteRule ^auth/authtest/?$ protected/endpoints/authentication.php?type=authtest [NC]
 
+ErrorDocument 404 protected/endpoints/error.php?type=404
