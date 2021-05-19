@@ -415,14 +415,14 @@ class User implements JsonSerializable
     {
         $this->calender = $this->getAllCalendersFromUser();
         return [
-            "email" => $this->email,
-            "first_name" => $this->first_name,
-            "last_name" => $this->last_name,
-            "picture_url" => $this->picture_url,
-            "grade" => $this->grade,
-            "department" => $this->department,
-            "isAdmin" => $this->isAdmin,
-            "locked" => $this->locked,
+            "email" => $this->getEmail(),
+            "first_name" => $this->getFirstName(),
+            "last_name" => $this->getLastName(),
+            "picture_url" => $this->getPictureUrl(),
+            "grade" => $this->getGrade(),
+            "department" => $this->getDepartment(),
+            "isAdmin" => $this->isAdmin(),
+            "locked" => $this->getLocked(),
             "calender" => $this->calender
         ];
     }
