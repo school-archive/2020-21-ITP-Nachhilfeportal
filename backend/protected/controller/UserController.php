@@ -63,6 +63,7 @@ class UserController
      */
     public static function update()
     {
+        //TODO change to method put
         if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
         $user = User::getUser(Authentication::$user_email);
@@ -90,7 +91,7 @@ class UserController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public static function destroy()
     {
         //
     }

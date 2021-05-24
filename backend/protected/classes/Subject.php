@@ -205,7 +205,7 @@ class Subject implements JsonSerializable
         $objs = $s->fetchAll();
         $subjects = array();
         foreach ($objs as $obj)
-            array_push($users, new Subject($obj["name"], $obj['department'], $obj['minGrade']));
+            array_push($subjects, new Subject($obj["name"], $obj['department'], $obj['minGrade']));
         return $subjects;
     }
 
