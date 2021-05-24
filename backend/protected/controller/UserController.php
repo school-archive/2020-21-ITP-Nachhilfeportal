@@ -119,7 +119,7 @@ class UserController
         $user = User::getUser(Authentication::$user_email);
         if (!$user->isTutor()) {
             if ($user->getSubjects() == null) {
-                if (empty($user->getAllCalendersFromUser())) {
+                if (empty($user->getCalender())) {
                     if ($user->getGrade() == null) {
                         if ($user->getDepartment() == null) {
                             AnswerHandler::create_response_and_kill_page(true, ["unsettutor" => true]);

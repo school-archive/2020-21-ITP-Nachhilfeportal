@@ -180,7 +180,7 @@ class User implements JsonSerializable
     {
         Calender::createCalender($email, $time_from, $time_to, $weekday);
 
-        $this->calender = $this->getAllCalendersFromUser();
+        $this->calender = $this->getCalender();
 
     }
 
@@ -217,14 +217,14 @@ class User implements JsonSerializable
         return $this->calender;
     }
 
-    public function getAllCalendersFromUser()
+    public function getCalender()
     {
         $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
         $s->execute(array(
             ":email" => $this->email
         ));
         $objs = $s->fetchAll();
-        $this->calender=array();
+        $this->calender = array();
         foreach ($objs as $obj)
             array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']));
         return $this->calender;
@@ -414,7 +414,6 @@ class User implements JsonSerializable
 
     public function jsonSerialize()
     {
-        $this->calender = $this->getAllCalendersFromUser();
         return [
             "email" => $this->getEmail(),
             "first_name" => $this->getFirstName(),
@@ -424,7 +423,7 @@ class User implements JsonSerializable
             "department" => $this->getDepartment(),
             "isAdmin" => $this->isAdmin(),
             "locked" => $this->getLocked(),
-            "calender" => $this->calender
+            "calender" => $this->getCalender()
         ];
     }
 }
