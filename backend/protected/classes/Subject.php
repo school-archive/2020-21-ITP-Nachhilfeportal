@@ -71,6 +71,12 @@ class Subject implements JsonSerializable
                     "IT" => true,
                     "FS" => false);
                 break;
+            case 3:
+                $values = array(
+                    "ME" => false,
+                    "IT" => true,
+                    "FS" => true);
+                break;
             case 4:
                 $values = array(
                     "ME" => true,
