@@ -11,7 +11,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 Route::add('/users/?',function(){ UserController::index(); });
 Route::add('/user/@me/?',function(){ UserController::show(); });
 Route::add('/user/?',function(){ UserController::show(); });
-Route::add('/update/?',function(){ UserController::update(); }, 'put');
+Route::add('/update/?',function(){ UserController::update(); }, 'post');
 Route::add('/user/ifunsettutor/?',function(){ UserController::ifUnsetTutor(); });
 
 # Filter

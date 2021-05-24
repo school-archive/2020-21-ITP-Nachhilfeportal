@@ -67,13 +67,14 @@ class UserController
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
         $user = User::getUser(Authentication::$user_email);
 
-        if (isset($_GET['locked'])) {
+        //Locked
+        if (isset($_POST['locked'])) {
             if (!$user->isAdmin())
                 AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
 
-            if (isset($_GET['email'])) {
-                $user_locked = User::getUser($_GET['email']);
-                $locked = ($_GET['locked'] === 'true') ? 1 : 0;
+            if (isset($_POST['email'])) {
+                $user_locked = User::getUser($_POST['email']);
+                $locked = ($_POST['locked']==='true') ? 1 : 0;
                 $user_locked->setLocked($locked);
                 if ($user_locked->getLocked() === $locked) {
                     AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
