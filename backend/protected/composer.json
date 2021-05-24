@@ -10,7 +10,8 @@
             "mysql_manager.php"
         ],
         "psr-4": {
-            "classes\\" : "classes/"
+            "classes\\" : "classes/",
+            "controller\\" : "controller/"
         }
     }
 }

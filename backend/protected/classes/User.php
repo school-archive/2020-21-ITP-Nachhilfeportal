@@ -36,7 +36,7 @@ class User implements JsonSerializable
      * @param bool $locked
      * @param array $calender
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $calender = array(), $subjects = [], $grade = null, $department = null, $isAdmin = 0, $locked = 0)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $grade = null, $department = null, $isAdmin = 0, $locked = 0, $calender = array(), $subjects = [])
     {
         $this->email = $email;
         $this->first_name = $first_name;
@@ -349,7 +349,7 @@ class User implements JsonSerializable
     /*
      * Vorübergehende Lösung, bis filterUserInBearbeitung fertig ist
      */
-    public function filterUser()
+    public static function filterUser()
     {
         $s = get_np_mysql_object()->prepare("select * from tutor t join user u on u.email = t.email");
         $s->execute();
@@ -370,7 +370,7 @@ class User implements JsonSerializable
         return new Subject($name, decbin($obj['department']), $obj['minGrade']);
     }
 
-    public function filterUserInBearbeitung($parameters) //von $_GET
+    public function filterUserInBearbeitung($parameters) //von $_GET //($user = null)
     {
         //TODO finish
         $sql_statement = "select * from tutor t join user u on u.email = t.email

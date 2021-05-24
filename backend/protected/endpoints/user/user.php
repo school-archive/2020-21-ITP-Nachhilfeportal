@@ -22,6 +22,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             AnswerHandler::create_response_and_kill_page(true, $user);
 
         }
+        $user = User::getUser('email15@htl.rennweg.at');
 
 
         if (isset($_GET['action'])) {
@@ -64,7 +65,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (!$user->isAdmin())
             AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
 
-        if(isset($_GET['locked'])) {
+        if(isset($_GET['locked'])) { //else default
             if(isset($_GET['email'])) {
                 $user_locked = User::getUser($_GET['email']);
                 $locked = ($_GET['locked']) ? 1 : 0;

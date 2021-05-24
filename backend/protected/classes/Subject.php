@@ -192,13 +192,10 @@ class Subject implements JsonSerializable
         $s->execute(array(":name" => $this->name));
     }
 
-    public static function get_subjects($count, $offset = 0)
+    public static function get_subjects()
     {
-        $s = get_np_mysql_object()->prepare("select * from subject limit :count offset :offset");
-        $s->execute(array(
-            ":count" => $count,
-            ":offset" => $offset
-        ));
+        $s = get_np_mysql_object()->prepare("select * from subject");
+        $s->execute();
         $objs = $s->fetchAll();
         $subjects = array();
         foreach ($objs as $obj)
