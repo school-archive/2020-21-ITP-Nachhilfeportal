@@ -11,13 +11,15 @@ require_once __DIR__ . "/../vendor/autoload.php";
 # User
 Route::add('/users/?',function(){ UserController::index(); });
 Route::add('/user/@me/?',function(){ UserController::show(); });
-Route::add('/user/(.*)/?',function(){ UserController::show(); });
+Route::add('/user/.*/?',function(){ UserController::show(); });
 Route::add('/user/?',function(){ UserController::show(); });
 Route::add('/profile/?',function(){ UserController::show(); });
 //Route::add('/user/?',function(){ UserController::store(); }, 'post');
 Route::add('/user/?',function(){ UserController::update(); }, 'post'); //TODO change to put
 Route::add('/user/ifunsettutor/?',function(){ UserController::ifUnsetTutor(); });
 
+#Picture
+Route::add('/cache/profile_images/.*/?', function () { UserController::picture(); });
 
 # Filter
 Route::add('/search/?', function () { UserController::filter(); });

@@ -41,7 +41,6 @@ class UserController
         $user = User::class;
         $return = [];
 
-        //user
         if (isset($_GET["email"])) {
             if($_GET["email"]==='@me') {
                 if (!Authentication::is_logged_in())
@@ -139,5 +138,21 @@ class UserController
         }
     }
 
+    public static function picture()
+    {
+        header('content-type: image/png');
+        $url_extension = 'avatar_default.png';
 
+        if(isset($_GET['email'])) {
+            $url_extension = $_GET['email'];
+        }
+
+        $im = file_get_contents("/var/www/html/api/cache/profile_images/$url_extension");
+
+        if(!$im) {
+            $im = file_get_contents("/var/www/html/api/cache/profile_images/avatar_default.png");
+        }
+
+        echo $im;
+    }
 }

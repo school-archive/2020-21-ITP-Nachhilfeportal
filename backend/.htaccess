@@ -1,5 +1,6 @@
 RewriteEngine on
 
 RewriteRule ^user/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
+RewriteRule ^cache/profile_images/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
 
 RewriteRule ^(.*)$ protected/endpoints/routes.php [QSA]
