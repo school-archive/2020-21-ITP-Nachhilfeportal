@@ -68,9 +68,7 @@ export default {
   },
   metaInfo: {
     title: "Home",
-    meta: [
-
-    ]
+    meta: []
   }
 }
 </script>

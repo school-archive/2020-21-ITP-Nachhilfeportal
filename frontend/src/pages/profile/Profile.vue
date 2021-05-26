@@ -50,9 +50,13 @@ export default {
       profile_data: null
     }
   },
+  metaInfo: {
+    title: "Profil",
+    meta: []
+  },
   beforeMount() {
     console.log(this.$route.query)
-    axios.get(`${this.$config.backend_host}/api/user/?email=${this.$route.params.id}`)
+    axios.get(`${this.$config.backend_host}/api/user/${this.$route.params.id}`)
         .then(res => {
           this.profile_data = res.data.data;
           console.log(this.profile_data)

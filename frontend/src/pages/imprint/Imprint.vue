@@ -35,7 +35,11 @@ export default {
       faEnvelope,
       faPhoneAlt
     }
-  }
+  },
+  metaInfo: {
+    title: "Impressum",
+    meta: []
+  },
 }
 </script>
 
