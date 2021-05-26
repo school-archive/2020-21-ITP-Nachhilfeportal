@@ -200,7 +200,7 @@ class User implements JsonSerializable
         ));
         $objs = $s->fetchAll();
         foreach ($objs as $obj)
-            (new Calender)->removeCalender($obj["calender_id"]);
+            $this->removeCalender($obj["calender_id"]);
         return $this->calender;
     }
 
@@ -278,7 +278,11 @@ class User implements JsonSerializable
 
     public function deleteSubject($name)
     {
-
+        $s = get_np_mysql_object()->prepare("delete from selected_subject where name= :name and email= :email");
+        $s->execute(array(
+            ":email" => $this->email,
+            ":name" => $name
+        ));
     }
 
     /**

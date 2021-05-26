@@ -25,7 +25,7 @@ Route::add('/search/?', function () { UserController::filter(); });
 Route::add('/subjects/?', function () { SubjectController::index(); });
 Route::add('/subject/?', function () { SubjectController::store(); }, 'post');
 Route::add('/subject/?', function () { SubjectController::update(); }, 'put');
-Route::add('/subject/?', function () { SubjectController::destroy(); }, 'delete');
+Route::add('/subject/?', function () { SubjectController::destroy(); }, 'get');//TODO change to delete
 
 # Authentication
 Route::add('/auth/login/redirect/?',function(){ AuthenticationController::redirect(); });

@@ -40,6 +40,13 @@ class SubjectController
      */
     public static function destroy()
     {
-        //
+
+    }
+
+    public static function delete()
+    {
+        $get = $_GET["email"];
+        $get->delete();
+        AnswerHandler::create_response_and_kill_page(true, "Deleted");
     }
 }
