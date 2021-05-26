@@ -24,4 +24,9 @@ module.exports = [
         name: 'Privacy',
         component: () => import('@/pages/dataprivacy/Dataprivacy')
     },
+    {
+        path: '/settings',
+        name: 'Settings',
+        component: () => import('@/pages/settings/Settings')
+    },
 ];
