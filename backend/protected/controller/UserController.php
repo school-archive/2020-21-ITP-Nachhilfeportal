@@ -55,16 +55,23 @@ class UserController
                 $return['self'] = false;
             }
         }
+        else {
+            AnswerHandler::create_response_and_kill_page(false, "Email missing", 400);
+        }
 
-        $return['profile'] = $user;
-        AnswerHandler::create_response_and_kill_page(true, $return);
+        if ($user->isTutor()) {
+            TutorController::show($return, $user->getEmail());
+        } else {
+            $return['profile'] = $user;
+            AnswerHandler::create_response_and_kill_page(true, $return);
+        }
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public static function update()
+    public static function update() //TODO update alles andere (bis jetzt nur locked)
     {
         //TODO change to method put
         if (!Authentication::is_logged_in())
