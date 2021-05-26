@@ -31,6 +31,11 @@ Route::add('/subject/?', function () { SubjectController::store(); }, 'post');
 Route::add('/subject/?', function () { SubjectController::update(); }, 'put');
 Route::add('/subject/?', function () { SubjectController::destroy(); }, 'delete');
 
+#Tutor
+Route::add('/tutor/?', function () { TutorController::store(); }, 'post');
+Route::add('/tutor/?', function () { TutorController::update(); }, 'put');
+Route::add('/tutor/?', function () { TutorController::destroy(); }, 'delete');
+
 # Authentication
 Route::add('/auth/login/redirect/?',function(){ AuthenticationController::redirect(); });
 Route::add('/auth/login/?',function(){ AuthenticationController::login(); });
