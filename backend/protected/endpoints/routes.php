@@ -3,6 +3,7 @@
 use classes\Route;
 use controller\AuthenticationController;
 use controller\SubjectController;
+use controller\TutorController;
 use controller\UserController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -22,13 +23,13 @@ Route::add('/user/ifunsettutor/?',function(){ UserController::ifUnsetTutor(); })
 Route::add('/cache/profile_images/.*/?', function () { UserController::picture(); });
 
 # Filter
-Route::add('/search/?', function () { UserController::filter(); });
+Route::add('/search/?', function () { TutorController::filter(); });
 
 #Subject
 Route::add('/subjects/?', function () { SubjectController::index(); });
 Route::add('/subject/?', function () { SubjectController::store(); }, 'post');
 Route::add('/subject/?', function () { SubjectController::update(); }, 'put');
-Route::add('/subject/?', function () { SubjectController::destroy(); }, 'get');//TODO change to delete
+Route::add('/subject/?', function () { SubjectController::destroy(); }, 'delete');
 
 # Authentication
 Route::add('/auth/login/redirect/?',function(){ AuthenticationController::redirect(); });

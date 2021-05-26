@@ -40,14 +40,19 @@ class SubjectController
      */
     public static function destroy()
     {
-        if (!Authentication::is_logged_in()) {
+        if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+        if (!User::getUser(Authentication::$user_email)->isAdmin()) {
+            AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
         } else {
-            $user = User::getUser(Authentication::$user_email);
-            $get = $_GET["email"];
-            $user->deleteSubject($get);
-            AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
+            $get = $_GET["name"];
+            $s = Subject::getSubject($get);
+            if ($s == false) {
+                AnswerHandler::create_response_and_kill_page(false, "No Data", 400);
+            } else {
+                $s->deleteSubject();
+                AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
+            }
         }
     }
-
 }

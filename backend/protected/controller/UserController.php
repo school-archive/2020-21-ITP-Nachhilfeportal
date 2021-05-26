@@ -42,13 +42,12 @@ class UserController
         $return = [];
 
         if (isset($_GET["email"])) {
-            if($_GET["email"]==='@me') {
+            if ($_GET["email"] === '@me') {
                 if (!Authentication::is_logged_in())
                     AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
                 $user = User::getUser(Authentication::$user_email);
                 $return['self'] = true;
-            }
-            else {
+            } else {
                 $user = User::getUser($_GET["email"]);
                 if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
                 AnswerHandler::create_response_and_kill_page(true, $user);
@@ -85,7 +84,7 @@ class UserController
 
             if (isset($_POST['email'])) {
                 $user_locked = User::getUser($_POST['email']);
-                $locked = ($_POST['locked']==='true') ? 1 : 0;
+                $locked = ($_POST['locked'] === 'true') ? 1 : 0;
                 $user_locked->setLocked($locked);
                 if ($user_locked->getLocked() === $locked) {
                     AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
@@ -103,23 +102,23 @@ class UserController
      */
     public static function destroy()
     {
-        if (!Authentication::is_logged_in()) {
+
+        if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+        if (!User::getUser(Authentication::$user_email)->isAdmin()) {
+            AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
         } else {
             $user = User::getUser(Authentication::$user_email);
-            $get = $_GET["email"];
-            $user->deleteSubject($get);
-            AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
+            if ($user == false) {
+                AnswerHandler::create_response_and_kill_page(false, "No Data", 400);
+            } else {
+                $user->deleteUser();
+                AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
+            }
         }
     }
 
-    /**
-     * Übergangsläsung, gibt alle Tutoren zurück
-     */
-    public static function filter()
-    {
-        AnswerHandler::create_response_and_kill_page(true, User::filterUser());
-    }
+
 
     /**
      * If the User is not a Tutor and hasn't set any properties yet
@@ -150,13 +149,13 @@ class UserController
         header('content-type: image/png');
         $url_extension = 'avatar_default.png';
 
-        if(isset($_GET['email'])) {
+        if (isset($_GET['email'])) {
             $url_extension = $_GET['email'];
         }
 
         $im = file_get_contents("/var/www/html/api/cache/profile_images/$url_extension");
 
-        if(!$im) {
+        if (!$im) {
             $im = file_get_contents("/var/www/html/api/cache/profile_images/avatar_default.png");
         }
 
