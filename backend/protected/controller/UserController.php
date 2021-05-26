@@ -41,16 +41,20 @@ class UserController
         $user = User::class;
         $return = [];
 
+        //user
         if (isset($_GET["email"])) {
-            $user = User::getUser($_GET["email"]);
-            if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
-            AnswerHandler::create_response_and_kill_page(true, $user);
-            $return['self'] = false;
-        } else {
-            if (!Authentication::is_logged_in())
-                AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
-            $user = User::getUser(Authentication::$user_email);
-            $return['self'] = true;
+            if($_GET["email"]==='@me') {
+                if (!Authentication::is_logged_in())
+                    AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+                $user = User::getUser(Authentication::$user_email);
+                $return['self'] = true;
+            }
+            else {
+                $user = User::getUser($_GET["email"]);
+                if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
+                AnswerHandler::create_response_and_kill_page(true, $user);
+                $return['self'] = false;
+            }
         }
 
         $return['profile'] = $user;
