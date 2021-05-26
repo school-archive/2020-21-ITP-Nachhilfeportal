@@ -25,7 +25,7 @@ class Calender
      * @param $weekday
      */
 
-    public function __construct($email, $time_from, $time_to, $weekday, $id)
+    public function __construct($email, $time_from, $time_to, $weekday)
     {
         $this->time_from = $time_from;
         $this->time_to = $time_to;
