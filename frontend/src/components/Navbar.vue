@@ -53,10 +53,10 @@ name: "Navbar",
       return `${this.$config.backend_host}/api/auth/logout`;
     },
     picture_url() {
-      return this.$config.backend_host + this.auth_data.picture_url;
+      return this.$config.backend_host + this.auth_data.profile.picture_url;
     },
     profile_url() {
-      return "/profile/" + this.auth_data.email;
+      return "/profile/" + this.auth_data.profile.email;
     },
   },
   mounted() {
