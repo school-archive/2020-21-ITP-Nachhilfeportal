@@ -5,7 +5,7 @@ module.exports = [
         component: () => import('@/pages/home/Home')
     },
     {
-        path: '/profile',
+        path: '/profile/:id',
         name: 'Profile',
         component: () => import('@/pages/profile/Profile')
     },
