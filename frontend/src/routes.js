@@ -15,13 +15,13 @@ module.exports = [
         component: () => import('@/pages/search/Search')
     },
     {
-        path: '/dataprivacy',
-        name: 'Dataprivacy',
-        component: () => import('@/pages/dataprivacy/Dataprivacy')
+        path: '/imprint',
+        name: 'Imprint',
+        component: () => import('@/pages/imprint/Imprint')
     },
     {
-        path: '/settings',
-        name: 'Settings',
-        component: () => import('@/pages/settings/Settings')
+        path: '/privacy',
+        name: 'Privacy',
+        component: () => import('@/pages/dataprivacy/Dataprivacy')
     },
 ];
