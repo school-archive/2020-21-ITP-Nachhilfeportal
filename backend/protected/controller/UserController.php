@@ -97,7 +97,14 @@ class UserController
      */
     public static function destroy()
     {
-        //
+        if (!Authentication::is_logged_in()) {
+            AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+        } else {
+            $user = User::getUser(Authentication::$user_email);
+            $get = $_GET["email"];
+            $user->deleteSubject($get);
+            AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
+        }
     }
 
     /**
