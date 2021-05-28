@@ -58,51 +58,55 @@ class Subject implements JsonSerializable
      */
     public function getDepartment()
     {
-        switch ($this->department) {
-            case 1:
+        switch (decbin($this->department)) {
+            case decbin(0):
+                $values = array(
+                    "ME" => false,
+                    "IT" => false,
+                    "FS" => false);
+                break;
+            case  decbin(1):
                 $values = array(
                     "ME" => false,
                     "IT" => false,
                     "FS" => true);
                 break;
-            case 2:
+            case  decbin(2):
                 $values = array(
                     "ME" => false,
                     "IT" => true,
                     "FS" => false);
                 break;
-            case 3:
+            case  decbin(3):
                 $values = array(
                     "ME" => false,
                     "IT" => true,
                     "FS" => true);
                 break;
-            case 4:
+            case  decbin(4):
                 $values = array(
                     "ME" => true,
                     "IT" => false,
                     "FS" => false);
                 break;
-            case 5:
+            case  decbin(5):
                 $values = array(
                     "ME" => true,
                     "IT" => false,
                     "FS" => true);
                 break;
-            case 6:
+            case  decbin(6):
                 $values = array(
                     "ME" => true,
                     "IT" => true,
                     "FS" => false);
                 break;
-            case 7:
+            case  decbin(7):
                 $values = array(
                     "ME" => true,
                     "IT" => true,
                     "FS" => true);
                 break;
-            default:
-                return false;
         }
 
         return $values;

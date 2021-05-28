@@ -10,7 +10,7 @@ use function PHPUnit\Framework\throwException;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-class Calender
+class Calender implements JsonSerializable
 {
     private $time_from;
     private $time_to;
@@ -40,14 +40,14 @@ class Calender
             prepare("insert into calender_free (email, time_from, time_to, weekday) 
         values (:email, :time_from, :time_to, :weekday)");
             $s->bindValue(':email', $email);
-            $s->bindValue('time_from', $time_from);
+            $s->bindValue(':time_from', $time_from);
             $s->bindValue(':time_to', $time_to);
             $s->bindValue(':weekday', $weekday);
             $s->execute();
         } else {
             throw new Exception("Illegal Argument");
         }
-        return new Calender($email, $time_from, $time_to, $weekday, "");
+        return new Calender($email, $time_from, $time_to, $weekday);
     }
 
 

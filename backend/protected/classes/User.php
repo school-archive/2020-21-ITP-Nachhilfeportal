@@ -136,6 +136,7 @@ class User implements JsonSerializable
             $this->department = $department;
         }
     }
+    //TODO Add SetSelectedSubject
 
     /**
      * @return array|mixed
@@ -213,7 +214,7 @@ class User implements JsonSerializable
         ));
         $objs = $s->fetchAll();
         foreach ($objs as $obj)
-            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']));
+            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
         return $this->calender;
     }
 
@@ -226,8 +227,9 @@ class User implements JsonSerializable
         $objs = $s->fetchAll();
         $this->calender = array();
         foreach ($objs as $obj)
-            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday'], $obj['calender_id']));
+            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
         return $this->calender;
+
     }
 
     /**
@@ -365,13 +367,19 @@ class User implements JsonSerializable
 
     }
 
-    public static function getSubject($name)
+    public function getSelected_Subject()
     {
-        $s = get_np_mysql_object()->prepare("select * from subject where name = :name");
-        $s->execute(array(":name" => $name));
+        $s = get_np_mysql_object()->prepare("select * from selected_subject where email = :email");
+        $s->execute(array(
+            ":email" => $this->email
+        ));
         $obj = $s->fetch();
         if (empty($obj['name'])) return false;
-        return new Subject($name, decbin($obj['department']), $obj['minGrade']);
+        $objs = $s->fetchAll();
+        $this->subjects = array();
+        foreach ($objs as $obj)
+            array_push($this->subjects, Subject::getSubject($obj["name"]));
+        return $this->subjects;
     }
 
     public function filterUserInBearbeitung($parameters) //von $_GET //($user = null)
@@ -427,7 +435,8 @@ class User implements JsonSerializable
             "department" => $this->getDepartment(),
             "isAdmin" => $this->isAdmin(),
             "locked" => $this->getLocked(),
-            "calender" => $this->getCalender()
+            "calender" => $this->getCalender(),
+            "subjects" => $this->getSelected_Subject()
         ];
     }
 }
