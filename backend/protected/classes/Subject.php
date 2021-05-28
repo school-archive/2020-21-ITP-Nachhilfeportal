@@ -198,9 +198,16 @@ class Subject implements JsonSerializable
         $s->execute(array(":name" => $this->name));
     }
 
-    public static function get_subjects()
+    public static function get_subjects($department = null)
     {
-        $s = get_np_mysql_object()->prepare("select * from subject");
+        if(is_null($department)) {
+            $s = get_np_mysql_object()->prepare("select * from subject");
+        }
+        else {
+            $s = get_np_mysql_object()->prepare("select * from subject where department = :department");
+            $s->bindValue(':department', bindec($department), PDO::PARAM_INT);
+        }
+
         $s->execute();
         $objs = $s->fetchAll();
         $subjects = array();
@@ -221,7 +228,7 @@ class Subject implements JsonSerializable
     {
         return [
             "name" => $this->getName(),
-            "department" => $this->getDepartment(),
+//            "department" => $this->getDepartment(),
             "minGrade" => $this->getMinGrade()
         ];
     }

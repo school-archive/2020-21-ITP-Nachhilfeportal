@@ -16,7 +16,8 @@ class SubjectController
      */
     public static function index()
     {
-        AnswerHandler::create_response_and_kill_page(true, Subject::get_subjects());
+        $dep = (isset($_GET['department'])) ? $_GET['department'] : null;
+        AnswerHandler::create_response_and_kill_page(true, Subject::get_subjects($dep));
     }
 
     /**

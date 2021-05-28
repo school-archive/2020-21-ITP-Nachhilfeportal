@@ -24,7 +24,7 @@ Route::add('/cache/profile_images/?.*', function () { UserController::picture();
 Route::add('/search/?', function () { TutorController::filter(); });
 
 #Subject
-Route::add('/subjects/?', function () { SubjectController::index(); });
+Route::add('/subjects/?.*', function () { SubjectController::index(); });
 Route::add('/subject/?.*', function () { SubjectController::store(); }, 'post');
 Route::add('/subject/?.*', function () { SubjectController::update(); }, 'put');
 Route::add('/subject/?.*', function () { SubjectController::destroy(); }, 'delete');

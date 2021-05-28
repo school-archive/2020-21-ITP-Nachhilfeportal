@@ -6,6 +6,7 @@ RewriteRule ^profile/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STR
 RewriteRule ^cache/profile_images/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
 
 #Subject
+RewriteRule ^subjects/(.*)/?$ protected/endpoints/routes.php?department=$1&%{QUERY_STRING} [NC]
 RewriteRule ^subject/(.*)/?$ protected/endpoints/routes.php?name=$1&%{QUERY_STRING} [NC]
 
 #Tutor
