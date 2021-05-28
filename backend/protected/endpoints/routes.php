@@ -15,6 +15,7 @@ Route::add('/user/?.*',function(){ UserController::show(); });
 Route::add('/profile/?.*',function(){ UserController::show(); });
 Route::add('/user/?.*',function(){ UserController::store(); }, 'post');
 Route::add('/user/?.*',function(){ UserController::update(); }, 'post'); //TODO change to put
+Route::add('/user/?.*',function(){ UserController::destroy(); }, 'delete');
 Route::add('/user/ifunsettutor/?',function(){ UserController::ifUnsetTutor(); });
 
 #Picture
