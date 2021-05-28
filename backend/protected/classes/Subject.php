@@ -232,7 +232,7 @@ class Subject implements JsonSerializable
     {
         return [
             "name" => $this->getName(),
-//            "department" => $this->getDepartment(),
+            "department" => $this->getDepartment(),
             "minGrade" => $this->getMinGrade()
         ];
     }
