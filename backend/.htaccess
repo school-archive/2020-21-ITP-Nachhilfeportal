@@ -1,6 +1,14 @@
 RewriteEngine on
 
+#User
 RewriteRule ^user/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
+RewriteRule ^profile/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
 RewriteRule ^cache/profile_images/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
+
+#Subject
+RewriteRule ^subject/(.*)/?$ protected/endpoints/routes.php?name=$1&%{QUERY_STRING} [NC]
+
+#Tutor
+RewriteRule ^tutor/(.*)/?$ protected/endpoints/routes.php?email=$1&%{QUERY_STRING} [NC]
 
 RewriteRule ^(.*)$ protected/endpoints/routes.php [QSA]

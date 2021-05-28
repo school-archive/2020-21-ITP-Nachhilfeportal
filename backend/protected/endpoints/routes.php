@@ -11,30 +11,27 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 # User
 Route::add('/users/?',function(){ UserController::index(); });
-Route::add('/user/@me/?',function(){ UserController::show(); });
-Route::add('/user/.*/?',function(){ UserController::show(); });
-Route::add('/user/?',function(){ UserController::show(); });
-Route::add('/profile/?',function(){ UserController::show(); });
-//Route::add('/user/?',function(){ UserController::store(); }, 'post');
-Route::add('/user/?',function(){ UserController::update(); }, 'post'); //TODO change to put
+Route::add('/user/?.*',function(){ UserController::show(); });
+Route::add('/profile/?.*',function(){ UserController::show(); });
+Route::add('/user/?.*',function(){ UserController::store(); }, 'post');
+Route::add('/user/?.*',function(){ UserController::update(); }, 'post'); //TODO change to put
 Route::add('/user/ifunsettutor/?',function(){ UserController::ifUnsetTutor(); });
 
 #Picture
-Route::add('/cache/profile_images/.*/?', function () { UserController::picture(); });
+Route::add('/cache/profile_images/?.*', function () { UserController::picture(); });
 
 # Filter
 Route::add('/search/?', function () { TutorController::filter(); });
 
 #Subject
 Route::add('/subjects/?', function () { SubjectController::index(); });
-Route::add('/subject/?', function () { SubjectController::store(); }, 'post');
-Route::add('/subject/?', function () { SubjectController::update(); }, 'put');
-Route::add('/subject/?', function () { SubjectController::destroy(); }, 'delete');
+Route::add('/subject/?.*', function () { SubjectController::store(); }, 'post');
+Route::add('/subject/?.*', function () { SubjectController::update(); }, 'put');
+Route::add('/subject/?.*', function () { SubjectController::destroy(); }, 'delete');
 
 #Tutor
-Route::add('/tutor/?', function () { TutorController::store(); }, 'post');
-Route::add('/tutor/?', function () { TutorController::update(); }, 'put');
-Route::add('/tutor/?', function () { TutorController::destroy(); }, 'delete');
+Route::add('/tutor/?.*', function () { TutorController::store(); }, 'post');
+Route::add('/tutor/?.*', function () { TutorController::destroy(); }, 'delete');
 
 # Authentication
 Route::add('/auth/login/redirect/?',function(){ AuthenticationController::redirect(); });
