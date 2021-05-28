@@ -107,6 +107,9 @@ class Subject implements JsonSerializable
                     "IT" => true,
                     "FS" => true);
                 break;
+            default;
+                $values = false;
+                break;
         }
 
         return $values;
@@ -204,10 +207,9 @@ class Subject implements JsonSerializable
 
     public static function get_subjects($department = null)
     {
-        if(is_null($department)) {
+        if (is_null($department)) {
             $s = get_np_mysql_object()->prepare("select * from subject");
-        }
-        else {
+        } else {
             $s = get_np_mysql_object()->prepare("select * from subject where department = :department");
             $s->bindValue(':department', bindec($department), PDO::PARAM_INT);
         }

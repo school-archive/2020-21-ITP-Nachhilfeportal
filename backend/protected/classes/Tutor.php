@@ -57,8 +57,24 @@ class Tutor extends User
 
     public function getTeaching_method()
     {
-        return $this->teaching_method;
+        switch (decbin($this->teaching_method)) {
+            case  decbin(1):
+                $values = "Vorort";
+                break;
+            case  decbin(2):
+                $values = "Online";
+                break;
+            case  decbin(3):
+                $values = "Beides";
+                break;
+            default;
+                $values = false;
+                break;
+        }
+
+        return $values;
     }
+
 
     /**
      * @param $teaching_method
@@ -142,8 +158,10 @@ class Tutor extends User
             "department" => $user->getDepartment(),
             "locked" => $user->getLocked(),
             "isAdmin" => $user->isAdmin(),
-            "description" => $this->description,
-            "teaching_method" => $this->teaching_method
+            "calender" => $user->getCalender(),
+            "subjects" => $user->getSelected_Subject(),
+            "description" => $this->getDescription(),
+            "teaching_method" => $this->getTeaching_method()
         ];
     }
 }
