@@ -5,27 +5,26 @@
       <h1>Herman Maier</h1>
     </div>
     <div class="wrapper">
-      <div>
-        <p>Schulstufe</p>
-        <div class="select">
-          <v-select
-              placeholder="Schulstufe"
-              label="title"
-              :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
-          />
-        </div>
-        <p>Abteilung</p>
-        <div class="select">
-          <v-select
-              placeholder="Abteilung"
-              label="title"
-              :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
-          />
-        </div>
-        <h4>NUR TUTOR OPTIONEN</h4>
-        <p>Beschreibung</p>
-        <p>Methode</p>
+      <span>Schulstufe</span>
+      <div class="select">
+        <v-select
+            placeholder="Schulstufe"
+            label="title"
+            :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
+        />
+      </div><br>
+      <span>Abteilung</span>
+      <div class="select">
+        <v-select
+            placeholder="Abteilung"
+            label="title"
+            :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
+        />
       </div>
+      <p>NUR TUTOR OPTIONEN</p>
+      <span>Beschreibung</span>
+      <textarea rows="4" cols="35"></textarea><br>
+      <span>Methode</span>
       <div class="select">
         <v-select
             placeholder="Methode"
@@ -35,7 +34,7 @@
         />
       </div>
     </div>
-    <Calendar></Calendar>
+  <Calendar></Calendar>
   </div>
 </template>
 
@@ -70,21 +69,32 @@ img {
   width: 200px;
   height: 200px;
   white-space: pre-wrap;
+  padding-top: 10px;
 }
 
 .select {
   width: 250px;
-  float: right;
 }
 
-p {
+span {
   font-size: 25px;
   color: colors.$secondary;
+
 }
 
-.wrapper{
-  width: 800px;
-  display: flex;
-  justify-content: center;
+textarea{
+  resize: none;
+  border-radius: 5px;
+  border-color: colors.$secondary;
+}
+
+.wrapper {
+  width: 100%;
+  position: center;
+}
+
+p{
+  font-size: 28px;
+  letter-spacing: 2px;
 }
 </style>

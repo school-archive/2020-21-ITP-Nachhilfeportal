@@ -29,4 +29,9 @@ module.exports = [
         name: 'Settings',
         component: () => import('@/pages/settings/Settings')
     },
+    {
+        path: '/aboutus',
+        name: 'Aboutus',
+        component: () => import('@/pages/aboutus/Aboutus')
+    },
 ];
