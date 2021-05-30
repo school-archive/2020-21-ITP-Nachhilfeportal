@@ -136,7 +136,6 @@ class User implements JsonSerializable
             $this->department = $department;
         }
     }
-    //TODO Add SetSelectedSubject
 
     /**
      * @return array|mixed
@@ -208,11 +207,14 @@ class User implements JsonSerializable
     public function getTimeonWeekday($weekday)
     {
 
-        $s = get_np_mysql_object()->prepare("select * from calender_free where weekday = :weekday");
+        $s = get_np_mysql_object()->prepare("select * from calender_free where weekday = :weekday and email = :email");
         $s->execute(array(
-            ":weekday" => $weekday
+            ":weekday" => $weekday,
+            ":email" => $this->email
         ));
         $objs = $s->fetchAll();
+        if (empty($objs)) return false;
+
         foreach ($objs as $obj)
             array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
         return $this->calender;
@@ -225,6 +227,8 @@ class User implements JsonSerializable
             ":email" => $this->email
         ));
         $objs = $s->fetchAll();
+        if (empty($objs)) return [];
+
         $this->calender = array();
         foreach ($objs as $obj)
             array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
@@ -373,9 +377,9 @@ class User implements JsonSerializable
         $s->execute(array(
             ":email" => $this->email
         ));
-        $obj = $s->fetch();
-        if (empty($obj['name'])) return false;
         $objs = $s->fetchAll();
+        if (empty($objs)) return [];
+
         $this->subjects = array();
         foreach ($objs as $obj)
             array_push($this->subjects, Subject::getSubject($obj["name"]));

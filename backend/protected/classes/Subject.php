@@ -58,57 +58,57 @@ class Subject implements JsonSerializable
      */
     public function getDepartment()
     {
-        switch (decbin($this->department)) {
-            case decbin(0):
+        switch ($this->department) {
+            case 0:
                 $values = array(
                     "ME" => false,
                     "IT" => false,
                     "FS" => false);
                 break;
-            case  decbin(1):
+            case 1:
                 $values = array(
                     "ME" => false,
                     "IT" => false,
                     "FS" => true);
                 break;
-            case  decbin(2):
+            case 2:
                 $values = array(
                     "ME" => false,
                     "IT" => true,
                     "FS" => false);
                 break;
-            case  decbin(3):
+            case 3:
                 $values = array(
                     "ME" => false,
                     "IT" => true,
                     "FS" => true);
                 break;
-            case  decbin(4):
+            case 4:
                 $values = array(
                     "ME" => true,
                     "IT" => false,
                     "FS" => false);
                 break;
-            case  decbin(5):
+            case 5:
                 $values = array(
                     "ME" => true,
                     "IT" => false,
                     "FS" => true);
                 break;
-            case  decbin(6):
+            case 6:
                 $values = array(
                     "ME" => true,
                     "IT" => true,
                     "FS" => false);
                 break;
-            case  decbin(7):
+            case 7:
                 $values = array(
                     "ME" => true,
                     "IT" => true,
                     "FS" => true);
                 break;
-            default;
-                $values = false;
+            default:
+                $values = [];
                 break;
         }
 
@@ -218,7 +218,7 @@ class Subject implements JsonSerializable
         $objs = $s->fetchAll();
         $subjects = array();
         foreach ($objs as $obj)
-            array_push($subjects, new Subject($obj["name"], $obj['department'], $obj['minGrade']));
+            array_push($subjects, new Subject($obj["name"], decbin($obj['department']), $obj['minGrade']));
         return $subjects;
     }
 

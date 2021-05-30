@@ -30,7 +30,7 @@ class Tutor extends User
         parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $isAdmin, $locked);
         $this->email = $email;
         $this->description = $description;
-        $this->teaching_method = bindec($teaching_method);
+        $this->teaching_method = $teaching_method;
     }
 
     /**
@@ -57,24 +57,33 @@ class Tutor extends User
 
     public function getTeaching_method()
     {
-        switch (decbin($this->teaching_method)) {
-            case  decbin(1):
-                $values = "Vorort";
+        switch ($this->teaching_method) {
+            case 1:
+                $values = ['Vorort'];
                 break;
-            case  decbin(2):
-                $values = "Online";
+            case 2:
+                $values = ['Online'];
                 break;
-            case  decbin(3):
-                $values = "Beides";
+            case 3:
+                $values = ['Vorort', 'Online'];
                 break;
-            default;
-                $values = false;
+            default:
+                $values = [];
                 break;
         }
 
         return $values;
     }
 
+    public function isTM_online()
+    {
+        return in_array('Online', $this->getTeaching_method());
+    }
+
+    public function isTM_present()
+    {
+        return in_array('Vorort', $this->getTeaching_method());
+    }
 
     /**
      * @param $teaching_method
@@ -108,7 +117,7 @@ class Tutor extends User
 
     /**
      * @param $email
-     * @return Tutor
+     * @return Tutor|bool
      */
 
     public static function get_Tutor($email)
@@ -117,8 +126,7 @@ class Tutor extends User
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
         if (empty($obj['email'])) return false;
-        $tutor = new Tutor($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked'], $obj['description'], $obj['teaching_method']);
-        return $tutor;
+        return new Tutor($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked'], $obj['description'], $obj['teaching_method']);
     }
 
     public function delete_tutor()
