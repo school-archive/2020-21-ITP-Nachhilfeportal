@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--Bild und Name-->
     <div class="mensch">
       <img src="@/assets/images/mensch.png" alt="mensch"><br>
       <h1>Herman Maier</h1>
@@ -53,7 +52,36 @@
       </div>
 
     </div>
-  <Calendar></Calendar>
+    <div class="additem">
+      <h3>Neuen Termin hinzufügen:</h3><br>
+      <h4>Wochentag:</h4>
+      <div class="additemdate">
+        <v-select
+            placeholder="Tag"
+            label="title"
+            :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+        />
+      </div>
+      <h4>Uhrzeit:</h4>
+      Von:
+      <div class="additemdate">
+        <v-select
+            placeholder="von"
+            label="title"
+            :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
+        />
+        Bis:
+        <div class="additemdate">
+          <v-select
+              placeholder="bis"
+              label="title"
+              :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
+          />
+        </div>
+      </div>
+      <button>Hinzufügen</button>
+    </div>
+      <Calendar></Calendar>
   </div>
 </template>
 
@@ -103,7 +131,7 @@ label {
   margin-right: 100px;
 }
 
-textarea{
+textarea {
   resize: none;
   border-radius: 5px;
   border-color: colors.$third;
@@ -121,5 +149,54 @@ textarea{
   width:260px;
   float: right;
 }
+
+.v-select .vs__dropdown-option--highlight {
+  background-color: colors.$primary;
+}
+
+.additemdate {
+  width: 250px;
+}
+
+.additem {
+  padding-left: 150px;
+  width: 250px;
+  position: absolute;
+
+}
+
+button{
+  background-color: colors.$primary;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 999px;
+  font-size: 18px;
+  margin-top: 30px;
+  float: right;
+
+}
+@media (max-width: 500px) {
+  .additem{
+    margin-bottom: 100px;
+    padding-left: 80px;
+    position: relative;
+  }
+  .all{
+    margin: 5px;
+  }
+}
+
+@media (max-width: 1800px) {
+  .additem{
+    padding-left: 80px;
+    margin-bottom: 100px;
+    position: relative;
+  }
+  .all{
+    margin: 5px;
+  }
+}
+
 
 </style>

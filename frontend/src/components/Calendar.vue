@@ -6,13 +6,13 @@
           <thead>
             <tr>
               <th class="headcol"></th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
-              <th>Sunday</th>
+              <th>Mo</th>
+              <th>Di</th>
+              <th>Mi</th>
+              <th>Do</th>
+              <th>Fr</th>
+              <th>Sa</th>
+              <th>So</th>
             </tr>
           </thead>
         </table>
