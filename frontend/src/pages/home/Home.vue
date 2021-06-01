@@ -42,7 +42,7 @@
     </section>
 
     <section class="section-faq">
-      <h3>Häufig gestellte Fragen</h3>
+      <h3 class="fragen">Häufig gestellte Fragen</h3>
       <div class="faqs">
         <faq-tile class="single-faq" question="Muss ich angemeldet sein?" answer="Um alle Funktionen von Tutorlink verwenden zu können, sollten Sie sich mit Ihrem Schul-Microsoft Konto anmelden."/>
         <faq-tile class="single-faq" question="Geht es auch außerhalb von der HTL Rennweg?" answer="Zurzeit ist Tutorlink nur für Schüler*innen der HTL Rennweg verfügbar."/>
@@ -166,6 +166,10 @@ export default {
   .section-text-right {
     flex-direction: row-reverse;
   }
+}
+
+.fragen{
+  font-size: 30px;
 }
 
 </style>

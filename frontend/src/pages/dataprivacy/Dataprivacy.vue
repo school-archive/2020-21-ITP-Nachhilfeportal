@@ -257,7 +257,7 @@ img.crop-center {
   font-family: dinosaur, sans-serif;
   font-weight: 150;
   font-style: initial;
-  font-size: 28px;
+  font-size: 20px;
   padding-left: 200px;
   padding-right: 200px;
   letter-spacing: 2px;

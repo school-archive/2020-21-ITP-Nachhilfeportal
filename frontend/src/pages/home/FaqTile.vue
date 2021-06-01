@@ -34,7 +34,8 @@ export default {
 
 <style lang="scss" scoped>
   .faq-wrapper {
-    width: min(30rem, 85vw);
+    width: min(50rem, 50vw);
+    font-size: 20px;
   }
 
   .question {
