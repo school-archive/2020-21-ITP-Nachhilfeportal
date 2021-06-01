@@ -1,38 +1,57 @@
 <template>
   <div>
+    <!--Bild und Name-->
     <div class="mensch">
       <img src="@/assets/images/mensch.png" alt="mensch"><br>
       <h1>Herman Maier</h1>
     </div>
+
+    <!--Einstellungen-->
     <div class="wrapper">
-      <span>Schulstufe</span>
+
+      <!--Schulstufe-->
       <div class="select">
+        <label for="stufe">Schulstufe</label>
         <v-select
             placeholder="Schulstufe"
             label="title"
             :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
+            id="stufe"
         />
       </div><br>
-      <span>Abteilung</span>
+
+      <!--Abteilung-->
       <div class="select">
+        <label for="abteilung">Abteilung</label>
         <v-select
             placeholder="Abteilung"
-            label="title"
+            label="Abteilung"
             :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
+            id="abteilung"
         />
       </div>
-      <p>NUR TUTOR OPTIONEN</p>
-      <span>Beschreibung</span>
-      <textarea rows="4" cols="35"></textarea><br>
-      <span>Methode</span>
+
+      <!--Nur anzeigen wenn Tutor-->
+
+      <!--Beschreibung-->
       <div class="select">
+        <label for="area">Beschreibung</label>
+        <textarea cols="25" id="area"></textarea><br>
+      </div>
+
+
+      <!--Methode-->
+      <div class="select">
+        <label for="method">Methode</label>
         <v-select
             placeholder="Methode"
             label="title"
             multiple=""
             :options="['Vor Ort', 'Online']"
+            id="method"
         />
       </div>
+
     </div>
   <Calendar></Calendar>
   </div>
@@ -72,29 +91,35 @@ img {
   padding-top: 10px;
 }
 
-.select {
-  width: 250px;
+.select{
+  width:40%;
+  margin-bottom: 40px;
 }
 
-span {
+label {
   font-size: 25px;
   color: colors.$secondary;
-
+  float: left;
+  margin-right: 100px;
 }
 
 textarea{
   resize: none;
   border-radius: 5px;
-  border-color: colors.$secondary;
+  border-color: colors.$third;
+
 }
 
 .wrapper {
   width: 100%;
-  position: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+#stufe,#abteilung,#method,#area{
+  width:260px;
+  float: right;
 }
 
-p{
-  font-size: 28px;
-  letter-spacing: 2px;
-}
 </style>
