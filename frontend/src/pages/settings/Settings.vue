@@ -2,7 +2,7 @@
   <div>
     <div class="mensch">
       <img src="@/assets/images/mensch.png" alt="mensch"><br>
-      <h1>Herman Maier</h1>
+      <h1>Max Mustermann</h1>
     </div>
 
     <!--Einstellungen-->
@@ -144,6 +144,7 @@ textarea {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding-top: 40px;
 }
 #stufe,#abteilung,#method,#area{
   width:260px;
@@ -174,8 +175,8 @@ button{
   font-size: 18px;
   margin-top: 30px;
   float: right;
-
 }
+
 @media (max-width: 500px) {
   .additem{
     margin-bottom: 100px;
@@ -189,7 +190,6 @@ button{
 
 @media (max-width: 1800px) {
   .additem{
-    padding-left: 80px;
     margin-bottom: 100px;
     position: relative;
   }
@@ -197,6 +197,4 @@ button{
     margin: 5px;
   }
 }
-
-
 </style>
