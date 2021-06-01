@@ -28,13 +28,29 @@
     </div>
     <div class="people">
       <div class="oben">
-        <img class="people" src="@/assets/images/man.png" alt="man">
-        <img class="people" src="@/assets/images/man.png" alt="man"><br>
+        <div>
+          <img src="@/assets/images/man.png" alt="man"><br>
+          <label>Dietrich Kops</label>
+        </div>
+        <div>
+          <img src="@/assets/images/man.png" alt="man"><br>
+          <label>Nils Schneider-Sturm</label>
+        </div>
       </div>
+
       <div class="unten">
-        <img class="people" src="@/assets/images/woman.png" alt="frau">
-        <img class="people" src="@/assets/images/man.png" alt="man">
-        <img class="people" src="@/assets/images/woman.png" alt="frau">
+        <div>
+          <img  src="@/assets/images/woman.png" alt="frau"><br>
+          <label>Nicoletta Sarzi Sartori</label>
+        </div>
+        <div>
+          <img src="@/assets/images/man.png" alt="man"><br>
+          <label>Matthias Stummer</label>
+        </div>
+        <div>
+          <img  src="@/assets/images/woman.png" alt="frau"><br>
+          <label>Johanna Kronfuß</label>
+        </div>
       </div>
     </div>
   </div>
@@ -50,21 +66,22 @@ export default {
 <style scoped lang="scss">
 
 @use "src/assets/styles/colors";
-
 img.crop-center {
   height: 250px;
   width: 100% !important;
   object-fit: cover;
   object-position: top center;
+  padding-bottom: 10px;
 }
 
-.u1 {
+.u1{
   font-weight: 200;
   font-style: initial;
   font-size: 40px;
   padding-left: 4em;
   letter-spacing: 2.5px;
   color: colors.$fourth;
+  margin-top: 20px;
 }
 
 .u2 {
@@ -118,11 +135,26 @@ p {
 }
 
 .people{
-  width: 210px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.oben{
-  padding-left: 50%;
+.oben,.unten{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
+label{
+  font-family: Dinosaur;
+  font-size: 20px;
+}
+.people img{
+  width:250px;
+}
 </style>
