@@ -54,15 +54,19 @@ class UserController
                 $return['self'] = false;
             }
         }
-        else {
-            AnswerHandler::create_response_and_kill_page(false, "Email missing", 400);
-        }
 
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
+            $return['isTutor'] = true;
+            AnswerHandler::create_response_and_kill_page(true,$user);
         } else {
-            $return['profile'] = $user;
-            AnswerHandler::create_response_and_kill_page(true, $return);
+            if ($_GET["email"] === '@me') {
+                $return['profile'] = $user;
+                $return['isTutor'] = false;
+                AnswerHandler::create_response_and_kill_page(true, $return);
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
+            }
         }
     }
 
@@ -83,9 +87,9 @@ class UserController
             if (!$user->isAdmin())
                 AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
 
-            if (isset($_POST['email'])) {
-                $user_locked = User::getUser($_POST['email']);
-                $locked = ($_POST['locked'] === 'true') ? 1 : 0;
+            if (isset($vars['email'])) {
+                $user_locked = User::getUser($vars['email']);
+                $locked = ($vars['locked'] === 'true') ? 1 : 0;
                 $user_locked->setLocked($locked);
                 if ($user_locked->getLocked() === $locked) {
                     AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
@@ -103,7 +107,7 @@ class UserController
                 $admin = ($vars['admin'] === 'true') ? 1 : 0;
                 $user_admin->setAdmin($admin);
                 if ($user_admin->isAdmin() === true) {
-                    AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
+                    AnswerHandler::create_response_and_kill_page(true, "Promotion successfull ");
                 } else {
                     AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
                 }
@@ -113,13 +117,28 @@ class UserController
 
         }
         //Grade
-        if(isset($vars['grade'])){
+        if (isset($vars['grade'])) {
             if (isset($vars['grade'])) {
                 $user_grade = User::getUser($vars['email']);
-                $admin = ($vars['grade'] === 'true') ? 1 : 0;
-                $user_admin->setAdmin($admin);
-                if ($user_admin->isAdmin() === true) {
-                    AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
+                $grade = $vars['grade'];
+                $user_grade->setGrade($grade);
+                if ($user_grade->getGrade() === $grade) {
+                    AnswerHandler::create_response_and_kill_page(true, "Grade successfully changed");
+                } else {
+                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+                }
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+            }
+        }
+        //Department
+        if (isset($vars['department'])) {
+            if (isset($vars['department'])) {
+                $user_deparment = User::getUser($vars['email']);
+                $department = $vars['department'];
+                $user_deparment->setDepartment($department);
+                if ($user_deparment->getDepartment() === $department) {
+                    AnswerHandler::create_response_and_kill_page(true, "Department successfully changed");
                 } else {
                     AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
                 }
@@ -128,6 +147,21 @@ class UserController
             }
         }
 
+        //Calender
+        if (isset($vars['calender'])) {
+            if (isset($vars['calender'])) {
+                $user_calender = User::getUser($vars['email']);
+                $calender = $vars['calender'];
+                $user_calender->setCalender($calender);
+                if ($user_calender->getCalender() === $calender) {
+                    AnswerHandler::create_response_and_kill_page(true, "Calendar successfully changed");
+                } else {
+                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+                }
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+            }
+        }
     }
 
     /**

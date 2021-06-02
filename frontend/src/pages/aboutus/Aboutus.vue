@@ -11,7 +11,7 @@
           Organisation und Vermittlung der Nachhilfe verbessern und eine einfach zu bedienende digitale Alternative
           darstellen. Das Ziel unseres Nachhilfeportals ist, allen Schüler*innen jeglichen Jahrganges eine passende
           Nachhilfe zu finden. Sie haben die Möglichkeit einen passenden Tutor nach Jahrgang und benötigtem Fach
-          auszuwählen. Unser Nachhilfeportal ist ein Schulinternes Projekt, bei welchem sich alle
+          auszuwählen. Unser Nachhilfeportal ist ein schulinternes Projekt, bei welchem sich alle
           Schüler*innen der HTL Rennweg mit ihrer Schulemail anmelden können. Jeder User besitzt eine Profilseite, auf
           welcher wichtige Personendaten vorhanden sind: Name, Telefonnummer, E-Mail, persönlicher Stundenplan für die
           Terminplanung.
@@ -116,8 +116,7 @@ img.crop-center {
 }
 
 p {
-  font-size: 18px;
-  line-height: 38px;
+  font-size: 1.3em;
 }
 
 .text1{
@@ -126,6 +125,7 @@ p {
 
 .text{
   padding-right: 50%;
+
 }
 
 .team{
