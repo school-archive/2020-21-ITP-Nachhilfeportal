@@ -81,7 +81,9 @@
       </div>
       <button>Hinzufügen</button>
     </div>
+    <div class="kalender">
       <Calendar></Calendar>
+    </div>
   </div>
 </template>
 
@@ -189,6 +191,9 @@ button{
 }
 
 @media (max-width: 1800px) {
+  .kalender{
+    padding-left: 320px;
+  }
   .additem{
     margin-bottom: 100px;
     position: relative;
@@ -197,4 +202,6 @@ button{
     margin: 5px;
   }
 }
+
+
 </style>
