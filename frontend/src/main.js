@@ -52,8 +52,4 @@ new Vue({
   router,
   store: new Vuex.Store(require("./store")),
   render: h => h(App),
-
-  beforeCreate() {
-    this.$store.commit("auth/init_store");
-  },
 }).$mount('#app');
