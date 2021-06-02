@@ -17,7 +17,11 @@ class TutorController
      */
     public static function filter()
     {
-        AnswerHandler::create_response_and_kill_page(true, User::filterUser());
+        $user = User::getUser(Authentication::$user_email);
+        if(!$user)
+            AnswerHandler::create_response_and_kill_page(false, 'unauthorized', 401);
+        AnswerHandler::create_response_and_kill_page(true, $user->filterUserInBearbeitung());
+//        AnswerHandler::create_response_and_kill_page(true, User::filterUser());
     }
 
     public static function store()

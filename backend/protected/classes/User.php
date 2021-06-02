@@ -394,22 +394,38 @@ class User implements JsonSerializable
             where t.email != :email
             and locked = 0";
 
-        //Grade & Department
+        //SQL-Statement Grade & Department
         if (!is_null($this->grade) || isset($put_var['grade'])) $sql_statement .= "and grade >= :grade";
         if (!is_null($this->department)  || isset($put_var['department'])) $sql_statement .= "and department = :department";
 
 
-        $s = get_np_mysql_object()->
-        prepare($sql_statement);
+        $s = get_np_mysql_object()->prepare($sql_statement);
         $s->bindValue(':email', $this->email);
-        if (!is_null($this->grade)) $s->bindValue(':grade', $this->grade);
-        //if is null else if isset (umgekehrt)
-        if (!is_null($this->department)) $s->bindValue(':department', $this->department);
+
+        //bind grade
+        if(isset($put_var['grade'])) {
+            $s->bindValue(':grade', $put_var['grade']);
+        } elseif(!is_null($this->grade)) {
+            $s->bindValue(':grade', $this->grade);
+        }
+        //bind department
+        if(isset($put_var['department'])) {
+            $s->bindValue(':department', $put_var['department']);
+        } elseif(!is_null($this->department)) {
+            $s->bindValue(':department', $this->department);
+        }
+
         $s->execute();
         $objsUser = $s->fetchAll();
 
+        //subjects with exists in sql statemnt?
+
         $users = [];
-        foreach ($objsUser as $objUser) {
+
+        /*foreach ($objsUser as $objUser) {
+
+
+
             $sc = get_np_mysql_object()->prepare("select * from user u join calender_free cf on u.email = cf.email where email = :email");
             $sc->execute(array(":email" => $objUser["email"]));
             $objsCalenders = $sc->fetchAll();
@@ -419,15 +435,10 @@ class User implements JsonSerializable
                     break;
                 }
             }
-        }
+        }*/
 
 
-        return $users;
-
-        function compareCalender($c1, $c2)
-        {
-
-        }
+        return $objsUser;
     }
 
     public function jsonSerialize()
