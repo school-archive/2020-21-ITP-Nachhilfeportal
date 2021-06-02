@@ -32,6 +32,7 @@ class TutorController
     {
         $tutor = Tutor::get_Tutor($email);
         $array['profile'] = $tutor;
+        $return['isTutor'] = true;
         AnswerHandler::create_response_and_kill_page(true, $array);
     }
 

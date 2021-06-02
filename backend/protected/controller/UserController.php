@@ -57,7 +57,6 @@ class UserController
 
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
-            $return['isTutor'] = true;
             AnswerHandler::create_response_and_kill_page(true,$user);
         } else {
             if ($_GET["email"] === '@me') {
