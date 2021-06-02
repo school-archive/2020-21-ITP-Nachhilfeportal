@@ -52,38 +52,41 @@
       </div>
 
     </div>
-    <div class="additem">
-      <h3>Neuen Termin hinzufügen:</h3><br>
-      <h4>Wochentag:</h4>
-      <div class="additemdate">
-        <v-select
-            placeholder="Tag"
-            label="title"
-            :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
-        />
-      </div>
-      <h4>Uhrzeit:</h4>
-      Von:
-      <div class="additemdate">
-        <v-select
-            placeholder="von"
-            label="title"
-            :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
-        />
-        Bis:
+    <div class="setting_calender">
+      <div class="additem">
+        <h3>Neuen Termin hinzufügen:</h3><br>
+        <h4>Wochentag:</h4>
         <div class="additemdate">
           <v-select
-              placeholder="bis"
+              placeholder="Tag"
+              label="title"
+              :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+          />
+        </div>
+        <h4>Uhrzeit:</h4>
+        Von:
+        <div class="additemdate">
+          <v-select
+              placeholder="von"
               label="title"
               :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
           />
+          Bis:
+          <div class="additemdate">
+            <v-select
+                placeholder="bis"
+                label="title"
+                :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
+            />
+          </div>
         </div>
+        <button>Hinzufügen</button>
       </div>
-      <button>Hinzufügen</button>
+      <div class="kalender">
+        <Calendar></Calendar>
+      </div>
     </div>
-    <div class="kalender">
-      <Calendar></Calendar>
-    </div>
+
   </div>
 </template>
 
@@ -96,7 +99,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss" >
 @use "src/assets/styles/colors";
 
 
@@ -157,15 +160,18 @@ textarea {
   background-color: colors.$primary;
 }
 
-.additemdate {
-  width: 250px;
-}
+.setting_calender{
+  display: flex;
 
+  justify-content: space-between;
+}
+.kalender{
+  margin-right: 20px;
+}
 .additem {
   padding-left: 150px;
   width: 250px;
-  position: absolute;
-
+  padding-bottom: 10px;
 }
 
 button{
@@ -178,30 +184,4 @@ button{
   margin-top: 30px;
   float: right;
 }
-
-@media (max-width: 500px) {
-  .additem{
-    margin-bottom: 100px;
-    padding-left: 80px;
-    position: relative;
-  }
-  .all{
-    margin: 5px;
-  }
-}
-
-@media (max-width: 1800px) {
-  .kalender{
-    padding-left: 320px;
-  }
-  .additem{
-    margin-bottom: 100px;
-    position: relative;
-  }
-  .all{
-    margin: 5px;
-  }
-}
-
-
 </style>
