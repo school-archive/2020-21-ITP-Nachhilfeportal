@@ -114,6 +114,10 @@ class User implements JsonSerializable
         }
     }
 
+    public function setCalender($calender){
+        $this->calender=$calender;
+    }
+
     /**
      * @return mixed
      */
