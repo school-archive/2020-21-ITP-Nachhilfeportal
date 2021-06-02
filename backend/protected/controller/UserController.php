@@ -53,16 +53,24 @@ class UserController
                 AnswerHandler::create_response_and_kill_page(true, $user);
                 $return['self'] = false;
             }
-        }
-        else {
+        } else {
             AnswerHandler::create_response_and_kill_page(false, "Email missing", 400);
         }
 
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
+            $return['isTutor'] = true;
+
+
         } else {
-            $return['profile'] = $user;
-            AnswerHandler::create_response_and_kill_page(true, $return);
+            if ($_GET["email"] === '@me') {
+                $return['profile'] = $user;
+                $return['isTutor'] = false;
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, "unauthorized",401);
+            }
+
+
         }
     }
 
@@ -117,7 +125,6 @@ class UserController
             }
         }
     }
-
 
 
     /**

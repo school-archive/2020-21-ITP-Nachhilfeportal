@@ -439,8 +439,7 @@ class User implements JsonSerializable
             "department" => $this->getDepartment(),
             "isAdmin" => $this->isAdmin(),
             "locked" => $this->getLocked(),
-            "calender" => $this->getCalender(),
-            "subjects" => $this->getSelected_Subject()
+            "calender" => $this->getCalender()
         ];
     }
 }
