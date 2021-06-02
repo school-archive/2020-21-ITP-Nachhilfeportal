@@ -31,7 +31,16 @@
       </div>
 
       <!--Nur anzeigen wenn Tutor-->
-
+      <!--Fächer-->
+      <div class="select">
+        <label for="faecher">Fächer</label>
+        <v-select id="faecher"
+                  placeholder="Fach"
+                  label="title"
+                  multiple=""
+                  :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
+        />
+      </div>
       <!--Beschreibung-->
       <div class="select">
         <label for="area">Beschreibung</label>
@@ -151,7 +160,7 @@ textarea {
   align-items: center;
   padding-top: 40px;
 }
-#stufe,#abteilung,#method,#area{
+#stufe,#abteilung,#method,#area,#faecher{
   width:260px;
   float: right;
 }
@@ -166,7 +175,7 @@ textarea {
   justify-content: space-between;
 }
 .kalender{
-  margin-right: 20px;
+  margin-right: 35px;
 }
 .additem {
   padding-left: 150px;
