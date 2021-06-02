@@ -386,22 +386,24 @@ class User implements JsonSerializable
         return $this->subjects;
     }
 
-    public function filterUserInBearbeitung($parameters) //von $_GET //($user = null)
+    public function filterUserInBearbeitung() //von $_GET //($user = null)
     {
-        //TODO finish
+        parse_str(file_get_contents("php://input"),$put_var);
+
         $sql_statement = "select * from tutor t join user u on u.email = t.email
             where t.email != :email
-            and locked = false"; //0?
+            and locked = 0";
 
-        if (!is_null($this->grade)) $sql_statement .= "and grade >= :grade";
-        if (!is_null($this->department)) $sql_statement .= "and department = :department";
-        //teaching method???
-        //subject
+        //Grade & Department
+        if (!is_null($this->grade) || isset($put_var['grade'])) $sql_statement .= "and grade >= :grade";
+        if (!is_null($this->department)  || isset($put_var['department'])) $sql_statement .= "and department = :department";
+
 
         $s = get_np_mysql_object()->
         prepare($sql_statement);
         $s->bindValue(':email', $this->email);
         if (!is_null($this->grade)) $s->bindValue(':grade', $this->grade);
+        //if is null else if isset (umgekehrt)
         if (!is_null($this->department)) $s->bindValue(':department', $this->department);
         $s->execute();
         $objsUser = $s->fetchAll();
