@@ -19,16 +19,7 @@
         <div class="wrap">
           <table class="offset">
             <tbody>
-              <tr>
                 <td class="headcol">7:00</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
               <tr>
                 <td class="headcol"></td>
                 <td></td>

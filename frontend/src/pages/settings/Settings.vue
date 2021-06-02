@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="mensch">
-      <img src="@/assets/images/mensch.png" alt="mensch"><br>
-      <h1>Max Mustermann</h1>
+      <img :src="picture_url"><br>
+      <h1>{{ profile_data.first_name }} {{ profile_data.last_name }}</h1>
     </div>
 
     <!--Einstellungen-->
@@ -31,7 +31,16 @@
       </div>
 
       <!--Nur anzeigen wenn Tutor-->
-
+      <!--Fächer-->
+      <div class="select">
+        <label for="faecher">Fächer</label>
+        <v-select id="faecher"
+                  placeholder="Fach"
+                  label="title"
+                  multiple=""
+                  :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
+        />
+      </div>
       <!--Beschreibung-->
       <div class="select">
         <label for="area">Beschreibung</label>
@@ -52,49 +61,81 @@
       </div>
 
     </div>
-    <div class="additem">
-      <h3>Neuen Termin hinzufügen:</h3><br>
-      <h4>Wochentag:</h4>
-      <div class="additemdate">
-        <v-select
-            placeholder="Tag"
-            label="title"
-            :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
-        />
-      </div>
-      <h4>Uhrzeit:</h4>
-      Von:
-      <div class="additemdate">
-        <v-select
-            placeholder="von"
-            label="title"
-            :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
-        />
-        Bis:
+    <div class="setting_calender">
+      <div class="additem">
+        <h3>Neuen Termin hinzufügen:</h3><br>
+        <h4>Wochentag:</h4>
         <div class="additemdate">
           <v-select
-              placeholder="bis"
+              placeholder="Tag"
+              label="title"
+              :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+          />
+        </div>
+        <h4>Uhrzeit:</h4>
+        Von:
+        <div class="additemdate">
+          <v-select
+              placeholder="von"
               label="title"
               :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
           />
+          Bis:
+          <div class="additemdate">
+            <v-select
+                placeholder="bis"
+                label="title"
+                :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
+            />
+          </div>
         </div>
+        <button>Hinzufügen</button>
       </div>
-      <button>Hinzufügen</button>
+      <div class="kalender">
+        <Calendar></Calendar>
+      </div>
     </div>
-      <Calendar></Calendar>
+
   </div>
 </template>
 
 <script>
 import Calendar from "../../components/Calendar";
+import axios from "axios";
 
 export default {
   name: "Settings",
-  components: {Calendar}
+  components: {Calendar},
+  data() {
+    return {
+      profile_data: {}
+    }
+  },
+  metaInfo: {
+    title: "Profil",
+    meta: []
+  },
+  beforeMount() {
+    axios.get(`${this.$config.backend_host}/api/user/@me`)
+        .then(res => {
+          console.log(res)
+          this.profile_data = res.data.data.profile;
+          this.isLoaded = true;
+          console.log(this.profile_data)
+        })
+  },
+  mounted() {
+    console.log(this.profile_data)
+  },
+  computed: {
+    picture_url() {
+      return this.$config.backend_host + this.profile_data?.picture_url;
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss" >
 @use "src/assets/styles/colors";
 
 
@@ -146,7 +187,7 @@ textarea {
   align-items: center;
   padding-top: 40px;
 }
-#stufe,#abteilung,#method,#area{
+#stufe,#abteilung,#method,#area,#faecher{
   width:260px;
   float: right;
 }
@@ -155,15 +196,18 @@ textarea {
   background-color: colors.$primary;
 }
 
-.additemdate {
-  width: 250px;
-}
+.setting_calender{
+  display: flex;
 
+  justify-content: space-between;
+}
+.kalender{
+  margin-right: 35px;
+}
 .additem {
   padding-left: 150px;
   width: 250px;
-  position: absolute;
-
+  padding-bottom: 10px;
 }
 
 button{
@@ -175,26 +219,5 @@ button{
   font-size: 18px;
   margin-top: 30px;
   float: right;
-}
-
-@media (max-width: 500px) {
-  .additem{
-    margin-bottom: 100px;
-    padding-left: 80px;
-    position: relative;
-  }
-  .all{
-    margin: 5px;
-  }
-}
-
-@media (max-width: 1800px) {
-  .additem{
-    margin-bottom: 100px;
-    position: relative;
-  }
-  .all{
-    margin: 5px;
-  }
 }
 </style>
