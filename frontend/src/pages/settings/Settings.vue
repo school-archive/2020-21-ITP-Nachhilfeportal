@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="mensch">
-      <img src="@/assets/images/mensch.png" alt="mensch"><br>
-      <h1>Max Mustermann</h1>
+      <img :src="picture_url"><br>
+      <h1>{{ profile_data.first_name }} {{ profile_data.last_name }}</h1>
     </div>
 
     <!--Einstellungen-->
@@ -101,10 +101,37 @@
 
 <script>
 import Calendar from "../../components/Calendar";
+import axios from "axios";
 
 export default {
   name: "Settings",
-  components: {Calendar}
+  components: {Calendar},
+  data() {
+    return {
+      profile_data: {}
+    }
+  },
+  metaInfo: {
+    title: "Profil",
+    meta: []
+  },
+  beforeMount() {
+    axios.get(`${this.$config.backend_host}/api/user/@me`)
+        .then(res => {
+          console.log(res)
+          this.profile_data = res.data.data.profile;
+          this.isLoaded = true;
+          console.log(this.profile_data)
+        })
+  },
+  mounted() {
+    console.log(this.profile_data)
+  },
+  computed: {
+    picture_url() {
+      return this.$config.backend_host + this.profile_data?.picture_url;
+    }
+  }
 }
 </script>
 
