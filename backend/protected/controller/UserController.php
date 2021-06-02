@@ -53,24 +53,16 @@ class UserController
                 AnswerHandler::create_response_and_kill_page(true, $user);
                 $return['self'] = false;
             }
-        } else {
+        }
+        else {
             AnswerHandler::create_response_and_kill_page(false, "Email missing", 400);
         }
 
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
-            $return['isTutor'] = true;
-
-
         } else {
-            if ($_GET["email"] === '@me') {
-                $return['profile'] = $user;
-                $return['isTutor'] = false;
-            } else {
-                AnswerHandler::create_response_and_kill_page(false, "unauthorized",401);
-            }
-
-
+            $return['profile'] = $user;
+            AnswerHandler::create_response_and_kill_page(true, $return);
         }
     }
 
@@ -80,6 +72,7 @@ class UserController
      */
     public static function update() //TODO update alles andere (bis jetzt nur locked)
     {
+        parse_str(file_get_contents("php://input"), $vars);
         //TODO change to method put
         if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
@@ -103,6 +96,38 @@ class UserController
                 AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
             }
         }
+        //Admin
+        if (isset($vars['admin'])) {
+            if (isset($vars['email'])) {
+                $user_admin = User::getUser($vars['email']);
+                $admin = ($vars['admin'] === 'true') ? 1 : 0;
+                $user_admin->setAdmin($admin);
+                if ($user_admin->isAdmin() === true) {
+                    AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
+                } else {
+                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+                }
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+            }
+
+        }
+        //Grade
+        if(isset($vars['grade'])){
+            if (isset($vars['grade'])) {
+                $user_grade = User::getUser($vars['email']);
+                $admin = ($vars['grade'] === 'true') ? 1 : 0;
+                $user_admin->setAdmin($admin);
+                if ($user_admin->isAdmin() === true) {
+                    AnswerHandler::create_response_and_kill_page(true, "User successfully locked/unlocked");
+                } else {
+                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+                }
+            } else {
+                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+            }
+        }
+
     }
 
     /**
