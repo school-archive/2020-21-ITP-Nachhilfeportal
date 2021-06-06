@@ -153,6 +153,7 @@ h1 {
 }
 
 img {
+  padding-top: 10px;
   border-radius: 50%;
   width: 200px;
   height: 200px;

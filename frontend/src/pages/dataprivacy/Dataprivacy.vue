@@ -246,7 +246,7 @@ img.crop-center {
   font-family: dinosaur, sans-serif;
   font-weight: 200;
   font-style: initial;
-  font-size: 55px;
+  font-size: 40px;
   padding-left: 1em;
   padding-top: 0.5em;
   letter-spacing: 2.5px;
@@ -260,7 +260,7 @@ img.crop-center {
   font-size: 20px;
   padding-left: 200px;
   padding-right: 200px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: colors.$fourth;
 }
 a{

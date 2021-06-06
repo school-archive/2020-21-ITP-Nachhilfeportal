@@ -160,7 +160,6 @@ class Tutor extends User
         return [
             "first_name" => $user->getFirstName(),
             "last_name" => $user->getLastName(),
-            "password" => $user->getPassword(),
             "picture_url" => $user->getPictureUrl(),
             "grade" => $user->getGrade(),
             "department" => $user->getDepartment(),

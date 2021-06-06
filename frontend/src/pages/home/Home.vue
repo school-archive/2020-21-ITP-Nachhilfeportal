@@ -144,10 +144,11 @@ export default {
   flex-wrap: wrap;
 
 
-  .text, img {
+  .text, img{
     width: max(min(90%, 30rem), 50%);
     box-sizing: border-box;
   }
+
 
   h3{
     color: colors.$secondary;
@@ -158,7 +159,8 @@ export default {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 18px;
+
   }
 }
 
