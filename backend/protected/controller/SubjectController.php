@@ -25,7 +25,7 @@ class SubjectController
      */
     public static function store()
     {
-        //
+        //Macht ohne Admin Panel keinen Sinn mehr
     }
 
     /**
@@ -33,7 +33,7 @@ class SubjectController
      */
     public static function update()
     {
-        //
+        //Macht ohne Admin Panel keinen Sinn mehr
     }
 
     /**

@@ -26,14 +26,6 @@ class UserController
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public static function store()
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public static function show()
