@@ -40,12 +40,12 @@ class Calender implements JsonSerializable
             prepare("insert into calender_free (email, time_from, time_to, weekday) 
         values (:email, :time_from, :time_to, :weekday)");
             $s->bindValue(':email', $email);
-            $s->bindValue(':time_from', $time_from);
+            $s->bindValue(':time_from', $time_from); //TODO change to date format (in endpoint?) self::hhmm_to_time()
             $s->bindValue(':time_to', $time_to);
             $s->bindValue(':weekday', $weekday);
             $s->execute();
         } else {
-            throw new Exception("Illegal Argument");
+            return false;
         }
         return new Calender($email, $time_from, $time_to, $weekday);
     }
@@ -93,6 +93,17 @@ class Calender implements JsonSerializable
     public function gettime_to()
     {
         return $this->time_to;
+    }
+
+    public static function time_to_hhmm($time)
+    {
+        $teile = explode(':', $time);
+        return "$teile[0]:$teile[1]";
+    }
+
+    public static function hhmm_to_time($hhmm)
+    {
+        return $hhmm . ':00';
     }
 
     public function __toString()

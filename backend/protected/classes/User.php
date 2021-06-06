@@ -180,9 +180,9 @@ class User implements JsonSerializable
         return $this->tutor();
     }
 
-    public function addCalender($email, $time_from, $time_to, $weekday)
+    public function addCalender($time_from, $time_to, $weekday)
     {
-        Calender::createCalender($email, $time_from, $time_to, $weekday);
+        Calender::createCalender($this->email, $time_from, $time_to, $weekday);
 
         $this->calender = $this->getCalender();
 
@@ -195,12 +195,11 @@ class User implements JsonSerializable
         $s->execute(array(":calender_id" => $id));
     }
 
-    public function removeAllCalenderFromUser($email)
+    public function removeAllCalenderFromUser()
     {
-
         $s = get_np_mysql_object()->prepare("select * from calender_free where email = :email");
         $s->execute(array(
-            ":email" => $email
+            ":email" => $this->email
         ));
         $objs = $s->fetchAll();
         foreach ($objs as $obj)
@@ -208,20 +207,24 @@ class User implements JsonSerializable
         return $this->calender;
     }
 
-    public function getTimeonWeekday($weekday)
+    public function getTimeonWeekday($weekday, $return_object = true)
     {
-
         $s = get_np_mysql_object()->prepare("select * from calender_free where weekday = :weekday and email = :email");
         $s->execute(array(
             ":weekday" => $weekday,
             ":email" => $this->email
         ));
         $objs = $s->fetchAll();
-        if (empty($objs)) return false;
+        if (empty($objs)) return null;
 
+        $calender = [];
         foreach ($objs as $obj)
-            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
-        return $this->calender;
+            if($return_object) {
+                array_push($calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']),Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
+            } else {
+                array_push($calender,['time_from' => Calender::time_to_hhmm($obj['time_from']),'time_to' => Calender::time_to_hhmm($obj['time_to'])]);
+            }
+        return $calender;
     }
 
     public function getCalender()
@@ -235,9 +238,19 @@ class User implements JsonSerializable
 
         $this->calender = array();
         foreach ($objs as $obj)
-            array_push($this->calender, new Calender($obj["email"], $obj['time_from'], $obj['time_to'], $obj['weekday']));
+            array_push($this->calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']),Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
         return $this->calender;
 
+    }
+
+    public function getCalenderFormatted()
+    {
+        $calender = [];
+        $days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+        foreach ($days as $day) {
+            $calender[$day] = $this->getTimeonWeekday($day, false);
+        }
+        return $calender;
     }
 
     /**
@@ -386,7 +399,8 @@ class User implements JsonSerializable
 
         $this->subjects = array();
         foreach ($objs as $obj)
-            array_push($this->subjects, Subject::getSubject($obj["name"]));
+//            array_push($this->subjects, Subject::getSubject($obj["name"]));
+            array_push($this->subjects, $obj["name"]);
         return $this->subjects;
     }
 
@@ -456,7 +470,7 @@ class User implements JsonSerializable
             "department" => $this->getDepartment(),
             "isAdmin" => $this->isAdmin(),
             "locked" => $this->getLocked(),
-            "calender" => $this->getCalender()
+            "calender" => $this->getCalenderFormatted()
         ];
     }
 }

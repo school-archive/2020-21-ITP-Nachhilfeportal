@@ -24,6 +24,9 @@ class TutorController
 //        AnswerHandler::create_response_and_kill_page(true, User::filterUser());
     }
 
+    /**
+     * Set User as a Tutor
+     */
     public static function store()
     {
         //
@@ -35,8 +38,8 @@ class TutorController
     public static function show($array, $email)
     {
         $tutor = Tutor::get_Tutor($email);
+        $array['isTutor'] = true;
         $array['profile'] = $tutor;
-        $return['isTutor'] = true;
         AnswerHandler::create_response_and_kill_page(true, $array);
     }
 

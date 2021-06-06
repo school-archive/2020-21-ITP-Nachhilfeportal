@@ -22,10 +22,10 @@ class Tutor extends User
      * @param $teaching_method
      * @param $grade
      * @param $department
-     * @param bool $isAdmin
-     * @param false $locked
+     * @param int $isAdmin
+     * @param int $locked
      */
-    public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $isAdmin = false, $locked = false)
+    public function __construct($email, $first_name, $last_name, $password, $picture_url, $description, $teaching_method, $grade, $department, $isAdmin = 0, $locked = 0)
     {
         parent::__construct($email, $first_name, $last_name, $password, $picture_url, $grade, $department, $isAdmin, $locked);
         $this->email = $email;
@@ -126,7 +126,7 @@ class Tutor extends User
         $s->execute(array(":email" => $email));
         $obj = $s->fetch();
         if (empty($obj['email'])) return false;
-        return new Tutor($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked'], $obj['description'], $obj['teaching_method']);
+        return new Tutor($email, $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['description'], $obj['teaching_method'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked']);
     }
 
     public function delete_tutor()
@@ -148,15 +148,18 @@ class Tutor extends User
         values (:email, :description, :teaching_method)");
         $s->bindValue(':email', $email);
         $s->bindValue(':description', $description);
-        $s->bindValue(':teaching_method', $teaching_method);
+        $s->bindValue(':teaching_method', $teaching_method, PDO::PARAM_INT);
         $s->execute();
     }
 
 
     public function jsonSerialize()
     {
-
         $user = User::getUser($this->email);
+        $subjects = $user->getSelected_Subject();
+        if(empty($subjects)) { $subjects = null; }
+        $tm = (empty($this->getTeaching_method())) ? null : $this->getTeaching_method();
+
         return [
             "first_name" => $user->getFirstName(),
             "last_name" => $user->getLastName(),
@@ -165,10 +168,10 @@ class Tutor extends User
             "department" => $user->getDepartment(),
             "locked" => $user->getLocked(),
             "isAdmin" => $user->isAdmin(),
-            "calender" => $user->getCalender(),
-            "subjects" => $user->getSelected_Subject(),
+            "calender" => $user->getCalenderFormatted(),
+            "subjects" => $subjects,
             "description" => $this->getDescription(),
-            "teaching_method" => $this->getTeaching_method()
+            "teaching_method" => $tm
         ];
     }
 }

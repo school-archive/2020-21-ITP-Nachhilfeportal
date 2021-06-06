@@ -38,30 +38,27 @@ class UserController
      */
     public static function show()
     {
-        $user = User::class;
         $return = [];
 
-        if (isset($_GET["email"])) {
-            if ($_GET["email"] === '@me') {
-                if (!Authentication::is_logged_in())
-                    AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
-                $user = User::getUser(Authentication::$user_email);
-                $return['self'] = true;
-            } else {
-                $user = User::getUser($_GET["email"]);
-                if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
-                AnswerHandler::create_response_and_kill_page(true, $user);
-                $return['self'] = false;
-            }
+        if (!isset($_GET["email"]))
+            AnswerHandler::create_response_and_kill_page(false, "email missing", 404);
+
+        if (Authentication::is_logged_in() && ($_GET["email"] === '@me' || $_GET["email"] === Authentication::$user_email)) {
+            $user = User::getUser(Authentication::$user_email);
+            $return['self'] = true;
+        } else {
+            $user = User::getUser($_GET["email"]);
+            $return['self'] = false;
         }
+
+        if (!$user) AnswerHandler::create_response_and_kill_page(false, "user not found", 404);
 
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
-            AnswerHandler::create_response_and_kill_page(true,$user);
         } else {
-            if ($_GET["email"] === '@me') {
-                $return['profile'] = $user;
+            if ($_GET["email"] === '@me' || $_GET["email"] === Authentication::$user_email) {
                 $return['isTutor'] = false;
+                $return['profile'] = $user;
                 AnswerHandler::create_response_and_kill_page(true, $return);
             } else {
                 AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
@@ -73,10 +70,9 @@ class UserController
     /**
      * Update the specified resource in storage.
      */
-    public static function update() //TODO update alles andere (bis jetzt nur locked)
+    public static function update()
     {
         parse_str(file_get_contents("php://input"), $vars);
-        //TODO change to method put
         if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
         $user = User::getUser(Authentication::$user_email);
@@ -117,49 +113,39 @@ class UserController
         }
         //Grade
         if (isset($vars['grade'])) {
-            if (isset($vars['grade'])) {
-                $user_grade = User::getUser($vars['email']);
-                $grade = $vars['grade'];
-                $user_grade->setGrade($grade);
-                if ($user_grade->getGrade() === $grade) {
-                    AnswerHandler::create_response_and_kill_page(true, "Grade successfully changed");
-                } else {
-                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
-                }
+            $grade = $vars['grade'];
+            $user->setGrade($grade);
+            if ($user->getGrade() === $grade) {
+                AnswerHandler::create_response_and_kill_page(true, "Grade successfully changed");
             } else {
-                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
             }
         }
         //Department
         if (isset($vars['department'])) {
-            if (isset($vars['department'])) {
-                $user_deparment = User::getUser($vars['email']);
-                $department = $vars['department'];
-                $user_deparment->setDepartment($department);
-                if ($user_deparment->getDepartment() === $department) {
-                    AnswerHandler::create_response_and_kill_page(true, "Department successfully changed");
-                } else {
-                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
-                }
+            $department = $vars['department'];
+            $user->setDepartment($department);
+            if ($user->getDepartment() === $department) {
+                AnswerHandler::create_response_and_kill_page(true, "Department successfully changed");
             } else {
-                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
             }
         }
 
         //Calender
+        //TODO change to add new entry and delete entry
         if (isset($vars['calender'])) {
-            if (isset($vars['calender'])) {
-                $user_calender = User::getUser($vars['email']);
-                $calender = $vars['calender'];
-                $user_calender->setCalender($calender);
-                if ($user_calender->getCalender() === $calender) {
-                    AnswerHandler::create_response_and_kill_page(true, "Calendar successfully changed");
-                } else {
-                    AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
-                }
+            $calender = $vars['calender'];
+            $user->setCalender($calender);
+            if ($user->getCalender() === $calender) {
+                AnswerHandler::create_response_and_kill_page(true, "Calendar successfully changed");
             } else {
-                AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
+                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
             }
+        }
+
+        if ($user->isTutor()) {
+            TutorController::update();
         }
     }
 
