@@ -100,7 +100,7 @@ img {
   float: left;
   margin: 10px;
   margin-right: 100px;
-
+  width: 20rem;
 }
 
 .profile {
