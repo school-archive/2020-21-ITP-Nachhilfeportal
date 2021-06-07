@@ -61,8 +61,8 @@ export default {
     console.log(this.$route.query)
     axios.get(`${this.$config.backend_host}/api/user/${this.$route.params.id}`)
         .then(res => {
-          this.profile_data = res.data.data;
-          console.log(this.profile_data)
+          this.profile_data = res.data.data.profile;
+          console.log(res, this.profile_data)
         })
   },
   computed: {

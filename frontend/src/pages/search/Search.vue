@@ -1,10 +1,13 @@
 <template>
   <div>
-    <h1>Tutorensuche</h1>
+    <h1 class="title">Tutorensuche</h1>
 
-    <search-bar/>
+    <search-bar class="search-bar"/>
 
-    <search-result v-for="res in searchResult" :user-data="res" :key="res.email"/>
+
+    <div class="result-wrapper">
+      <search-result v-for="res in searchResult" :user-data="res" :key="res.email"/>
+    </div>
 
   </div>
 </template>
@@ -35,6 +38,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .result-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    justify-content: center;
+  }
 
+  .result-wrapper > * {
+    margin: .75rem;
+  }
+
+  .search-bar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 3rem;
+    text-align: center;
+  }
 </style>
