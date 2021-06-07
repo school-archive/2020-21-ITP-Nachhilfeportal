@@ -4,6 +4,7 @@ namespace controller;
 
 use classes\AnswerHandler;
 use classes\Authentication;
+use classes\Tutor;
 use classes\User;
 
 class UserController
@@ -155,6 +156,11 @@ class UserController
             $user = User::getUser(Authentication::$user_email);
             if ($user == false) {
                 AnswerHandler::create_response_and_kill_page(false, "No Data", 400);
+            } else if ($user->isTutor() == true) {
+                $tutor = Tutor::get_Tutor($user->getEmail());
+                $tutor->delete_tutor();
+                $user->deleteUser();
+                AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
             } else {
                 $user->deleteUser();
                 AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");

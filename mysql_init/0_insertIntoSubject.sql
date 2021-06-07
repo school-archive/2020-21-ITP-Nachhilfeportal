@@ -14,9 +14,9 @@ VALUES ('Religion', 3, 1),
        ('GETE', 3, 1),
        ('BS', 3, 2),
        ('Netzwerktechnik', 3, 1),
-       ('Medientechnik', 3, 1);
-
-DELETE  FROM subject;
-
-SELECT *
-FROM subject;
+       ('Medientechnik', 3, 1),
+       ('ETE', 4, 1),
+       ('FTBT', 4, 1),
+       ('MEEM', 4, 1),
+       ('MTSA', 4, 1),
+       ('AIIT', 4, 1);
