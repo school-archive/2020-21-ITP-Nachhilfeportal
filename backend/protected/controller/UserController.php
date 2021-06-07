@@ -48,7 +48,7 @@ class UserController
         if ($user->isTutor()) {
             TutorController::show($return, $user->getEmail());
         } else {
-            if ($_GET["email"] === '@me' || $_GET["email"] === Authentication::$user_email) {
+            if ($_GET["email"] === '@me' || $_GET["email"] === Authentication::$user_email || User::getUser(Authentication::$user_email)->isAdmin()) {
                 $return['isTutor'] = false;
                 $return['profile'] = $user;
                 AnswerHandler::create_response_and_kill_page(true, $return);
