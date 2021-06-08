@@ -137,7 +137,6 @@ img.crop-center {
   }
   .text{
     text-align: justify;
-    width: 40em;
   }
 
   .icons {
@@ -147,11 +146,12 @@ img.crop-center {
   .half{
     display: flex;
     justify-content: center;
-    width: 40%;
+    width:40%
   }
 
   p {
     font-size: 1.3em;
+
   }
 
 
@@ -204,9 +204,14 @@ img.crop-center {
   p {
     font-size: 1.2em;
   }
+  .half{
+    display: flex;
+    justify-content: center;
+    width:80%
+  }
+
   .text{
     text-align: justify;
-    width: 40em;
   }
   .el1{
     display: flex;
@@ -245,12 +250,7 @@ img.crop-center {
     padding-bottom: 1em;
   }
 }
-@media (min-width: 660px) {
-  .text{
-    text-align: justify;
-    width: 30em;
-  }
-}
+
 @media (max-width: 700px) {
   .u1{
     font-weight: 200;
@@ -281,7 +281,7 @@ img.crop-center {
   }
   .text{
     text-align: justify;
-    width: 20em;
+
   }
   .el1{
     display: flex;
