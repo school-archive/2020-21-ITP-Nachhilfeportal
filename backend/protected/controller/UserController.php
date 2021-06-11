@@ -4,6 +4,7 @@ namespace controller;
 
 use classes\AnswerHandler;
 use classes\Authentication;
+use classes\Calender;
 use classes\Tutor;
 use classes\User;
 
@@ -66,6 +67,7 @@ class UserController
     public static function update()
     {
         parse_str(file_get_contents("php://input"), $vars);
+
         if (!Authentication::is_logged_in())
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
         $user = User::getUser(Authentication::$user_email);
@@ -126,19 +128,40 @@ class UserController
         }
 
         //Calender
-        //TODO change to add new entry and delete entry
+        /*
+         * calender: {
+         *  new: [
+         *      {
+         *          weekday: 'Mo',
+         *          time_from : '10:00'
+         *          time_to: '12:00'
+         *       }
+         *  ],
+         *  deleted: ['id1', 'id2']
+         * }
+         */
         if (isset($vars['calender'])) {
-            $calender = $vars['calender'];
-            $user->setCalender($calender);
-            if ($user->getCalender() === $calender) {
-                AnswerHandler::create_response_and_kill_page(true, "Calendar successfully changed");
-            } else {
-                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
+            AnswerHandler::create_response_and_kill_page(true, 'hier');
+            foreach ($vars['calender']->new as $new) {
+                //TODO ss noch dranhängen ?
+                Calender::createCalender($user->getEmail(), $new->time_from, $new->time_to, $new->weekday);
             }
+
+            foreach ($vars['calender']->deleted as $id) {
+                User::removeCalender($id);
+            }
+
+        } else {
+//            echo $vars[0];
+            print_r($vars['calender']);
+//            AnswerHandler::create_response_and_kill_page(true, $vars);
         }
 
+        //Tutor
         if ($user->isTutor()) {
             TutorController::update();
+        }else {
+            //TODO return sth (user?)
         }
     }
 

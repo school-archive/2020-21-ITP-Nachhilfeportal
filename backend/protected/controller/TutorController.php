@@ -55,6 +55,7 @@ class TutorController
      */
     public static function update()
     {
+        //TODO answerhandler mit true weg, weil sonst nimmer weitergeht
         parse_str(file_get_contents("php://input"), $vars);
         $user = User::getUser(Authentication::$user_email);
 
