@@ -9,7 +9,7 @@
     <v-select id="search-fach"
               placeholder="Fach"
               label="title"
-              :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
+              :options="subjects"
     />
     <div class="search-select-grade">
       <span class="grade-desc"><span v-show="selected_grade[0] === selected_grade[1]">nur</span> {{ selected_grade[0] }}. Klasse <span v-show="selected_grade[0] !== selected_grade[1]">- {{ selected_grade[1] }}. Klasse</span></span>
@@ -30,6 +30,7 @@
 
 <script>
 import VueSlider from "vue-slider-component";
+import axios from "axios";
 
 export default {
   name: "SearchBar",
@@ -44,7 +45,15 @@ export default {
         "Fachschule"
       ],
       selected_grade: [1, 5],
+      subjects: []
     }
+  },
+  beforeMount() {
+    axios.get(`${this.$config.backend_host}/api/subjects`)
+        .then(res => {
+          this.subjects = res.data.data;
+          console.log(res, this.subjects)
+        })
   },
 }
 </script>
