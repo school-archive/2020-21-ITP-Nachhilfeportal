@@ -16,19 +16,39 @@
           <p class="text">{{ profile_data.department || 'Keine Abteilung gesetzt' }}</p>
           <span class="grey">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
           <span style="font-weight: bold">Unterricht : </span>
-          <div v-for="method in profile_data.teaching_method" :key="method">
-            <button class="button">{{ method || 'Keine Methode gesetzt' }}</button>
+          <div v-if="isTutor">
+            <div v-for="method in profile_data.teaching_method" :key="method">
+              <button class="button">{{ method || 'Keine Methode gesetzt' }}</button>
+            </div>
           </div>
+          <div v-else>
+            Kann nur angezeigt werden wenn Tutor
+          </div>
+
 <!--          <button class="button">vor Ort</button>-->
 <!--          <button class="button">Online</button>-->
           <br><br>
           <span style="font-weight: bold">Fächer : </span>
-          <button class="button">Angewandte Mathematik</button>
-          <button class="button">Physik</button>
-          <button class="button">SYT/GINF</button>
+<!--          vorher {{ profile_data.subjects }} nachher-->
+          <div v-if="isTutor">
+            <div v-for="subject in profile_data.subjects" :key="subject">
+              <button class="button">{{ subject || 'Keine Fächer gesetzt' }}</button>
+            </div>
+          </div>
+          <div v-else>
+            Kann nur angezeigt werden wenn Tutor
+          </div>
+<!--          <button class="button">Angewandte Mathematik</button>-->
+<!--          <button class="button">Physik</button>-->
+<!--          <button class="button">SYT/GINF</button>-->
           <br><br>
           <span style="font-weight: bold">Über mich :</span> <br>
-          <p class="übermich">{{ profile_data.description || 'Keine Beschreibung gesetzt'}}</p>
+          <div v-if="isTutor">
+            <p class="übermich">{{ profile_data.description || 'Keine Beschreibung gesetzt'}}</p>
+          </div>
+          <div v-else>
+            Kann nur angezeigt werden wenn Tutor
+          </div>
         </div>
       </div>
     </div>
