@@ -31,6 +31,15 @@
             v-model="user_data.department"
         />
       </div>
+      <div class="select">
+        <label for="yesno">Tutor</label>
+        <v-select
+            placeholder="Tutor?"
+            label="title"
+            :options="['Yes', 'No']"
+            id="yesno"
+        />
+      </div>
 
       <!--Nur anzeigen wenn Tutor-->
       <!--Fächer-->
@@ -106,6 +115,9 @@
 import Calendar from "../../components/Calendar";
 import axios from "axios";
 
+
+
+
 export default {
   name: "Settings",
   components: {Calendar},
@@ -153,7 +165,8 @@ export default {
           .then(r => console.log(r))
           .catch(error => console.log(error))
     }
-  }
+  },
+
 }
 </script>
 
@@ -188,7 +201,7 @@ img {
   margin-bottom: 40px;
 }
 
-label {
+.select label:first-child {
   font-size: 25px;
   color: colors.$secondary;
   float: left;
@@ -210,7 +223,7 @@ textarea {
   align-items: center;
   padding-top: 40px;
 }
-#stufe,#abteilung,#method,#area,#faecher{
+#stufe,#abteilung,#method,#area,#faecher,#yesno{
   width:260px;
   float: right;
 }
