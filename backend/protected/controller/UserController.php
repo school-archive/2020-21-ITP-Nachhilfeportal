@@ -72,6 +72,7 @@ class UserController
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
         $user = User::getUser(Authentication::$user_email);
 
+
         //Locked
         if (isset($_POST['locked'])) {
             if (!$user->isAdmin())
@@ -108,23 +109,13 @@ class UserController
         }
         //Grade
         if (isset($vars['grade'])) {
-            $grade = $vars['grade'];
-            $user->setGrade($grade);
-            if ($user->getGrade() === $grade) {
-                AnswerHandler::create_response_and_kill_page(true, "Grade successfully changed");
-            } else {
-                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
-            }
+            $answer = $user->setGrade($vars['grade']);
+            AnswerHandler::create_response_and_kill_page(true, [$vars, $user->getEmail(), gettype($vars), $vars['grade'], $answer]);
         }
         //Department
         if (isset($vars['department'])) {
             $department = $vars['department'];
             $user->setDepartment($department);
-            if ($user->getDepartment() === $department) {
-                AnswerHandler::create_response_and_kill_page(true, "Department successfully changed");
-            } else {
-                AnswerHandler::create_response_and_kill_page(false, "Change unsuccessful");
-            }
         }
 
         //Calender
@@ -141,7 +132,7 @@ class UserController
          * }
          */
         if (isset($vars['calender'])) {
-            AnswerHandler::create_response_and_kill_page(true, 'hier');
+//            AnswerHandler::create_response_and_kill_page(true, 'hier');
             foreach ($vars['calender']->new as $new) {
                 //TODO ss noch dranhängen ?
                 Calender::createCalender($user->getEmail(), $new->time_from, $new->time_to, $new->weekday);
@@ -159,7 +150,7 @@ class UserController
 
         //Tutor
         if ($user->isTutor()) {
-            TutorController::update();
+//            TutorController::update();
         }else {
             //TODO return sth (user?)
         }

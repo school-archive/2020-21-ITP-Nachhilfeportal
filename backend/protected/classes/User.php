@@ -106,10 +106,9 @@ class User implements JsonSerializable
     {
         if ($grade !== $this->grade) {
             $s = get_np_mysql_object()->prepare("update user set grade = :grade where email = :email");
-            $s->execute(array(
-                ":email" => $this->email,
-                ":grade" => $grade
-            ));
+            $s->bindValue(':email', $this->email);
+            $s->bindValue(':grade', $grade, PDO::PARAM_INT);
+            $s->execute();
             $this->grade = $grade;
         }
     }

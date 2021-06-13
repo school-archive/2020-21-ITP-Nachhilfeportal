@@ -16,6 +16,7 @@
             label="title"
             :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
             id="stufe"
+            v-model="user_data.grade"
         />
       </div><br>
 
@@ -38,7 +39,7 @@
                   placeholder="Fach"
                   label="title"
                   multiple=""
-                  :options="['Fach1', 'Fach2', 'Fach3', 'Fach4', 'Fach5', 'Fach6']"
+                  :options="subjects"
         />
       </div>
       <!--Beschreibung-->
@@ -96,6 +97,7 @@
       </div>
     </div>
 
+    <button @click="save">Speichern</button>
   </div>
 </template>
 
@@ -108,7 +110,9 @@ export default {
   components: {Calendar},
   data() {
     return {
-      profile_data: {}
+      profile_data: {},
+      subjects: [],
+      user_data: {}
     }
   },
   metaInfo: {
@@ -123,6 +127,12 @@ export default {
           this.isLoaded = true;
           console.log(this.profile_data)
         })
+
+    axios.get(`${this.$config.backend_host}/api/subjects`)
+        .then(res => {
+          this.subjects = res.data.data;
+          console.log(res, this.subjects)
+        })
   },
   mounted() {
     console.log(this.profile_data)
@@ -130,6 +140,18 @@ export default {
   computed: {
     picture_url() {
       return this.$config.backend_host + this.profile_data?.picture_url;
+    }
+  },
+  methods: {
+    save: function () {
+      const params = new URLSearchParams();
+      if (typeof this.user_data.grade !== 'undefined') {
+        params.append('grade', this.user_data.grade.split('.')[0])
+      }
+
+      axios.put(`${this.$config.backend_host}/api/user`, params)
+          .then(r => console.log(r))
+          .catch(error => console.log(error))
     }
   }
 }
