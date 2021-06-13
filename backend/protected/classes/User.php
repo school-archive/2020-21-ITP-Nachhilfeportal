@@ -307,6 +307,14 @@ class User implements JsonSerializable
         ));
     }
 
+    public function deleteAllSubjects()
+    {
+        $s = get_np_mysql_object()->prepare("delete from selected_subject where email= :email");
+        $s->execute(array(
+            ":email" => $this->email
+        ));
+    }
+
     /**
      * @param $email
      * @return User|bool

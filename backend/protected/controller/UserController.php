@@ -130,27 +130,19 @@ class UserController
          * }
          */
         if (isset($vars['calender'])) {
-//            AnswerHandler::create_response_and_kill_page(true, 'hier');
             foreach ($vars['calender']->new as $new) {
-                //TODO ss noch dranhängen ?
-                Calender::createCalender($user->getEmail(), $new->time_from, $new->time_to, $new->weekday);
+                Calender::createCalender($user->getEmail(), Calender::hhmm_to_time($new->time_from), Calender::hhmm_to_time($new->time_to), $new->weekday);
             }
 
             foreach ($vars['calender']->deleted as $id) {
                 User::removeCalender($id);
             }
 
-        } else {
-//            echo $vars[0];
-            print_r($vars['calender']);
-//            AnswerHandler::create_response_and_kill_page(true, $vars);
         }
 
         //Tutor
         if ($user->isTutor()) {
-//            TutorController::update();
-        }else {
-            //TODO return sth (user?)
+            TutorController::update($vars);
         }
     }
 
