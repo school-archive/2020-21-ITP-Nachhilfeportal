@@ -109,13 +109,11 @@ class UserController
         }
         //Grade
         if (isset($vars['grade'])) {
-            $answer = $user->setGrade($vars['grade']);
-            AnswerHandler::create_response_and_kill_page(true, [$vars, $user->getEmail(), gettype($vars), $vars['grade'], $answer]);
+            $user->setGrade($vars['grade']);
         }
         //Department
         if (isset($vars['department'])) {
-            $department = $vars['department'];
-            $user->setDepartment($department);
+            $user->setDepartment($vars['department']);
         }
 
         //Calender

@@ -24,12 +24,8 @@
           <div v-else>
             Kann nur angezeigt werden wenn Tutor
           </div>
-
-<!--          <button class="button">vor Ort</button>-->
-<!--          <button class="button">Online</button>-->
           <br><br>
           <span style="font-weight: bold">Fächer : </span>
-<!--          vorher {{ profile_data.subjects }} nachher-->
           <div v-if="isTutor">
             <div v-for="subject in profile_data.subjects" :key="subject">
               <button class="button">{{ subject || 'Keine Fächer gesetzt' }}</button>
@@ -38,9 +34,6 @@
           <div v-else>
             Kann nur angezeigt werden wenn Tutor
           </div>
-<!--          <button class="button">Angewandte Mathematik</button>-->
-<!--          <button class="button">Physik</button>-->
-<!--          <button class="button">SYT/GINF</button>-->
           <br><br>
           <span style="font-weight: bold">Über mich :</span> <br>
           <div v-if="isTutor">

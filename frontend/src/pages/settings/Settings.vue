@@ -28,6 +28,7 @@
             label="Abteilung"
             :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
             id="abteilung"
+            v-model="user_data.department"
         />
       </div>
 
@@ -143,11 +144,10 @@ export default {
     }
   },
   methods: {
-    save: function () {
+    save() {
       const params = new URLSearchParams();
-      if (typeof this.user_data.grade !== 'undefined') {
-        params.append('grade', this.user_data.grade.split('.')[0])
-      }
+      if (typeof this.user_data.grade !== 'undefined') { params.append('grade', this.user_data.grade.split('.')[0]) }
+      if (typeof this.user_data.department !== 'undefined') { params.append('department', this.user_data.department) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => console.log(r))
