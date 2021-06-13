@@ -55,7 +55,7 @@
       <!--Beschreibung-->
       <div class="select">
         <label for="area">Beschreibung</label>
-        <textarea cols="25" id="area"></textarea><br>
+        <textarea cols="25" id="area" v-model="user_data.description"></textarea><br>
       </div>
 
 
@@ -161,6 +161,7 @@ export default {
       const params = new URLSearchParams();
       if (typeof this.user_data.grade !== 'undefined') { params.append('grade', this.user_data.grade.split('.')[0]) }
       if (typeof this.user_data.department !== 'undefined') { params.append('department', this.user_data.department) }
+      if (typeof this.user_data.description !== 'undefined') { params.append('description', this.user_data.description) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => console.log(r))
