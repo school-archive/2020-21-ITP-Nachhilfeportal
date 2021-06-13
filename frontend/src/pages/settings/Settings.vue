@@ -72,42 +72,43 @@
       </div>
 
     </div>
-    <div class="setting_calender">
-      <div class="additem">
-        <h3>Neuen Termin hinzufügen:</h3><br>
-        <h4>Wochentag:</h4>
-        <div class="additemdate">
-          <v-select
-              placeholder="Tag"
-              label="title"
-              :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
-          />
-        </div>
-        <h4>Uhrzeit:</h4>
-        Von:
-        <div class="additemdate">
-          <v-select
-              placeholder="von"
-              label="title"
-              :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
-          />
-          Bis:
+    <div class="unterer_bereich">
+      <div class="setting_calender">
+        <div class="additem">
+          <h3>Neuen Termin hinzufügen:</h3><br>
+          <h4>Wochentag:</h4>
           <div class="additemdate">
             <v-select
-                placeholder="bis"
+                placeholder="Tag"
+                label="title"
+                :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+            />
+          </div>
+          <h4>Uhrzeit:</h4>
+          Von:
+          <div class="additemdate">
+            <v-select
+                placeholder="von"
                 label="title"
                 :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
             />
+            Bis:
+            <div class="additemdate">
+              <v-select
+                  placeholder="bis"
+                  label="title"
+                  :options="['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']"
+              />
+            </div>
           </div>
+          <button>Hinzufügen</button>
         </div>
-        <button>Hinzufügen</button>
+        <div class="kalender">
+          <Calendar></Calendar>
+        </div>
       </div>
-      <div class="kalender">
-        <Calendar></Calendar>
-      </div>
+      <button @click="save" id="submit">Speichern</button>
     </div>
-
-    <button @click="save">Speichern</button>
   </div>
 </template>
 
@@ -232,9 +233,13 @@ textarea {
   background-color: colors.$primary;
 }
 
+.unterer_bereich{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
 .setting_calender{
   display: flex;
-
   justify-content: space-between;
 }
 .kalender{
@@ -246,6 +251,10 @@ textarea {
   padding-bottom: 10px;
 }
 
+#submit{
+  width:5em;
+  align-self: center;
+}
 button{
   background-color: colors.$primary;
   border-color: transparent;
