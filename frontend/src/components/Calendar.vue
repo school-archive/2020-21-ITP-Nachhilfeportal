@@ -299,7 +299,7 @@ header h1 {
 }
 tbody {
   position: relative;
-  top: 100px;
+  top: 50px;
 }
 table {
   background: #fff;
