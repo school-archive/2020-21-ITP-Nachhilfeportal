@@ -50,6 +50,7 @@
                   label="title"
                   multiple=""
                   :options="subjects"
+                  v-model="user_data.subjects"
         />
       </div>
       <!--Beschreibung-->
@@ -68,6 +69,7 @@
             multiple=""
             :options="['Vor Ort', 'Online']"
             id="method"
+            v-model="user_data.method"
         />
       </div>
 
@@ -162,10 +164,18 @@ export default {
       if (typeof this.user_data.grade !== 'undefined') { params.append('grade', this.user_data.grade.split('.')[0]) }
       if (typeof this.user_data.department !== 'undefined') { params.append('department', this.user_data.department) }
       if (typeof this.user_data.description !== 'undefined') { params.append('description', this.user_data.description) }
+      if (typeof this.user_data.subjects !== 'undefined') { params.append('subjects', this.user_data.subjects) }
+      if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method_number()) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => console.log(r))
           .catch(error => console.log(error))
+    },
+    get_teaching_method_number() {
+      let out = 0;
+      if (this.user_data.method.includes("Vor Ort")) out += 1;
+      if (this.user_data.method.includes("Online")) out += 2;
+      return "" + out;
     }
   },
 
