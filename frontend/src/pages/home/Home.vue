@@ -78,7 +78,7 @@ export default {
 
 .section-landing-page {
   height: calc(100vh - 50px);
-  background-image: url("~@/assets/images/Startseite.png");
+  background-image: url("~@/assets/images/Startseite_lowres.png");
   background-position: center;
   background-size: cover;
 
