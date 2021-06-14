@@ -1,3 +1,5 @@
+use np;
+
 INSERT INTO subject (name, department, mingrade)
 VALUES ('Religion', 3, 1),
        ('Deutsch', 3, 1),
