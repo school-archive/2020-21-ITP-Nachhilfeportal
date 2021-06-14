@@ -36,8 +36,9 @@
         <v-select
             placeholder="Tutor?"
             label="title"
-            :options="['Yes', 'No']"
+            :options="['Ja', 'Nein']"
             id="yesno"
+            v-model="user_data.isTutor"
         />
       </div>
 
@@ -163,6 +164,7 @@ export default {
       const params = new URLSearchParams();
       if (typeof this.user_data.grade !== 'undefined') { params.append('grade', this.user_data.grade.split('.')[0]) }
       if (typeof this.user_data.department !== 'undefined') { params.append('department', this.user_data.department) }
+      if (typeof this.user_data.isTutor !== 'undefined') { params.append('isTutor', (this.user_data.isTutor) === 'Ja') }
       if (typeof this.user_data.description !== 'undefined') { params.append('description', this.user_data.description) }
       if (typeof this.user_data.subjects !== 'undefined') { params.append('subjects', this.user_data.subjects) }
       if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method_number()) }

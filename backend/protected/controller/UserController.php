@@ -131,13 +131,24 @@ class UserController
          */
         if (isset($vars['calender'])) {
             foreach ($vars['calender']->new as $new) {
-                Calender::createCalender($user->getEmail(), Calender::hhmm_to_time($new->time_from), Calender::hhmm_to_time($new->time_to), $new->weekday);
+                $user->addCalender(Calender::hhmm_to_time($new->time_from), Calender::hhmm_to_time($new->time_to), $new->weekday);
             }
 
             foreach ($vars['calender']->deleted as $id) {
                 User::removeCalender($id);
             }
 
+        }
+
+        //SetTutor
+        if (isset($vars['isTutor'])) {
+            if ($vars['isTutor'] !== $user->isTutorString()) {
+                if($vars['isTutor'] !== 'false') { ///
+                    TutorController::store();
+                } else {
+                    TutorController::destroy();
+                }
+            }
         }
 
         //Tutor

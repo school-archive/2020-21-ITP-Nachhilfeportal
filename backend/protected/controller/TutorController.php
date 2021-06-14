@@ -32,12 +32,7 @@ class TutorController
     public static function store()
     {
         $user = User::getUser(Authentication::$user_email);
-        if (isset($_POST["description"])) {
-            if (isset($_POST["teaching_method"])) {
-                Tutor::create_tutor($user->getEmail(), $_POST["description"], $_POST["teaching_method"]);
-            }
-            AnswerHandler::create_response_and_kill_page(true, "Tutor created");
-        }
+        Tutor::create_tutor($user->getEmail(), '', 0);
     }
 
     /**
@@ -60,10 +55,10 @@ class TutorController
         $tutor = Tutor::get_Tutor(Authentication::$user_email);
 
         if (isset($vars['description'])) {
-            $tutor->setLocked($vars['description']);
+            $tutor->setLocked($vars['description']); //TODO richtig
         }
         if (isset($vars['teaching_method'])) {
-            $tutor->setLocked($vars['teaching_method']);
+            $tutor->setLocked($vars['teaching_method']); //TODO richtig
         }
 
         if (isset($vars['subjects'])) {
@@ -79,8 +74,7 @@ class TutorController
     /**
      * Remove the specified resource from storage.
      */
-    public
-    static function destroy()
+    public static function destroy()
     {
         if (!Authentication::is_logged_in()) {
             AnswerHandler::create_response_and_kill_page(false, "unauthorized", 401);
