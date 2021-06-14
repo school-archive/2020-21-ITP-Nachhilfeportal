@@ -43,7 +43,7 @@
       </div>
 
       <!--Nur anzeigen wenn Tutor-->
-      <div v-if="isTutor">
+      <div v-if="isTutor || user_data.isTutor === 'Ja'">
         <!--Fächer-->
         <div class="select">
           <label for="faecher">Fächer</label>
