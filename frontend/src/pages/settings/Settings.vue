@@ -43,36 +43,39 @@
       </div>
 
       <!--Nur anzeigen wenn Tutor-->
-      <!--Fächer-->
-      <div class="select">
-        <label for="faecher">Fächer</label>
-        <v-select id="faecher"
-                  placeholder="Fach"
-                  label="title"
-                  multiple=""
-                  :options="subjects"
-                  v-model="user_data.subjects"
-        />
-      </div>
-      <!--Beschreibung-->
-      <div class="select">
-        <label for="area">Beschreibung</label>
-        <textarea cols="25" id="area" v-model="user_data.description"></textarea><br>
-      </div>
+      <div v-if="isTutor">
+        <!--Fächer-->
+        <div class="select">
+          <label for="faecher">Fächer</label>
+          <v-select id="faecher"
+                    placeholder="Fach"
+                    label="title"
+                    multiple=""
+                    :options="subjects"
+                    v-model="user_data.subjects"
+          />
+        </div>
+        <!--Beschreibung-->
+        <div class="select">
+          <label for="area">Beschreibung</label>
+          <textarea cols="25" id="area" v-model="user_data.description"></textarea><br>
+        </div>
 
 
-      <!--Methode-->
-      <div class="select">
-        <label for="method">Methode</label>
-        <v-select
-            placeholder="Methode"
-            label="title"
-            multiple=""
-            :options="['Vor Ort', 'Online']"
-            id="method"
-            v-model="user_data.method"
-        />
+        <!--Methode-->
+        <div class="select">
+          <label for="method">Methode</label>
+          <v-select
+              placeholder="Methode"
+              label="title"
+              multiple=""
+              :options="['Vor Ort', 'Online']"
+              id="method"
+              v-model="user_data.method"
+          />
+        </div>
       </div>
+
 
     </div>
     <div class="unterer_bereich">
@@ -128,6 +131,7 @@ export default {
   data() {
     return {
       profile_data: {},
+      isTutor : '',
       subjects: [],
       user_data: {}
     }
@@ -141,6 +145,7 @@ export default {
         .then(res => {
           console.log(res)
           this.profile_data = res.data.data.profile;
+          this.isTutor = res.data.data.isTutor
           this.isLoaded = true;
           console.log(this.profile_data)
         })
