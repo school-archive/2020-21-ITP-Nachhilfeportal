@@ -175,7 +175,10 @@ export default {
       if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method_number()) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
-          .then(r => console.log(r))
+          .then(r => {
+            console.log(r);
+            this.$router.push({ name: 'Profile', params: { id: this.profile_data.email } })
+          })
           .catch(error => console.log(error))
     },
     get_teaching_method_number() {
