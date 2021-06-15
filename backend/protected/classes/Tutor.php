@@ -49,11 +49,9 @@ class Tutor extends User
     public function setDescription($description)
     {
         $s = get_np_mysql_object()->prepare("update tutor set description = :description where email = :email");
-        $s->bindValue(':email', $this->email);
-        $s->bindValue(':description', $description);
         $s->execute([
             ':email' => $this->email,
-            ':description', $description
+            ':description' => $description
         ]);
         $this->description = $description;
     }
