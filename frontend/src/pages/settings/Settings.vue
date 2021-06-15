@@ -8,44 +8,45 @@
     <!--Einstellungen-->
     <div class="wrapper">
 
-      <!--Schulstufe-->
       <div class="select">
-        <label for="stufe">Schulstufe</label>
-        <v-select
-            placeholder="Schulstufe"
-            label="title"
-            :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
-            id="stufe"
-            v-model="user_data.grade"
-        />
-      </div><br>
+        <!--Schulstufe-->
+        <div >
+          <label for="stufe">Schulstufe</label>
+          <v-select
+              placeholder="Schulstufe"
+              label="title"
+              :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
+              id="stufe"
+              v-model="user_data.grade"
+          />
+        </div><br>
 
-      <!--Abteilung-->
-      <div class="select">
-        <label for="abteilung">Abteilung</label>
-        <v-select
-            placeholder="Abteilung"
-            label="Abteilung"
-            :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
-            id="abteilung"
-            v-model="user_data.department"
-        />
+        <!--Abteilung-->
+        <div>
+          <label for="abteilung">Abteilung</label>
+          <v-select
+              placeholder="Abteilung"
+              label="Abteilung"
+              :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
+              id="abteilung"
+              v-model="user_data.department"
+          />
+        </div>
+        <div >
+          <label for="yesno">Tutor</label>
+          <v-select
+              placeholder="Tutor?"
+              label="title"
+              :options="['Ja', 'Nein']"
+              id="yesno"
+              v-model="user_data.isTutor"
+          />
+        </div>
       </div>
-      <div class="select">
-        <label for="yesno">Tutor</label>
-        <v-select
-            placeholder="Tutor?"
-            label="title"
-            :options="['Ja', 'Nein']"
-            id="yesno"
-            v-model="user_data.isTutor"
-        />
-      </div>
-
       <!--Nur anzeigen wenn Tutor-->
-      <div v-if="isTutor || user_data.isTutor === 'Ja'">
+      <div v-if="isTutor || user_data.isTutor === 'Ja'" class="select">
         <!--Fächer-->
-        <div class="select">
+        <div>
           <label for="faecher">Fächer</label>
           <v-select id="faecher"
                     placeholder="Fach"
@@ -56,14 +57,14 @@
           />
         </div>
         <!--Beschreibung-->
-        <div class="select">
+        <div >
           <label for="area">Beschreibung</label>
           <textarea cols="25" id="area" v-model="user_data.description"></textarea><br>
         </div>
 
 
         <!--Methode-->
-        <div class="select">
+        <div >
           <label for="method">Methode</label>
           <v-select
               placeholder="Methode"
@@ -219,8 +220,11 @@ img {
 }
 
 .select{
-  width:40%;
-  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40%;
+  padding-top: 40px;
 }
 
 .select label:first-child {
@@ -228,12 +232,14 @@ img {
   color: colors.$secondary;
   float: left;
   margin-right: 100px;
+  padding-bottom: 0.5em;
 }
 
 textarea {
   resize: none;
   border-radius: 5px;
   border-color: colors.$third;
+  padding-bottom: 0.5em;
 
 }
 
@@ -248,6 +254,7 @@ textarea {
 #stufe,#abteilung,#method,#area,#faecher,#yesno{
   width:260px;
   float: right;
+  padding-bottom: 0.5em;
 }
 
 .v-select .vs__dropdown-option--highlight {
@@ -257,6 +264,7 @@ textarea {
 .unterer_bereich{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin-bottom: 1em;
 }
 .setting_calender{
@@ -264,10 +272,9 @@ textarea {
   justify-content: space-around;
 }
 .kalender{
-  margin-right: 35px;
+  padding-top: 1em;
 }
 .additem {
-  padding-left: 150px;
   width: 250px;
   padding-bottom: 10px;
 }
