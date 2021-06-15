@@ -55,7 +55,8 @@ class TutorController
         $tutor = Tutor::get_Tutor(Authentication::$user_email);
 
         if (isset($vars['description'])) {
-            $tutor->setLocked($vars['description']); //TODO richtig
+            $tutor->setDescription($vars['description']);
+            AnswerHandler::create_response_and_kill_page(true, $vars['description']);
         }
         if (isset($vars['teaching_method'])) {
             $tutor->setLocked($vars['teaching_method']); //TODO richtig
