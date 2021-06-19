@@ -44,7 +44,7 @@
         </div>
       </div>
       <!--Nur anzeigen wenn Tutor-->
-      <div v-if="isTutor || user_data.isTutor === 'Ja'" class="select">
+      <div v-if="isTutor && user_data.isTutor !== 'Nein'" class="select">
         <!--Fächer-->
         <div>
           <label for="faecher">Fächer</label>
