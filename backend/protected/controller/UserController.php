@@ -143,7 +143,7 @@ class UserController
         //SetTutor
         if (isset($vars['isTutor'])) {
             if ($vars['isTutor'] !== $user->isTutorString()) {
-                if($vars['isTutor'] !== 'false') { ///
+                if($vars['isTutor'] !== 'false') {
                     TutorController::store();
                 } else {
                     TutorController::destroy();

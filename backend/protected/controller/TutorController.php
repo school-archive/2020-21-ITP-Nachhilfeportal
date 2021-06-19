@@ -56,19 +56,21 @@ class TutorController
 
         if (isset($vars['description'])) {
             $tutor->setDescription($vars['description']);
-//            AnswerHandler::create_response_and_kill_page(true, ['jo', $vars['description']]);
         }
-        if (isset($vars['teaching_method'])) {
-            $tutor->setLocked($vars['teaching_method']); //TODO richtig
+
+        if (isset($vars['method'])) {
+            $method = json_decode($vars['method']);
+            $tutor->setTM_present($method->vor_ort);
+            $tutor->setTM_online($method->online);
         }
 
         if (isset($vars['subjects'])) {
+            $subjects_array = explode(',', $vars['subjects']);
             $tutor->deleteAllSubjects();
-            foreach ($vars['subjects'] as $subject) {
+            foreach ($subjects_array as $subject) {
                 $tutor->addSubject($subject);
             }
         }
-
     }
 
 

@@ -173,7 +173,7 @@ export default {
       if (typeof this.user_data.isTutor !== 'undefined') { params.append('isTutor', (this.user_data.isTutor) === 'Ja') }
       if (typeof this.user_data.description !== 'undefined') { params.append('description', this.user_data.description) }
       if (typeof this.user_data.subjects !== 'undefined') { params.append('subjects', this.user_data.subjects) }
-      if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method_number()) }
+      if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method()) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => {
@@ -182,11 +182,15 @@ export default {
           })
           .catch(error => console.log(error))
     },
-    get_teaching_method_number() {
-      let out = 0;
-      if (this.user_data.method.includes("Vor Ort")) out += 1;
-      if (this.user_data.method.includes("Online")) out += 2;
-      return "" + out;
+    get_teaching_method() {
+      let methods = {
+        vor_ort : false,
+        online : false
+      }
+      if (this.user_data.method.includes("Vor Ort")) methods.vor_ort = true
+      if (this.user_data.method.includes("Online")) methods.online = true
+
+      return JSON.stringify(methods)
     }
   },
 

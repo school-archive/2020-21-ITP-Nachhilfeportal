@@ -416,7 +416,7 @@ class User implements JsonSerializable
         return $this->subjects;
     }
 
-    public function filterUserInBearbeitung() //von $_GET //($user = null)
+    public function filterUserInBearbeitung()
     {
         parse_str(file_get_contents("php://input"),$put_var);
 
@@ -445,30 +445,17 @@ class User implements JsonSerializable
             $s->bindValue(':department', $this->department);
         }
 
-        $s->execute();
-        $objsUser = $s->fetchAll();
-
-        //subjects with exists in sql statemnt?
-
+        //subjects
         $users = [];
+        if(isset($put_var['subjects'])) {
+            //TODO join selected_subject in foreach und dann doppelte in array rauslöschen
+        } else {
+            $s->execute();
+            $objsUser = $s->fetchAll();
+            //TODO save in $users
+        }
 
-        /*foreach ($objsUser as $objUser) {
-
-
-
-            $sc = get_np_mysql_object()->prepare("select * from user u join calender_free cf on u.email = cf.email where email = :email");
-            $sc->execute(array(":email" => $objUser["email"]));
-            $objsCalenders = $sc->fetchAll();
-            if (!empty($objsCalender['calender_id'])) {
-                if (compareCalender()) {
-                    array_push($users, new User($objUser["email"], $objUser['first_name'], $objUser['last_name'], $objUser['password'], $objUser['picture_url'], $objUser['grade'], $objUser['department'], $objUser['isAdmin'], $objUser['locked']));
-                    break;
-                }
-            }
-        }*/
-
-
-        return $objsUser;
+        return $users;
     }
 
     public function jsonSerialize()
