@@ -1,10 +1,15 @@
 <template>
-
+  <div>
+    {{ day }}
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Day"
+  name: "Day",
+  props: {
+    day: String
+  }
 }
 </script>
 
