@@ -16,31 +16,40 @@
           <p class="text">{{ profile_data.department || 'Keine Abteilung gesetzt' }}</p>
           <span class="grey">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
           <span style="font-weight: bold">Unterricht : </span>
-          <div v-if="isTutor">
+          <div v-if="isTutor && profile_data.teaching_method">
             <div v-for="method in profile_data.teaching_method" :key="method">
-              <button class="button">{{ method || 'Keine Methode gesetzt' }}</button>
+              <button class="button">{{ method }}</button>
             </div>
           </div>
-          <div v-else>
+          <div v-else-if="!isTutor">
             Kann nur angezeigt werden wenn Tutor
+          </div>
+          <div v-else>
+            Keine Methode gesetzt
           </div>
           <br><br>
           <span style="font-weight: bold">Fächer : </span>
-          <div v-if="isTutor">
+          <div v-if="isTutor && profile_data.subjects">
             <div v-for="subject in profile_data.subjects" :key="subject">
-              <button class="button">{{ subject || 'Keine Fächer gesetzt' }}</button>
+              <button class="button">{{ subject }}</button>
             </div>
           </div>
-          <div v-else>
+          <div v-else-if="!isTutor">
             Kann nur angezeigt werden wenn Tutor
+          </div>
+          <div v-else>
+            Keine Fächer gesetzt
           </div>
           <br><br>
           <span style="font-weight: bold">Über mich :</span> <br>
-          <div v-if="isTutor">
-            <p class="übermich">{{ profile_data.description || 'Keine Beschreibung gesetzt'}}</p>
+          <div v-if="isTutor && profile_data.description">
+            <p class="übermich">{{ profile_data.description }}</p>
+          </div>
+          <div v-else-if="!isTutor">
+            Kann nur angezeigt werden wenn Tutor
           </div>
           <div v-else>
-            Kann nur angezeigt werden wenn Tutor
+            Keine Beschreibung gesetzt
           </div>
         </div>
       </div>
@@ -74,7 +83,8 @@ export default {
     console.log(this.$route.query)
     axios.get(`${this.$config.backend_host}/api/user/${this.$route.params.id}`)
         .then(res => {
-          this.profile_data = res.data.data.profile;
+          this.profile_data = res.data.data.profile
+          if ((this.profile_data.department === 'null')) this.profile_data.department = null
           this.self = res.data.data.self
           this.isTutor = res.data.data.isTutor
           console.log(res, this.profile_data)

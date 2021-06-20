@@ -64,13 +64,13 @@ class Tutor extends User
     {
         switch ($this->teaching_method) {
             case 1:
-                $values = ['Vorort'];
+                $values = ['Vor Ort'];
                 break;
             case 2:
                 $values = ['Online'];
                 break;
             case 3:
-                $values = ['Vorort', 'Online'];
+                $values = ['Vor Ort', 'Online'];
                 break;
             default:
                 $values = [];
@@ -161,9 +161,8 @@ class Tutor extends User
     public function jsonSerialize()
     {
         $user = User::getUser($this->email);
-        $subjects = $user->getSelected_Subject();
-        if(empty($subjects)) { $subjects = null; }
         $tm = (empty($this->getTeaching_method())) ? null : $this->getTeaching_method();
+        $subjects = (empty($user->getSelected_Subject())) ? null : $user->getSelected_Subject();
 
         return [
             "email" => $user->getEmail(),

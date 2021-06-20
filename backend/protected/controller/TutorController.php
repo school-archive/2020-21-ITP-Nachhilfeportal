@@ -53,6 +53,7 @@ class TutorController
     public static function update($vars)
     {
         $tutor = Tutor::get_Tutor(Authentication::$user_email);
+        $user = User::getUser(Authentication::$user_email);
 
         if (isset($vars['description'])) {
             $tutor->setDescription($vars['description']);
@@ -64,11 +65,15 @@ class TutorController
             $tutor->setTM_online($method->online);
         }
 
-        if (isset($vars['subjects'])) {
+        if (isset($vars['subjects']) && $vars['subjects'] !== 'null' && $vars['subjects'] !== '') {
             $subjects_array = explode(',', $vars['subjects']);
-            $tutor->deleteAllSubjects();
+            $user->deleteAllSubjects();
             foreach ($subjects_array as $subject) {
-                $tutor->addSubject($subject);
+                $user->addSubject($subject);
+            }
+        } else {
+            if(!empty($user->getSelected_Subject())) {
+                $user->deleteAllSubjects();
             }
         }
     }
@@ -87,6 +92,7 @@ class TutorController
                 AnswerHandler::create_response_and_kill_page(false, "No Data", 400);
             } else {
                 $tutor->delete_tutor();
+                User::getUser(Authentication::$user_email)->deleteAllSubjects();
                 AnswerHandler::create_response_and_kill_page(true, "Sucessfully deleted");
             }
         }
