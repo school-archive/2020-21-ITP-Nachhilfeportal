@@ -123,9 +123,6 @@
 import Calendar from "../../components/Calendar";
 import axios from "axios";
 
-
-
-
 export default {
   name: "Settings",
   components: {Calendar},
