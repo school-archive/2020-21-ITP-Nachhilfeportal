@@ -14,7 +14,7 @@
 
           <h1>{{ profile_data.first_name }} {{ profile_data.last_name }}</h1>
           <p class="text">{{ profile_data.department || 'Keine Abteilung gesetzt' }}</p>
-          <span class="grey">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
+          <span class="greyy">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
           <span style="font-weight: bold">Unterricht : </span>
           <div v-if="isTutor && profile_data.teaching_method">
             <div v-for="method in profile_data.teaching_method" :key="method">
@@ -116,7 +116,7 @@ export default {
   color: colors.$fourth;
 }
 
-.grey {
+.greyy {
   color: colors.$fourth;
 }
 
