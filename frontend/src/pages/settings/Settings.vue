@@ -17,7 +17,7 @@
               label="title"
               :options="['1. Klasse', '2. Klasse', '3. Klasse', '4. Klasse', '5. Klasse']"
               id="stufe"
-              v-model="user_data.grade"
+              v-model="profile_data.grade"
           />
         </div><br>
 
@@ -29,7 +29,7 @@
               label="Abteilung"
               :options="['Informationstechnologie', 'Mechatronik', 'Informationstechnik']"
               id="abteilung"
-              v-model="user_data.department"
+              v-model="profile_data.department"
           />
         </div>
         <div >
@@ -39,12 +39,12 @@
               label="title"
               :options="['Ja', 'Nein']"
               id="yesno"
-              v-model="user_data.isTutor"
+              v-model="isTutor"
           />
         </div>
       </div>
       <!--Nur anzeigen wenn Tutor-->
-      <div v-if="isTutor && user_data.isTutor !== 'Nein'" class="select">
+      <div v-if="(isTutor && isTutor !== 'Nein') || isTutor === 'Ja'" class="select">
         <!--Fächer-->
         <div>
           <label for="faecher">Fächer</label>
@@ -53,13 +53,13 @@
                     label="title"
                     multiple=""
                     :options="subjects"
-                    v-model="user_data.subjects"
+                    v-model="profile_data.subjects"
           />
         </div>
         <!--Beschreibung-->
         <div >
           <label for="area">Beschreibung</label>
-          <textarea cols="25" id="area" v-model="user_data.description"></textarea><br>
+          <textarea cols="25" id="area" v-model="profile_data.description"></textarea><br>
         </div>
 
 
@@ -72,7 +72,7 @@
               multiple=""
               :options="['Vor Ort', 'Online']"
               id="method"
-              v-model="user_data.method"
+              v-model="profile_data.teaching_method"
           />
         </div>
       </div>
@@ -133,8 +133,8 @@ export default {
     return {
       profile_data: {},
       isTutor : '',
+      isTutorNotBoolean: '',
       subjects: [],
-      user_data: {}
     }
   },
   metaInfo: {
@@ -146,7 +146,9 @@ export default {
         .then(res => {
           console.log(res)
           this.profile_data = res.data.data.profile;
-          this.isTutor = res.data.data.isTutor
+          if (this.profile_data.grade) this.profile_data.grade = this.profile_data.grade +'. Klasse'
+          if ((this.profile_data.department === 'null')) this.profile_data.department = null
+          this.isTutor = (res.data.data.isTutor) ? 'Ja' : 'Nein'
           this.isLoaded = true;
           console.log(this.profile_data)
         })
@@ -168,12 +170,12 @@ export default {
   methods: {
     save() {
       const params = new URLSearchParams();
-      if (typeof this.user_data.grade !== 'undefined') { params.append('grade', this.user_data.grade.split('.')[0]) }
-      if (typeof this.user_data.department !== 'undefined') { params.append('department', this.user_data.department) }
-      if (typeof this.user_data.isTutor !== 'undefined') { params.append('isTutor', (this.user_data.isTutor) === 'Ja') }
-      if (typeof this.user_data.description !== 'undefined') { params.append('description', this.user_data.description) }
-      if (typeof this.user_data.subjects !== 'undefined') { params.append('subjects', this.user_data.subjects) }
-      if (typeof this.user_data.method !== 'undefined') { params.append('method', this.get_teaching_method()) }
+      if (typeof this.profile_data.grade !== 'undefined') { params.append('grade', (this.profile_data.grade !== null) ? this.profile_data.grade.split('.')[0] : null) }
+      if (typeof this.profile_data.department !== 'undefined') { params.append('department', this.profile_data.department) }
+      if (typeof this.isTutor !== 'undefined') { params.append('isTutor', (this.isTutor) === 'Ja') }
+      if (typeof this.profile_data.description !== 'undefined') { params.append('description', this.profile_data.description) }
+      if (typeof this.profile_data.subjects !== 'undefined') { params.append('subjects', this.profile_data.subjects) }
+      if (typeof this.profile_data.teaching_method !== 'undefined') { params.append('method', this.get_teaching_method()) }
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => {
@@ -187,8 +189,10 @@ export default {
         vor_ort : false,
         online : false
       }
-      if (this.user_data.method.includes("Vor Ort")) methods.vor_ort = true
-      if (this.user_data.method.includes("Online")) methods.online = true
+      if(this.profile_data.teaching_method) {
+        if (this.profile_data.teaching_method.includes("Vor Ort")) methods.vor_ort = true
+        if (this.profile_data.teaching_method.includes("Online")) methods.online = true
+      }
 
       return JSON.stringify(methods)
     }

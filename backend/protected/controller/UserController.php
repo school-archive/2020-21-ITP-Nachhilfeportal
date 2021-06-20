@@ -74,7 +74,7 @@ class UserController
 
 
         //Locked
-        if (isset($_POST['locked'])) {
+       /* if (isset($_POST['locked'])) {
             if (!$user->isAdmin())
                 AnswerHandler::create_response_and_kill_page(false, "admin privileges required", 403);
 
@@ -106,11 +106,12 @@ class UserController
                 AnswerHandler::create_response_and_kill_page(false, 'User missing', 400);
             }
 
-        }
+        }*/
         //Grade
         if (isset($vars['grade'])) {
-            $user->setGrade($vars['grade']);
+            $user->setGrade(($vars['grade']!=='null') ? $vars['grade'] : null);
         }
+
         //Department
         if (isset($vars['department'])) {
             $user->setDepartment($vars['department']);
