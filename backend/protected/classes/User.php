@@ -113,8 +113,9 @@ class User implements JsonSerializable
         }
     }
 
-    public function setCalender($calender){
-        $this->calender=$calender;
+    public function setCalender($calender)
+    {
+        $this->calender = $calender;
     }
 
     /**
@@ -223,10 +224,10 @@ class User implements JsonSerializable
 
         $calender = [];
         foreach ($objs as $obj)
-            if($return_object) {
-                array_push($calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']),Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
+            if ($return_object) {
+                array_push($calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']), Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
             } else {
-                array_push($calender,['time_from' => Calender::time_to_hhmm($obj['time_from']),'time_to' => Calender::time_to_hhmm($obj['time_to'])]);
+                array_push($calender, ['time_from' => Calender::time_to_hhmm($obj['time_from']), 'time_to' => Calender::time_to_hhmm($obj['time_to'])]);
             }
         return $calender;
     }
@@ -242,7 +243,7 @@ class User implements JsonSerializable
 
         $this->calender = array();
         foreach ($objs as $obj)
-            array_push($this->calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']),Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
+            array_push($this->calender, new Calender($obj["email"], Calender::time_to_hhmm($obj['time_from']), Calender::time_to_hhmm($obj['time_to']), $obj['weekday']));
         return $this->calender;
 
     }
@@ -418,43 +419,48 @@ class User implements JsonSerializable
 
     public function filterUserInBearbeitung()
     {
-        parse_str(file_get_contents("php://input"),$put_var);
-
-        $sql_statement = "select * from tutor t join user u on u.email = t.email
+        parse_str(file_get_contents("php://input"), $put_var);
+        $sql_statement = "select email from tutor t 
+            join user u on u.email = t.email
+            join selected_subject s on s.email = t.email
             where t.email != :email
             and locked = 0";
 
         //SQL-Statement Grade & Department
         if (!is_null($this->grade) || isset($put_var['grade'])) $sql_statement .= "and grade >= :grade";
-        if (!is_null($this->department)  || isset($put_var['department'])) $sql_statement .= "and department = :department";
+        if (!is_null($this->department) || isset($put_var['department'])) $sql_statement .= "and department = :department";
+        if (isset($put_var['name'])) $sql_statement .= "and name >= :name";
 
 
         $s = get_np_mysql_object()->prepare($sql_statement);
         $s->bindValue(':email', $this->email);
 
+        //bind selected subject
+        if (isset($put_var['name'])) {
+            $s->bindValue(':name', $put_var['name']);
+        } elseif (!is_null($this->subjects)) {
+            $s->bindValue(':name', $this->subjects);
+        }
+
         //bind grade
-        if(isset($put_var['grade'])) {
+        if (isset($put_var['grade'])) {
             $s->bindValue(':grade', $put_var['grade']);
-        } elseif(!is_null($this->grade)) {
+        } elseif (!is_null($this->grade)) {
             $s->bindValue(':grade', $this->grade);
         }
         //bind department
-        if(isset($put_var['department'])) {
+        if (isset($put_var['department'])) {
             $s->bindValue(':department', $put_var['department']);
-        } elseif(!is_null($this->department)) {
+        } elseif (!is_null($this->department)) {
             $s->bindValue(':department', $this->department);
         }
 
-        //subjects
         $users = [];
-        if(isset($put_var['subjects'])) {
-            //TODO join selected_subject in foreach und dann doppelte in array rauslöschen
-        } else {
-            $s->execute();
-            $objsUser = $s->fetchAll();
-            //TODO save in $users
+        $s->execute();
+        $objs = $s->fetch();
+        foreach ($objs as $obj) {
+            array_push($users, Tutor::get_Tutor($obj["email"]));
         }
-
         return $users;
     }
 
