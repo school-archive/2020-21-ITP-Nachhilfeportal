@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/images/dataprivacy.jpg" alt="dataprivacy" class="crop-center">
+    <img src="@/assets/images/d.jpg" alt="dataprivacy" class="crop-center">
     <div>
       <div class="u1">Datenschutz</div>
     </div>
@@ -238,12 +238,7 @@ export default {
 <style scoped lang="scss">
 @use "src/assets/styles/colors";
 
-img.crop-center {
-  height: 250px;
-  width: 100% !important;
-  object-fit: cover;
-  object-position: bottom center;
-}
+
 .u1 {
   font-family: dinosaur, sans-serif;
   font-weight: 200;
