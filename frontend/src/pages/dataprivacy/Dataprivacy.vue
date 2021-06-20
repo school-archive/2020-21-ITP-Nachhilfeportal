@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/images/d.jpg" alt="dataprivacy" class="crop-center">
+    <img src="@/assets/images/dataprivacy.jpg" alt="dataprivacy" class="crop-center">
     <div>
       <div class="u1">Datenschutz</div>
     </div>
