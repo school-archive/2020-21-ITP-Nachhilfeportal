@@ -429,7 +429,7 @@ class User implements JsonSerializable
         //SQL-Statement Grade & Department
         if (!is_null($this->grade) || isset($put_var['grade'])) $sql_statement .= "and grade >= :grade";
         if (!is_null($this->department) || isset($put_var['department'])) $sql_statement .= "and department = :department";
-        if (isset($put_var['name'])) $sql_statement .= "and name >= :name";
+        if (isset($put_var['name'])) $sql_statement .= "and name = :name";
 
 
         $s = get_np_mysql_object()->prepare($sql_statement);
