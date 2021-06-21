@@ -419,7 +419,6 @@ class User implements JsonSerializable
 
     public function filterUserInBearbeitung()
     {
-        parse_str(file_get_contents("php://input"), $put_var);
         $sql_statement = "select email from tutor t 
             join user u on u.email = t.email
             join selected_subject s on s.email = t.email
@@ -427,30 +426,39 @@ class User implements JsonSerializable
             and locked = 0";
 
         //SQL-Statement Grade & Department
-        if (!is_null($this->grade) || isset($put_var['grade'])) $sql_statement .= "and grade >= :grade";
-        if (!is_null($this->department) || isset($put_var['department'])) $sql_statement .= "and department = :department";
-        if (isset($put_var['name'])) $sql_statement .= "and name = :name";
+        if (!is_null($this->grade) || isset($_GET['grade_from'])) $sql_statement .= "and grade >= :grade between grade_from >= :grade_from and grade_to >= :grade_to";
+        if (!is_null($this->department) || isset($_GET['department'])) $sql_statement .= "and department >= :department";
+        if (isset($_GET['name'])) $sql_statement .= "and name >= :name";
 
 
         $s = get_np_mysql_object()->prepare($sql_statement);
         $s->bindValue(':email', $this->email);
 
         //bind selected subject
-        if (isset($put_var['name'])) {
-            $s->bindValue(':name', $put_var['name']);
+        if (isset($_GET['name'])) {
+            $s->bindValue(':name', $_GET['name']);
         } elseif (!is_null($this->subjects)) {
             $s->bindValue(':name', $this->subjects);
         }
 
-        //bind grade
-        if (isset($put_var['grade'])) {
-            $s->bindValue(':grade', $put_var['grade']);
+        //bind grade_from
+        if (isset($_GET['grade_from'])) {
+            $s->bindValue(':grade_from', $_GET['grade_from']);
         } elseif (!is_null($this->grade)) {
-            $s->bindValue(':grade', $this->grade);
+            $s->bindValue(':grade_from', 1);
         }
+
+        //bind grade_to
+        if (isset($_GET['grade_to'])) {
+            $s->bindValue(':grade_to', $_GET['grade_to']);
+        } elseif (!is_null($this->grade)) {
+            $s->bindValue(':grade_to', 5);
+        }
+
+
         //bind department
-        if (isset($put_var['department'])) {
-            $s->bindValue(':department', $put_var['department']);
+        if (isset($_GET['department'])) {
+            $s->bindValue(':department', $_GET['department']);
         } elseif (!is_null($this->department)) {
             $s->bindValue(':department', $this->department);
         }
