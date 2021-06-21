@@ -35,18 +35,20 @@ export default {
   },
   methods: {
     background(i) {
+      let bool = false
       if(this.user_input) {
         let time = (Math.ceil(i/2)+6)*100
         time+= (i%2===0) ? 30 : 0
 
         this.user_input.forEach(t => {
           if(time >= this.timestringToNumber(t.time_from) && time <= this.timestringToNumber(t.time_to)) {
-            return true
+            bool = true
+            // return true
           }
         })
       }
-
-      return false
+      return bool
+      // return false
     },
     timestringToNumber(str) {
       let array = str.split(':')
