@@ -19,7 +19,7 @@
       <tbody v-for="i in 24" :key="i">
       <tr>
         <td :class="{rot : background(i, true)}">
-          <button @click="delete_entry" v-if="settings_page ==='true' && background(i, false)">x</button>
+          <button @click="delete_entry(i)" v-if="settings_page ==='true' && background(i, false)">x</button>
         </td>
       </tr>
       </tbody>
@@ -61,8 +61,15 @@ export default {
       let array = str.split(':')
       return parseInt(array[0])*100 + parseInt(array[1])
     },
-    delete_entry() {
-      console.log('yolo')
+    delete_entry(i) {
+      let time = (Math.ceil(i/2)+6).toString()
+      time+= (i%2===0) ? ':30' : ':00'
+      time = '0' +time
+
+      this.$store.commit('del_calendar_entry', {
+        'day': this.day,
+        'time_from': time.substr(-5)
+      })
     }
   }
 }

@@ -214,70 +214,20 @@ export default {
     },
     format_calendar() {
       let array = []
+      let calendar = this.$store.getters['get_calendar']
+      let days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
-      if(this.$store.getters['get_mo'].length>0) {
-        this.$store.getters['get_mo'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Mo'
+      days.forEach(day => {
+        if(calendar[day].length>0) {
+          calendar[day].forEach(obj => {
+            array.push({
+              'time_from': obj.time_from,
+              'time_to': obj.time_to,
+              'day': day
+            })
           })
-        })
-      }
-      if(this.$store.getters['get_di'].length>0) {
-        this.$store.getters['get_di'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Di'
-          })
-        })
-      }
-      if(this.$store.getters['get_mi'].length>0) {
-        this.$store.getters['get_mi'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Mi'
-          })
-        })
-      }
-      if(this.$store.getters['get_do'].length>0) {
-        this.$store.getters['get_do'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Do'
-          })
-        })
-      }
-      if(this.$store.getters['get_fr'].length>0) {
-        this.$store.getters['get_fr'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Fr'
-          })
-        })
-      }
-      if(this.$store.getters['get_sa'].length>0) {
-        this.$store.getters['get_sa'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'Sa'
-          })
-        })
-      }
-      if(this.$store.getters['get_so'].length>0) {
-        this.$store.getters['get_so'].forEach(obj => {
-          array.push({
-            'time_from': obj.time_from,
-            'time_to': obj.time_to,
-            'day': 'So'
-          })
-        })
-      }
+        }
+      })
 
       return array
     }
