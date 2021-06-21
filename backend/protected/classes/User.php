@@ -428,7 +428,7 @@ class User implements JsonSerializable
         //SQL-Statement Grade & Department
         if (!is_null($this->grade) || (isset($_GET['grade_from']) && isset($_GET['grade_to']))) $sql_statement .= "and grade between :grade_from and :grade_to";
         if (!is_null($this->department) || isset($_GET['department'])) $sql_statement .= "and department = :department";
-        if (!is_null($this->department) || isset($_GET['name'])) $sql_statement .= "and name = :name";
+        if (isset($_GET['name'])) $sql_statement .= "and name = :name";
 
 
         $s = get_np_mysql_object()->prepare($sql_statement);
@@ -437,8 +437,6 @@ class User implements JsonSerializable
         //bind selected subject
         if (isset($_GET['name'])) {
             $s->bindValue(':name', $_GET['name']);
-        } elseif (!is_null($this->subjects)) {
-            $s->bindValue(':name', "Bla");
         }
 
         //bind grade_from & grade_to
