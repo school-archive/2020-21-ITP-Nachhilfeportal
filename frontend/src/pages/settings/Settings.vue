@@ -114,7 +114,7 @@
           <button @click="save_calendar">Hinzufügen</button>
         </div>
         <div class="kalender">
-          <Calendar></Calendar>
+          <Calendar settings_page="true"></Calendar>
         </div>
       </div>
       <button @click="save" id="submit">Speichern</button>

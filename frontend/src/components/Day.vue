@@ -18,7 +18,9 @@
       <thead class="shadow-sm text-center">{{ day }}</thead>
       <tbody v-for="i in 24" :key="i">
       <tr>
-        <td :class="{rot : background(i)}"></td>
+        <td :class="{rot : background(i, true)}">
+          <button @click="delete_entry" v-if="settings_page ==='true' && background(i, false)">x</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -31,18 +33,25 @@ export default {
   props: {
     day: String,
     time: String,
-    user_input: Array
+    user_input: Array,
+    settings_page: String
   },
   methods: {
-    background(i) {
+    background(i, bg) {
       let bool = false
       if(this.user_input) {
         let time = (Math.ceil(i/2)+6)*100
         time+= (i%2===0) ? 30 : 0
 
         this.user_input.forEach(t => {
-          if(time >= this.timestringToNumber(t.time_from) && time <= this.timestringToNumber(t.time_to)) {
-            bool = true
+          if(bg) {
+            if(time >= this.timestringToNumber(t.time_from) && time <= this.timestringToNumber(t.time_to)) {
+              bool = true
+            }
+          } else {
+            if(time === this.timestringToNumber(t.time_from)) {
+              bool = true
+            }
           }
         })
       }
@@ -51,6 +60,9 @@ export default {
     timestringToNumber(str) {
       let array = str.split(':')
       return parseInt(array[0])*100 + parseInt(array[1])
+    },
+    delete_entry() {
+      console.log('yolo')
     }
   }
 }

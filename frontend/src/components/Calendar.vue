@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex flex-row justify-content-center m-3 wrap">
     <Day day="" time="true"/>
-    <Day day="Mo" time="false" :user_input="this.$store.getters['get_mo']"/>
-    <Day day="Di" time="false" :user_input="this.$store.getters['get_di']"/>
-    <Day day="Mi" time="false" :user_input="this.$store.getters['get_mi']"/>
-    <Day day="Do" time="false" :user_input="this.$store.getters['get_do']"/>
-    <Day day="Fr" time="false" :user_input="this.$store.getters['get_fr']"/>
-    <Day day="Sa" time="false" :user_input="this.$store.getters['get_sa']"/>
-    <Day day="So" time="false" :user_input="this.$store.getters['get_so']"/>
+    <Day day="Mo" time="false" :user_input="this.$store.getters['get_mo']" :settings_page="settings_page"/>
+    <Day day="Di" time="false" :user_input="this.$store.getters['get_di']" :settings_page="settings_page"/>
+    <Day day="Mi" time="false" :user_input="this.$store.getters['get_mi']" :settings_page="settings_page"/>
+    <Day day="Do" time="false" :user_input="this.$store.getters['get_do']" :settings_page="settings_page"/>
+    <Day day="Fr" time="false" :user_input="this.$store.getters['get_fr']" :settings_page="settings_page"/>
+    <Day day="Sa" time="false" :user_input="this.$store.getters['get_sa']" :settings_page="settings_page"/>
+    <Day day="So" time="false" :user_input="this.$store.getters['get_so']" :settings_page="settings_page"/>
   </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
   name: "Calendar",
   components: {
     Day
+  },
+  props: {
+    settings_page: String
   },
   beforeMount() {
     axios.get(`${this.$config.backend_host}/api/user/@me`)

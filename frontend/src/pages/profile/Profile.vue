@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <Calendar></Calendar>
+    <Calendar settings_page="false"></Calendar>
   </div>
 </template>
 
