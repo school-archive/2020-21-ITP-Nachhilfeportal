@@ -267,7 +267,6 @@ img {
   flex-direction: column;
   justify-content: space-between;
   width: 40%;
-  padding-top: 40px;
 }
 
 .select label:first-child {
@@ -298,6 +297,9 @@ textarea {
   width:260px;
   float: right;
   padding-bottom: 0.5em;
+}
+#method{
+  padding-top: 1em;
 }
 
 .v-select .vs__dropdown-option--highlight {

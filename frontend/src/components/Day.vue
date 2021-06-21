@@ -19,7 +19,7 @@
       <tbody v-for="i in 24" :key="i">
       <tr>
         <td :class="{rot : background(i, true)}">
-          <button @click="delete_entry(i)" v-if="settings_page ==='true' && background(i, false)">x</button>
+          <div @click="delete_entry(i)" v-if="settings_page ==='true' && background(i, false)">x</div>
         </td>
       </tr>
       </tbody>
@@ -140,4 +140,5 @@ export default {
     padding: 0.25rem 0.25rem 0 0.25rem;
     width: auto;
   }
+
 </style>
