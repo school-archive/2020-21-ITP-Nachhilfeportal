@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row justify-content-center m-3 wrap">
+  <div class="d-flex flex-row justify-content-center m-3 wrap calendar">
     <Day day="" time="true"/>
     <Day day="Mo" time="false" :user_input="this.$store.getters['get_mo']" :settings_page="settings_page"/>
     <Day day="Di" time="false" :user_input="this.$store.getters['get_di']" :settings_page="settings_page"/>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Day from "@/components/Day";
+import Day from "./Day";
 import axios from "axios";
 export default {
   name: "Calendar",
@@ -37,5 +37,13 @@ export default {
     overflow-y: scroll;
     /*max-width: 1000px;*/
     height: 500px;
+  }
+  .calendar {
+    max-width: 1000px;
+    min-width: 250px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2) ,0 3px 7px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    margin-bottom: 30px;
   }
 </style>

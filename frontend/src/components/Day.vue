@@ -2,7 +2,7 @@
   <div>
 <!--Time-->
     <table v-if="time ==='true'">
-      <thead class="shadow-sm text-center"> placeholder </thead>
+      <thead class="shadow-sm text-center text-white">Uhrzeit</thead>
       <tbody v-for="i in 12" :key="i">
       <tr>
         <td class="text-center">{{ i+6 }}:00</td>
@@ -80,6 +80,7 @@ export default {
 
   .rot {
     background-color: colors.$primary;
+    border-bottom: 1px solid colors.$primary;
   }
 
   thead th {
@@ -118,16 +119,17 @@ export default {
     border-bottom: 1px solid transparent;
   }
 
-  tr:nth-child(odd) td:not(.headcol) {
+  tr:nth-child(odd) td:not(.headcol) :not(.rot){
     border-bottom: 1px solid #e8e8e8;
   }
 
-  tr:nth-child(even) td:not(.headcol) {
+  tr:nth-child(even) td:not(.headcol) :not(.rot) {
     border-bottom: 1px solid #eee;
   }
 
   tr td {
     border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
     /*padding: 0;*/
   }
 
