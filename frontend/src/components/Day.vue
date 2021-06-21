@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     background(i) {
+      console.log(this.day +'i: ' +this.user_input)
       let bool = false
       if(this.user_input) {
         let time = (Math.ceil(i/2)+6)*100
@@ -43,12 +44,10 @@ export default {
         this.user_input.forEach(t => {
           if(time >= this.timestringToNumber(t.time_from) && time <= this.timestringToNumber(t.time_to)) {
             bool = true
-            // return true
           }
         })
       }
       return bool
-      // return false
     },
     timestringToNumber(str) {
       let array = str.split(':')

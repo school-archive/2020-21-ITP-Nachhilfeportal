@@ -89,6 +89,7 @@
                 placeholder="Tag"
                 label="title"
                 :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+                v-model="day"
             />
           </div>
           <h4>Uhrzeit:</h4>
@@ -98,6 +99,7 @@
                 placeholder="von"
                 label="title"
                 :options="['07:00','07:30','08:00','08:30','09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30']"
+                v-model="from"
             />
             Bis:
             <div class="additemdate">
@@ -105,10 +107,11 @@
                   placeholder="bis"
                   label="title"
                   :options="['07:00','07:30','08:00','08:30','09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30']"
+                  v-model="to"
               />
             </div>
           </div>
-          <button>Hinzufügen</button>
+          <button @click="save_calendar">Hinzufügen</button>
         </div>
         <div class="kalender">
           <Calendar></Calendar>
@@ -132,6 +135,9 @@ export default {
       isTutor : '',
       isTutorNotBoolean: '',
       subjects: [],
+      day: '',
+      from: '',
+      to: ''
     }
   },
   metaInfo: {
@@ -192,6 +198,11 @@ export default {
       }
 
       return JSON.stringify(methods)
+    },
+    save_calendar(){
+      if(this.day && this.from && this.to) {
+        console.log()
+      }
     }
   },
 
