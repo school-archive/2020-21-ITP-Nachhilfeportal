@@ -10,7 +10,12 @@
     </section>
 
     <section class="section-searchbar">
-      <search-bar/>
+      <search-bar @submit="$router.push({
+        name: 'Search',
+        params: {
+          searchData: $event
+        }
+      })"/>
     </section>
 
     <section class="section-text">

@@ -43,6 +43,9 @@ export default {
   components: {
     VueSlider
   },
+  props: {
+    searchData: Object
+  },
   data() {
     return {
       departments: [
@@ -50,11 +53,12 @@ export default {
         "Mechatronik",
         "Fachschule"
       ],
-      selected_grade: [1, 5],
+      selected_grade: this.searchData?.selected_grade,
       subjects: [],
-      selected_department: null,
-      selected_subject: null,
-      selected_teaching_method: null,
+
+      selected_department: this.searchData?.selected_department,
+      selected_subject: this.searchData?.selected_subject,
+      selected_teaching_method: this.searchData?.selected_teaching_method,
 
     }
   },
@@ -63,7 +67,13 @@ export default {
         .then(res => {
           this.subjects = res.data.data;
           console.log(res, this.subjects)
-        })
+        });
+    if (!this.searchData) {
+      this.selected_grade = [1, 5];
+      this.selected_department = '';
+      this.selected_subject = '';
+      this.selected_teaching_method = '';
+    }
   },
 }
 </script>

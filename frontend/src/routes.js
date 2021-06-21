@@ -12,6 +12,7 @@ module.exports = [
     {
         path: '/search',
         name: 'Search',
+        props: true,
         component: () => import('@/pages/search/Search')
     },
     {

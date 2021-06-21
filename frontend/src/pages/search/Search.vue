@@ -2,7 +2,7 @@
   <div class="search">
     <h1 class="title">Tutorensuche</h1>
 
-    <search-bar class="search-bar" @submit="on_search"/>
+    <search-bar :search-data="searchData" class="search-bar" @submit="on_search"/>
 
 
     <div class="result-wrapper">
@@ -19,6 +19,9 @@ import SearchResult from "./SearchResult";
 export default {
   name: "Search",
   components: {SearchResult, SearchBar},
+  props: {
+    searchData: Object
+  },
   metaInfo: {
     title: "Tutoren suchen",
     meta: []
@@ -29,11 +32,10 @@ export default {
     }
   },
   mounted() {
-    axios.get(`${this.$config.backend_host}/api/search/`)
-    .then(res => {
-      console.log(res);
-      if (res.data.success) this.searchResult = res.data.data;
-    })
+    if (this.searchData) {
+      this.on_search(this.searchData);
+      console.log(this.searchData)
+    }
   },
   methods: {
     on_search(event) {
