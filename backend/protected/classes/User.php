@@ -419,6 +419,7 @@ class User implements JsonSerializable
 
     public function filterUserInBearbeitung()
     {
+        //TODO fix error in sql syntax
         $sql_statement = "select email from tutor t 
             join user u on u.email = t.email
             join selected_subject s on s.email = t.email
@@ -426,9 +427,10 @@ class User implements JsonSerializable
             and locked = 0";
 
         //SQL-Statement Grade & Department
-        if (!is_null($this->grade) || isset($_GET['grade_from'])) $sql_statement .= "and grade >= :grade between grade_from >= :grade_from and grade_to >= :grade_to";
-        if (!is_null($this->department) || isset($_GET['department'])) $sql_statement .= "and department >= :department";
-        if (isset($_GET['name'])) $sql_statement .= "and name >= :name";
+        if (!is_null($this->grade) || (isset($_GET['grade_from']) && isset($_GET['grade_to']))) $sql_statement .= "and grade between :grade_from and :grade_to";
+        if (!is_null($this->department) || isset($_GET['department'])) $sql_statement .= "and department = :department";
+        if (isset($_GET['name'])) $sql_statement .= "and name = :name";
+
 
 
         $s = get_np_mysql_object()->prepare($sql_statement);
@@ -441,17 +443,12 @@ class User implements JsonSerializable
             $s->bindValue(':name', $this->subjects);
         }
 
-        //bind grade_from
-        if (isset($_GET['grade_from'])) {
+        //bind grade_from & grade_to
+        if (isset($_GET['grade_from']) && isset($_GET['grade_to'])) {
             $s->bindValue(':grade_from', $_GET['grade_from']);
-        } elseif (!is_null($this->grade)) {
-            $s->bindValue(':grade_from', 1);
-        }
-
-        //bind grade_to
-        if (isset($_GET['grade_to'])) {
             $s->bindValue(':grade_to', $_GET['grade_to']);
         } elseif (!is_null($this->grade)) {
+            $s->bindValue(':grade_from', $this->grade);
             $s->bindValue(':grade_to', 5);
         }
 
