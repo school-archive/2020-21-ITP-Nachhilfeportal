@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    axios.get(`${this.$config.backend_host}/api/users/`)
+    axios.get(`${this.$config.backend_host}/api/search/`)
     .then(res => {
       console.log(res);
       if (res.data.success) this.searchResult = res.data.data;
