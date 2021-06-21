@@ -422,7 +422,7 @@ class User implements JsonSerializable
         $sql_statement = "select t.email from tutor t
                 join user u on u.email = t.email
                 left outer join selected_subject s on s.email = t.email
-                where t.email != ':email'
+                where t.email != :email
                 and locked = 0";
 
         //SQL-Statement Grade & Department
