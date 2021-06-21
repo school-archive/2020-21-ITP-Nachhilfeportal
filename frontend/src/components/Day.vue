@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     background(i) {
-      console.log(this.day +'i: ' +this.user_input)
       let bool = false
       if(this.user_input) {
         let time = (Math.ceil(i/2)+6)*100

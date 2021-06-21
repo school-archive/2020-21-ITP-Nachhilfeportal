@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row justify-content-center m-3 wrap">
     <Day day="" time="true"/>
-    <Day day="Mo" time="false" :user_input="calendar.Mo"/>
+    <Day day="Mo" time="false" :user_input="this.$store.getters['get_mo']"/>
     <Day day="Di" time="false" :user_input="this.$store.getters['get_di']"/>
     <Day day="Mi" time="false" :user_input="this.$store.getters['get_mi']"/>
     <Day day="Do" time="false" :user_input="this.$store.getters['get_do']"/>
@@ -19,16 +19,9 @@ export default {
   components: {
     Day
   },
-  data() {
-    return {
-      calendar: {}
-    }
-  },
   beforeMount() {
     axios.get(`${this.$config.backend_host}/api/user/@me`)
         .then(res => {
-          console.log(res.data)
-          this.calendar = res.data.data.profile.calender
           this.$store.commit('add_calendar_all', res.data.data.profile.calender)
         })
   }

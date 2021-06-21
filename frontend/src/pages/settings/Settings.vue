@@ -179,8 +179,7 @@ export default {
       if (typeof this.profile_data.description !== 'undefined') { params.append('description', this.profile_data.description) }
       if (typeof this.profile_data.subjects !== 'undefined') { params.append('subjects', this.profile_data.subjects) }
       if (typeof this.profile_data.teaching_method !== 'undefined') { params.append('method', this.get_teaching_method()) }
-
-      //TODO save Kalender
+      params.append('calender', JSON.stringify(this.format_calendar()))
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => {
@@ -208,7 +207,79 @@ export default {
           'time_from' : this.from,
           'time_to' : this.to
         })
+        this.day = ''
+        this.from = ''
+        this.to = ''
       }
+    },
+    format_calendar() {
+      let array = []
+
+      if(this.$store.getters['get_mo'].length>0) {
+        this.$store.getters['get_mo'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Mo'
+          })
+        })
+      }
+      if(this.$store.getters['get_di'].length>0) {
+        this.$store.getters['get_di'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Di'
+          })
+        })
+      }
+      if(this.$store.getters['get_mi'].length>0) {
+        this.$store.getters['get_mi'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Mi'
+          })
+        })
+      }
+      if(this.$store.getters['get_do'].length>0) {
+        this.$store.getters['get_do'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Do'
+          })
+        })
+      }
+      if(this.$store.getters['get_fr'].length>0) {
+        this.$store.getters['get_fr'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Fr'
+          })
+        })
+      }
+      if(this.$store.getters['get_sa'].length>0) {
+        this.$store.getters['get_sa'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'Sa'
+          })
+        })
+      }
+      if(this.$store.getters['get_so'].length>0) {
+        this.$store.getters['get_so'].forEach(obj => {
+          array.push({
+            'time_from': obj.time_from,
+            'time_to': obj.time_to,
+            'day': 'So'
+          })
+        })
+      }
+
+      return array
     }
   },
 
