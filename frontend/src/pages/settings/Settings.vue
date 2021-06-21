@@ -180,6 +180,8 @@ export default {
       if (typeof this.profile_data.subjects !== 'undefined') { params.append('subjects', this.profile_data.subjects) }
       if (typeof this.profile_data.teaching_method !== 'undefined') { params.append('method', this.get_teaching_method()) }
 
+      //TODO save Kalender
+
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => {
             console.log(r);
@@ -201,7 +203,11 @@ export default {
     },
     save_calendar(){
       if(this.day && this.from && this.to) {
-        console.log()
+        this.$store.commit('add_calendar_entry', {
+          'day' : this.day,
+          'time_from' : this.from,
+          'time_to' : this.to
+        })
       }
     }
   },

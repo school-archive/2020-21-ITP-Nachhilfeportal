@@ -22,33 +22,47 @@ const daten = {
         },
         add_calendar_entry(state, value) {
             switch (value.day) {
-                case 'Mo':
-                    state.calendar.Mo.time_from = value.time_from
-                    state.calendar.Mo.time_to = value.time_to
+                case 'Montag':
+                    state.calendar.Mo.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'Di':
-                    state.calendar.Di.time_from = value.time_from
-                    state.calendar.Di.time_to = value.time_to
+                case 'Dienstag':
+                    state.calendar.Di.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'Mi':
-                    state.calendar.Mi.time_from = value.time_from
-                    state.calendar.Mi.time_to = value.time_to
+                case 'Mittwoch':
+                    state.calendar.Mi.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'Do':
-                    state.calendar.Do.time_from = value.time_from
-                    state.calendar.Do.time_to = value.time_to
+                case 'Donnerstag':
+                    state.calendar.Do.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'Fr':
-                    state.calendar.Fr.time_from = value.time_from
-                    state.calendar.Fr.time_to = value.time_to
+                case 'Freitag':
+                    state.calendar.Fr.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'Sa':
-                    state.calendar.Sa.time_from = value.time_from
-                    state.calendar.Sa.time_to = value.time_to
+                case 'Samstag':
+                    state.calendar.Sa.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
-                case 'So':
-                    state.calendar.So.time_from = value.time_from
-                    state.calendar.So.time_to = value.time_to
+                case 'Sonntag':
+                    state.calendar.So.push({
+                        'time_from' : value.time_from,
+                        'time_to' : value.time_to
+                    })
                     break
             }
         }
