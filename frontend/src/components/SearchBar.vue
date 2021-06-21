@@ -3,13 +3,14 @@
     <v-select id="search-department"
               placeholder="Abteilung"
               label="title"
-              :multiple="true"
               :options="departments"
+              v-model="selected_department"
     />
     <v-select id="search-fach"
               placeholder="Fach"
               label="title"
               :options="subjects"
+              v-model="selected_subject"
     />
     <div class="search-select-grade">
       <span class="grade-desc"><span v-show="selected_grade[0] === selected_grade[1]">nur</span> {{ selected_grade[0] }}. Klasse <span v-show="selected_grade[0] !== selected_grade[1]">- {{ selected_grade[1] }}. Klasse</span></span>
@@ -18,12 +19,17 @@
     </div>
     <v-select id="search-teaching-method"
               placeholder="Methode"
-              multiple=""
               label="title"
               :options="['Online', 'Vor Ort']"
+              v-model="selected_teaching_method"
     />
     <div>
-      <button class="btn-search">Suchen</button>
+      <button class="btn-search" @click="$emit('submit', {
+        selected_department,
+        selected_subject,
+        selected_grade,
+        selected_teaching_method
+      })">Suchen</button>
     </div>
   </div>
 </template>
@@ -45,7 +51,11 @@ export default {
         "Fachschule"
       ],
       selected_grade: [1, 5],
-      subjects: []
+      subjects: [],
+      selected_department: null,
+      selected_subject: null,
+      selected_teaching_method: null,
+
     }
   },
   beforeMount() {

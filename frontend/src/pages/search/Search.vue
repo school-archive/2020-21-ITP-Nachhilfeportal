@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="search">
     <h1 class="title">Tutorensuche</h1>
 
-    <search-bar class="search-bar"/>
+    <search-bar class="search-bar" @submit="on_search"/>
 
 
     <div class="result-wrapper">
@@ -35,6 +35,17 @@ export default {
       if (res.data.success) this.searchResult = res.data.data;
     })
   },
+  methods: {
+    on_search(event) {
+      axios.get(`${this.$config.backend_host}/api/search/` +
+          `?grade_from=${event.selected_grade[0]}&grade_to=${event.selected_grade[1]}` +
+          `&department=${event.selected_department}&name=${event.selected_subject}`)
+          .then(res => {
+            console.log(res);
+            if (res.data.success) this.searchResult = res.data.data;
+          })
+    }
+  }
 }
 </script>
 
@@ -59,5 +70,11 @@ export default {
   .title {
     font-size: 3rem;
     text-align: center;
+  }
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>
