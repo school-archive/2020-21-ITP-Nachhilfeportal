@@ -6,11 +6,13 @@
     <div class="right">
       <p class="name">{{ userData.first_name }} {{ userData.last_name }}</p>
       <p class="grade-department">{{ userData.grade ? `${userData.grade}. Klasse` : 'Keine Klasse gesetzt'}} | {{ userData.department || 'Keine Abteilung gesetzt' }}</p>
-      <p class="teaching-methods">Unterrichtet
+      <p class="teaching-methods">Unterrichtet:
         <bean v-for="method of userData.teaching_method" :key="method">{{ method }}</bean>
+        <span v-if="!userData.teaching_method ||userData.teaching_method === 0" class="no-value-text">Keine Methode gesetzt</span>
       </p>
       <p class="lectures">Fächer:
         <bean v-for="subject of userData.subjects" :key="subject">{{ subject }}</bean>
+        <span v-if="!userData.subjects || userData.subjects === 0" class="no-value-text">Keine Fächer gesetzt</span>
       </p>
     </div>
   </router-link>
@@ -69,5 +71,7 @@ export default {
 .bean {
   margin-right: .25rem;
 }
-
+.no-value-text {
+  color: rgba(0, 0, 0, .5);
+}
 </style>
