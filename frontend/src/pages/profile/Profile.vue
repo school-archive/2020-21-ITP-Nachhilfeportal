@@ -3,7 +3,7 @@
     <div>
       <div class="profile">
         <div>
-          <img :src="picture_url">
+          <img class="pic" :src="picture_url">
         </div>
         <div class="info">
           <router-link to="/settings" v-if="self">
@@ -136,7 +136,7 @@ img {
 }
 
 .übermich {
-  width: 620px;
+  width: 480px;
   background-color: #F8F8F8;
   border-radius: 10px;
   padding: 4px;
@@ -153,12 +153,22 @@ h1 {
   font-size: 45px;
 }
 
+.info{
+  width: 20%;
+}
+
 .icon {
   margin-top: 15px;
   width: 35px;
   float: right;
   fill: colors.$secondary
 }
-
+@media (min-width: 900px) {
+  .pic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 
 </style>

@@ -306,19 +306,6 @@ textarea {
   background-color: colors.$primary;
 }
 
-.unterer_bereich{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 1em;
-}
-.setting_calender{
-  display: flex;
-  justify-content: space-around;
-}
-.kalender{
-  padding-top: 1em;
-}
 .additem {
   width: 250px;
   padding-bottom: 10px;
@@ -338,4 +325,27 @@ button{
   margin-top: 30px;
   float: right;
 }
+
+@media (min-width: 1200px) {
+  .unterer_bereich{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .setting_calender{
+    display: flex;
+    justify-content: space-around;
+
+  }
+  .kalender{
+    padding-top: 1em;
+  }
+
+  .additem{
+    padding-left: 30px;
+  }
+}
+
+
 </style>
