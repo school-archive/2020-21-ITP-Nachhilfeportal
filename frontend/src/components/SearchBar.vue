@@ -51,7 +51,7 @@ export default {
       departments: [
         "Informationstechnologie",
         "Mechatronik",
-        "Fachschule"
+        "Informationstechnik"
       ],
       selected_grade: this.searchData?.selected_grade,
       subjects: [],
@@ -66,7 +66,6 @@ export default {
     axios.get(`${this.$config.backend_host}/api/subjects`)
         .then(res => {
           this.subjects = res.data.data;
-          console.log(res, this.subjects)
         });
     if (!this.searchData) {
       this.selected_grade = [1, 5];

@@ -386,21 +386,6 @@ class User implements JsonSerializable
         $s->execute(array(":email" => $this->email));
     }
 
-    /*
-     * Vorübergehende Lösung, bis filterUserInBearbeitung fertig ist
-     */
-    public static function filterUser()
-    {
-        $s = get_np_mysql_object()->prepare("select * from tutor t join user u on u.email = t.email");
-        $s->execute();
-        $objs = $s->fetchAll();
-        $tutoren = array();
-        foreach ($objs as $obj)
-            array_push($tutoren, new Tutor($obj["email"], $obj['first_name'], $obj['last_name'], $obj['password'], $obj['picture_url'], $obj['description'], $obj['teaching_method'], $obj['grade'], $obj['department'], $obj['isAdmin'], $obj['locked']));
-        return $tutoren;
-
-    }
-
     public function getSelected_Subject()
     {
         $s = get_np_mysql_object()->prepare("select * from selected_subject where email = :email");
@@ -417,7 +402,7 @@ class User implements JsonSerializable
         return $this->subjects;
     }
 
-    public function filterUserInBearbeitung()
+    public function filterUser()
     {
         $sql_statement = "select t.email from tutor t
                 join user u on u.email = t.email
@@ -426,16 +411,23 @@ class User implements JsonSerializable
                 and locked = 0";
 
         //SQL-Statement Grade & Department
-        if (!is_null($this->grade) || (isset($_GET['grade_from']) && isset($_GET['grade_to']))) $sql_statement .= "and grade between :grade_from and :grade_to";
-        if (!is_null($this->department) || isset($_GET['department'])) $sql_statement .= "and department = :department";
-        if (isset($_GET['name'])) $sql_statement .= "and name = :name";
-
+        if (isset($_GET['grade_from']) && isset($_GET['grade_to'])) $sql_statement .= " and grade between :grade_from and :grade_to";
+        if (isset($_GET['department']) && $_GET['department'] !== '' && $_GET['department'] !== 'null') $sql_statement .= " and department = :department";
+        if (isset($_GET['name']) && $_GET['name'] !== '' && $_GET['name'] !== 'null') $sql_statement .= " and name = :name";
+        if (isset($_GET['method']) && $_GET['method'] !== '' && $_GET['method'] !== 'null') {
+            if($_GET['method'] === 'Vor Ort') {
+                $sql_statement .= ' and (teaching_method = 1 or teaching_method = 3)';
+            } elseif ($_GET['method'] === 'Online') {
+                $sql_statement .= ' and (teaching_method = 2 or teaching_method = 3)';
+            }
+        }
+        $sql_statement.= ' group by email';
 
         $s = get_np_mysql_object()->prepare($sql_statement);
         $s->bindValue(':email', $this->email);
 
         //bind selected subject
-        if (isset($_GET['name'])) {
+        if (isset($_GET['name']) && $_GET['name'] !== '' && $_GET['name'] !== 'null') {
             $s->bindValue(':name', $_GET['name']);
         }
 
@@ -443,21 +435,23 @@ class User implements JsonSerializable
         if (isset($_GET['grade_from']) && isset($_GET['grade_to'])) {
             $s->bindValue(':grade_from', $_GET['grade_from']);
             $s->bindValue(':grade_to', $_GET['grade_to']);
-        } elseif (!is_null($this->grade)) {
+        } /*elseif (!is_null($this->grade)) {
             $s->bindValue(':grade_from', $this->grade);
             $s->bindValue(':grade_to', 5);
-        }
+        }*/
 
         //bind department
-        if (isset($_GET['department'])) {
+        if (isset($_GET['department']) && $_GET['department'] !== '' && $_GET['department'] !== 'null') {
             $s->bindValue(':department', $_GET['department']);
-        } elseif (!is_null($this->department)) {
+        } /*elseif (!is_null($this->department)) {
             $s->bindValue(':department', $this->department);
-        }
+        }*/
 
         $users = [];
         $s->execute();
-        $objs = $s->fetch();
+        $objs = $s->fetchAll();
+        if (empty($objs)) return null;
+
         foreach ($objs as $obj) {
             array_push($users, Tutor::get_Tutor($obj["email"]));
         }

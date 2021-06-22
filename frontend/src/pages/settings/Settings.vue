@@ -144,19 +144,16 @@ export default {
   beforeMount() {
     axios.get(`${this.$config.backend_host}/api/user/@me`)
         .then(res => {
-          console.log(res)
           this.profile_data = res.data.data.profile;
           if (this.profile_data.grade) this.profile_data.grade = this.profile_data.grade +'. Klasse'
           if ((this.profile_data.department === 'null')) this.profile_data.department = null
           this.isTutor = (res.data.data.isTutor) ? 'Ja' : 'Nein'
           this.isLoaded = true;
-          console.log(this.profile_data)
         })
 
     axios.get(`${this.$config.backend_host}/api/subjects`)
         .then(res => {
           this.subjects = res.data.data;
-          console.log(res, this.subjects)
         })
   },
   mounted() {

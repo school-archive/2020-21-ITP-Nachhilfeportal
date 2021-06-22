@@ -5,8 +5,11 @@
     <search-bar :search-data="searchData" class="search-bar" @submit="on_search"/>
 
 
-    <div class="result-wrapper">
+    <div v-if="searchResult" class="result-wrapper">
       <search-result v-for="res in searchResult" :user-data="res" :key="res.email"/>
+    </div>
+    <div v-else class="result-wrapper">
+      <i class="margin">Keine Ergebnisse</i>
     </div>
 
   </div>
@@ -34,18 +37,18 @@ export default {
   mounted() {
     if (this.searchData) {
       this.on_search(this.searchData);
-      console.log(this.searchData)
     }
   },
   methods: {
     on_search(event) {
       axios.get(`${this.$config.backend_host}/api/search/` +
           `?grade_from=${event.selected_grade[0]}&grade_to=${event.selected_grade[1]}` +
-          `&department=${event.selected_department}&name=${event.selected_subject}`)
+          `&department=${event.selected_department}&name=${event.selected_subject}` +
+          `&method=${event.selected_teaching_method}`)
           .then(res => {
-            console.log(res);
             if (res.data.success) this.searchResult = res.data.data;
           })
+        .catch(error => console.log(error))
     }
   }
 }
@@ -78,5 +81,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .margin {
+    margin: 3rem;
   }
 </style>

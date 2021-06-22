@@ -87,7 +87,6 @@ export default {
           if ((this.profile_data.department === 'null')) this.profile_data.department = null
           this.self = res.data.data.self
           this.isTutor = res.data.data.isTutor
-          console.log(res, this.profile_data)
         })
   },
   computed: {
