@@ -5,6 +5,7 @@
         <div class="logo">
           <img src="@/assets/images/logo_red.png">
         </div>
+        <!--TODO Titel fett-->
         <h1>Tutorlink</h1>
       </div>
     </section>

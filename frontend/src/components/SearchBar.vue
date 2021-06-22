@@ -23,7 +23,7 @@
               :options="['Online', 'Vor Ort']"
     />
     <div>
-      <button class="btn-search">Suchen</button>
+      <button class="btn-search d-flex justify-content-center align-items-center">Suchen</button>
     </div>
   </div>
 </template>

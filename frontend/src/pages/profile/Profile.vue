@@ -54,7 +54,9 @@
         </div>
       </div>
     </div>
-    <Calendar settings_page="false"></Calendar>
+    <div class="d-flex flex-center">
+      <Calendar settings_page="false"></Calendar>
+    </div>
   </div>
 </template>
 

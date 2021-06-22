@@ -6,6 +6,7 @@
         <img src="@/assets/images/arrow-down-sign-to-navigate.svg"/>
       </div>
     </div>
+    <!--TODO klapp ding bei answer antwort fett-->
     <div class="answer" ref="answer">
       <span class="text">{{ answer }}</span>
     </div>

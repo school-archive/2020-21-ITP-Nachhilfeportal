@@ -56,6 +56,7 @@ name: "Navbar",
       return this.$config.backend_host + this.auth_data.profile.picture_url;
     },
     profile_url() {
+      console.log(this.auth_data.profile)
       return "/profile/" + this.auth_data.profile.email;
     },
   },
