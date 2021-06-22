@@ -92,6 +92,9 @@ img.crop-center {
   object-position: top center;
   padding-bottom: 10px;
 }
+label{
+  font-size: 1.5em;
+}
 
 
 @media (min-width: 950px) {

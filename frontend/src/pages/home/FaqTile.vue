@@ -1,9 +1,9 @@
 <template>
   <div :class="{'faq-wrapper': true, 'answer-hidden': !open }">
     <div class="question" @click="open = !open">
-      <span class="text">{{ question }}</span>
+      <span class="text font-weight-bold">{{ question }}</span>
       <div class="img-wrapper">
-        <img src="@/assets/images/arrow-down-sign-to-navigate.svg"/>
+        <img id="grayy" src="@/assets/images/arrow-down-sign-to-navigate.svg"/>
       </div>
     </div>
     <!--TODO klapp ding bei answer antwort fett-->
@@ -34,6 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "src/assets/styles/colors";
   .faq-wrapper {
     width: min(50rem, 50vw);
     font-size: 20px;
@@ -91,6 +92,7 @@ export default {
       padding: .5rem;
       transition: all .2s ease;
       transform: rotateX(180deg);
+      color: black;
     }
   }
 </style>
