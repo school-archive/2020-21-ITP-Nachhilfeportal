@@ -6,8 +6,12 @@
     <div class="right">
       <p class="name">{{ userData.first_name }} {{ userData.last_name }}</p>
       <p class="grade-department">{{ userData.grade ? `${userData.grade}. Klasse` : 'Keine Klasse gesetzt'}} | {{ userData.department || 'Keine Abteilung gesetzt' }}</p>
-      <p class="teaching-methods">Unterrichtet <bean>vor Ort</bean>, <bean>Online</bean></p>
-      <p class="lectures">Fächer: <bean>Angewandte Mathematik</bean>, <bean>Physik</bean>, <bean>SYT / GINF</bean></p>
+      <p class="teaching-methods">Unterrichtet
+        <bean v-for="method of userData.teaching_method" :key="method">{{ method }}</bean>
+      </p>
+      <p class="lectures">Fächer:
+        <bean v-for="subject of userData.subjects" :key="subject">{{ subject }}</bean>
+      </p>
     </div>
   </router-link>
 </template>
@@ -61,6 +65,9 @@ export default {
 
 .right .grade-department {
   color: colors.$fourth;
+}
+.bean {
+  margin-right: .25rem;
 }
 
 </style>
