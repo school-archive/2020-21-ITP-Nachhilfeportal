@@ -13,7 +13,8 @@
       <search-bar/>
     </section>
 
-    <section class="section-text">
+    <section class="section-text" style="  display: table;
+  margin: 0 auto; width: 70%">
       <div class="section-text-left">
         <div class="text">
           <h3>Wie funktioniert es?</h3>
@@ -142,8 +143,6 @@ export default {
 .section-text > div {
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
-  justify-content: center;
 
 
   .text, img{
@@ -181,12 +180,10 @@ export default {
 
 .bild1{
   padding:32px;
-  width: 200px;
 }
 
 .bild2{
   padding:32px;
-  width: 50%;
 }
 
 </style>
