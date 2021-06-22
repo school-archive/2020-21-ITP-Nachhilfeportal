@@ -200,9 +200,10 @@ img.crop-center {
     justify-content: center;
     align-items: center;
     align-content: center;
+    line-height: 0px;
   }
   p {
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   .half{
     display: flex;

@@ -91,7 +91,6 @@ name: "Navbar",
     width: 100%;
     background-color: colors.$primary;
     color: white;
-
     display: flex;
   }
   .navbar-title {
