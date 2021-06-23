@@ -82,6 +82,10 @@ export default {
 <style lang="scss" scoped>
 @use "src/assets/styles/colors";
 
+img {
+  object-fit: cover;
+}
+
 .section-landing-page {
   height: calc(100vh - 50px);
   background-image: url("~@/assets/images/Startseite_lowres.png");
