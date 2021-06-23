@@ -5,7 +5,7 @@
         <div class="logo">
           <img src="@/assets/images/logo_red.png">
         </div>
-        <h1>Tutorlink</h1>
+        <h1 class="font-weight-bold">Tutorlink</h1>
       </div>
     </section>
 
@@ -18,7 +18,8 @@
       })"/>
     </section>
 
-    <section class="section-text">
+    <section class="section-text" style="  display: table;
+  margin: 0 auto; width: 70%">
       <div class="section-text-left">
         <div class="text">
           <h3>Wie funktioniert es?</h3>
@@ -30,7 +31,7 @@
             nach betätigen des Suchen Buttons, diese auszuwählen.
           </p>
         </div>
-        <img src="@/assets/images/work-731198_1920.jpg"/>
+        <img class="bild1" src="@/assets/images/work-731198_1920.jpg"/>
       </div>
       <div class="section-text-right">
         <div class="text">
@@ -42,7 +43,7 @@
             Sie haben die Möglichkeit eine/n passende/n Tutor/in nach Jahrgang und benötigtem Fach auszuwählen.
             Zusätzlich kann man auch nach Tutoren*innen einer andern Abteilung suchen. </p>
         </div>
-        <img src="@/assets/images/green-chameleon-s9CC2SKySJM-unsplash.jpg" alt="bild"/>
+        <img class="bild2" src="@/assets/images/green-chameleon-s9CC2SKySJM-unsplash.jpg" alt="bild"/>
       </div>
     </section>
 
@@ -158,13 +159,16 @@ export default {
   h3{
     color: colors.$secondary;
     font-size: 30px;
+    font-weight: bold;
   }
 
   .text {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    font-size: 18px;
+    font-size: 1.5em;
+    line-height: 1.5;
+    text-align: justify;
 
   }
 }
@@ -177,6 +181,14 @@ export default {
 
 .fragen{
   font-size: 30px;
+}
+
+.bild1{
+  padding:32px;
+}
+
+.bild2{
+  padding:32px;
 }
 
 </style>

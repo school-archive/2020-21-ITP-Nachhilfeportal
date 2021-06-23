@@ -118,27 +118,11 @@ class UserController
         }
 
         //Calender
-        /*
-         * calender: {
-         *  new: [
-         *      {
-         *          weekday: 'Mo',
-         *          time_from : '10:00'
-         *          time_to: '12:00'
-         *       }
-         *  ],
-         *  deleted: ['id1', 'id2']
-         * }
-         */
         if (isset($vars['calender'])) {
-            foreach ($vars['calender']->new as $new) {
-                $user->addCalender(Calender::hhmm_to_time($new->time_from), Calender::hhmm_to_time($new->time_to), $new->weekday);
+            $user->removeAllCalenderFromUser();
+            foreach (json_decode($vars['calender']) as $new) {
+                $user->addCalender(Calender::hhmm_to_time($new->time_from), Calender::hhmm_to_time($new->time_to), $new->day);
             }
-
-            foreach ($vars['calender']->deleted as $id) {
-                User::removeCalender($id);
-            }
-
         }
 
         //SetTutor

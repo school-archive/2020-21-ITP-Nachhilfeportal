@@ -242,10 +242,10 @@ img.crop-center {
   height: 250px;
   width: 100% !important;
   object-fit: cover;
-  object-position: bottom center;
+  object-position: center;
 }
+
 .u1 {
-  font-family: dinosaur, sans-serif;
   font-weight: 200;
   font-style: initial;
   font-size: 40px;
@@ -256,17 +256,17 @@ img.crop-center {
 }
 .flex{
   display: flex;
-  width: 90%;
-  margin-left:5%;
-  margin-right: 5%;
 }
 .text {
-  font-family: dinosaur, sans-serif;
   font-weight: 150;
   font-style: initial;
   font-size: 20px;
   letter-spacing: 1px;
   color: colors.$fourth;
+  width: 90%;
+  margin-left:5%;
+  margin-right: 5%;
+  word-wrap: break-word;
 }
 a{
   color: colors.$fourth;

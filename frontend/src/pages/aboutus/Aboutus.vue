@@ -85,6 +85,9 @@ export default {
 <style scoped lang="scss">
 
 @use "src/assets/styles/colors";
+body{
+  line-height: 0.1em !important;
+}
 img.crop-center {
   height: 250px;
   width: 100% !important;
@@ -92,6 +95,10 @@ img.crop-center {
   object-position: top center;
   padding-bottom: 10px;
 }
+label{
+  font-size: 1.5em;
+}
+
 
 
 @media (min-width: 950px) {
@@ -134,6 +141,7 @@ img.crop-center {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
   }
   .text{
     text-align: justify;
@@ -200,9 +208,10 @@ img.crop-center {
     justify-content: center;
     align-items: center;
     align-content: center;
+
   }
   p {
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   .half{
     display: flex;

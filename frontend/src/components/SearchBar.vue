@@ -4,7 +4,6 @@
               placeholder="Abteilung"
               label="title"
               :options="departments"
-              v-model="selected_department"
     />
     <v-select id="search-fach"
               placeholder="Fach"
@@ -24,7 +23,7 @@
               v-model="selected_teaching_method"
     />
     <div>
-      <button class="btn-search" @click="$emit('submit', {
+      <button class="btn-search btn-search d-flex justify-content-center align-items-center" @click="$emit('submit', {
         selected_department,
         selected_subject,
         selected_grade,

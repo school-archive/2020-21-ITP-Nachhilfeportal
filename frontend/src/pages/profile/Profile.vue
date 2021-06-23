@@ -3,7 +3,7 @@
     <div>
       <div class="profile">
         <div>
-          <img :src="picture_url">
+          <img class="pic" :src="picture_url">
         </div>
         <div class="info">
           <router-link to="/settings" v-if="self">
@@ -14,7 +14,7 @@
 
           <h1>{{ profile_data.first_name }} {{ profile_data.last_name }}</h1>
           <p class="text">{{ profile_data.department || 'Keine Abteilung gesetzt' }}</p>
-          <span class="grey">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
+          <span class="greyy">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
           <span style="font-weight: bold">Unterricht : </span>
           <div v-if="isTutor && profile_data.teaching_method">
             <div v-for="method in profile_data.teaching_method" :key="method">
@@ -54,7 +54,9 @@
         </div>
       </div>
     </div>
-    <Calendar></Calendar>
+    <div class="d-flex flex-center">
+      <Calendar settings_page="false"></Calendar>
+    </div>
   </div>
 </template>
 
@@ -115,7 +117,7 @@ export default {
   color: colors.$fourth;
 }
 
-.grey {
+.greyy {
   color: colors.$fourth;
 }
 
@@ -130,11 +132,10 @@ img {
 .profile {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .übermich {
-  width: 620px;
+  width: 480px;
   background-color: #F8F8F8;
   border-radius: 10px;
   padding: 4px;
@@ -151,12 +152,22 @@ h1 {
   font-size: 45px;
 }
 
+.info{
+  width: 20%;
+}
+
 .icon {
   margin-top: 15px;
   width: 35px;
   float: right;
   fill: colors.$secondary
 }
-
+@media (min-width: 900px) {
+  .pic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 
 </style>

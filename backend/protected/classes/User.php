@@ -220,7 +220,7 @@ class User implements JsonSerializable
             ":email" => $this->email
         ));
         $objs = $s->fetchAll();
-        if (empty($objs)) return null;
+        if (empty($objs)) return [];
 
         $calender = [];
         foreach ($objs as $obj)

@@ -6,8 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "build_dev_windows": "vue-cli-service build && cd ../deploy_www && rimraf \"!(api|.htaccess)\" && move ..\\frontend\\dist\\* . && cd ../ && xcopy /e frontend\\dist deploy_www",
     "build_production": "vue-cli-service build && cd /var/www/html && rimraf \"!(api|.htaccess)\" && mv /usr/src/frontend/dist/* .",
-    "build_dev_windows": "vue-cli-service build && cd ../deploy_www && rimraf \"!(api|.htaccess)\" && move ..\\frontend\\dist\\* . && cd ../ && xcopy /e frontend\\dist deploy_www"
+    "start": "vue-cli-service serve --open"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -15,6 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "core-js": "^3.6.5",
+    "mdbvue": "6.7.2",
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.1",
@@ -35,6 +37,7 @@
     "sass-loader": "^10.1.1",
     "vue-axios": "^3.2.4",
     "vue-body-class": "^3.0.2",
+    "vue-cli-plugin-mdb": "~2.1.0",
     "vue-cookies": "^1.7.4",
     "vue-template-compiler": "^2.6.11",
     "vuex": "^3.6.2"

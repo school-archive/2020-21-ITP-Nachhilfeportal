@@ -89,6 +89,7 @@
                 placeholder="Tag"
                 label="title"
                 :options="['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']"
+                v-model="day"
             />
           </div>
           <h4>Uhrzeit:</h4>
@@ -98,6 +99,7 @@
                 placeholder="von"
                 label="title"
                 :options="['07:00','07:30','08:00','08:30','09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30']"
+                v-model="from"
             />
             Bis:
             <div class="additemdate">
@@ -105,13 +107,14 @@
                   placeholder="bis"
                   label="title"
                   :options="['07:00','07:30','08:00','08:30','09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30']"
+                  v-model="to"
               />
             </div>
           </div>
-          <button>Hinzufügen</button>
+          <button @click="save_calendar">Hinzufügen</button>
         </div>
         <div class="kalender">
-          <Calendar></Calendar>
+          <Calendar settings_page="true"></Calendar>
         </div>
       </div>
       <button @click="save" id="submit">Speichern</button>
@@ -123,9 +126,6 @@
 import Calendar from "../../components/Calendar";
 import axios from "axios";
 
-
-
-
 export default {
   name: "Settings",
   components: {Calendar},
@@ -135,6 +135,9 @@ export default {
       isTutor : '',
       isTutorNotBoolean: '',
       subjects: [],
+      day: '',
+      from: '',
+      to: ''
     }
   },
   metaInfo: {
@@ -173,6 +176,7 @@ export default {
       if (typeof this.profile_data.description !== 'undefined') { params.append('description', this.profile_data.description) }
       if (typeof this.profile_data.subjects !== 'undefined') { params.append('subjects', this.profile_data.subjects) }
       if (typeof this.profile_data.teaching_method !== 'undefined') { params.append('method', this.get_teaching_method()) }
+      params.append('calender', JSON.stringify(this.format_calendar()))
 
       axios.put(`${this.$config.backend_host}/api/user`, params)
           .then(r => {
@@ -192,6 +196,37 @@ export default {
       }
 
       return JSON.stringify(methods)
+    },
+    save_calendar(){
+      if(this.day && this.from && this.to) {
+        this.$store.commit('add_calendar_entry', {
+          'day' : this.day,
+          'time_from' : this.from,
+          'time_to' : this.to
+        })
+        this.day = ''
+        this.from = ''
+        this.to = ''
+      }
+    },
+    format_calendar() {
+      let array = []
+      let calendar = this.$store.getters['get_calendar']
+      let days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+
+      days.forEach(day => {
+        if(calendar[day].length>0) {
+          calendar[day].forEach(obj => {
+            array.push({
+              'time_from': obj.time_from,
+              'time_to': obj.time_to,
+              'day': day
+            })
+          })
+        }
+      })
+
+      return array
     }
   },
 
@@ -229,7 +264,6 @@ img {
   flex-direction: column;
   justify-content: space-between;
   width: 40%;
-  padding-top: 40px;
 }
 
 .select label:first-child {
@@ -261,24 +295,14 @@ textarea {
   float: right;
   padding-bottom: 0.5em;
 }
+#method{
+  padding-top: 1em;
+}
 
 .v-select .vs__dropdown-option--highlight {
   background-color: colors.$primary;
 }
 
-.unterer_bereich{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 1em;
-}
-.setting_calender{
-  display: flex;
-  justify-content: space-around;
-}
-.kalender{
-  padding-top: 1em;
-}
 .additem {
   width: 250px;
   padding-bottom: 10px;
@@ -298,4 +322,27 @@ button{
   margin-top: 30px;
   float: right;
 }
+
+@media (min-width: 1200px) {
+  .unterer_bereich{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .setting_calender{
+    display: flex;
+    justify-content: space-around;
+
+  }
+  .kalender{
+    padding-top: 1em;
+  }
+
+  .additem{
+    padding-left: 30px;
+  }
+}
+
+
 </style>
