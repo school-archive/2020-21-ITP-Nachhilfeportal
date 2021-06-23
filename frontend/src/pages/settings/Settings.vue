@@ -117,7 +117,7 @@
           <Calendar settings_page="true"></Calendar>
         </div>
       </div>
-      <button @click="save" id="submit">Speichern</button>
+      <button @click="save" id="submit" class="m-3">Speichern</button>
     </div>
   </div>
 </template>

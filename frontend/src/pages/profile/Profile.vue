@@ -17,7 +17,7 @@
           <span class="greyy">{{ profile_data.grade ? `${profile_data.grade}. Klasse` : 'Keine Klasse gesetzt'}}</span><br><br>
           <span style="font-weight: bold">Unterricht : </span>
           <div v-if="isTutor && profile_data.teaching_method">
-            <div v-for="method in profile_data.teaching_method" :key="method">
+            <div v-for="method in profile_data.teaching_method" :key="method" class="nowrap">
               <button class="button">{{ method }}</button>
             </div>
           </div>
@@ -29,10 +29,10 @@
           </div>
           <br><br>
           <span style="font-weight: bold">Fächer : </span>
-          <div v-if="isTutor && profile_data.subjects">
-            <div v-for="subject in profile_data.subjects" :key="subject">
+          <div v-if="isTutor && profile_data.subjects" class="nowrap">
+            <span v-for="subject in profile_data.subjects" :key="subject">
               <button class="button">{{ subject }}</button>
-            </div>
+            </span>
           </div>
           <div v-else-if="!isTutor">
             Kann nur angezeigt werden wenn Tutor
@@ -101,6 +101,10 @@ export default {
 
 <style lang="scss" scoped>
 @use "src/assets/styles/colors";
+
+.nowrap {
+  white-space: nowrap;
+}
 
 .button {
   background-color: colors.$secondary;
